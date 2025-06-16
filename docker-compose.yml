@@ -12,6 +12,8 @@ services:
       - '3306:3306'
     volumes:
       - ./mysql_sbm_vol:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+
 
   flyway:
     image: flyway/flyway:9

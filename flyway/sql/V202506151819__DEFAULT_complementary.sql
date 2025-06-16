@@ -1,0 +1,201 @@
+-- MENU
+INSERT INTO
+    sbmbusiness.menu (menu, description)
+VALUES
+    ('BELLAVITA', 'Carta de pasta 1');
+
+INSERT INTO
+    sbmbusiness.menu (menu, description)
+VALUES
+    ('VEROGUSTO', 'Carta de pasta 2');
+
+INSERT INTO
+    sbmbusiness.menu (menu, description)
+VALUES
+    ('DESECHABLE', 'Carta general desechables');
+
+INSERT INTO
+    sbmbusiness.menu (menu, description)
+VALUES
+    ('DOLCEZZA', 'Carta de postres 1');
+
+INSERT INTO
+    sbmbusiness.menu (menu, description)
+VALUES
+    (
+        'SERVICIOS INTERNOS',
+        'Carta de servicios internos'
+    );
+
+INSERT INTO
+    sbmbusiness.menu (menu, description)
+VALUES
+    (
+        'SERVICIOS EXTERNOS',
+        'Carta de servicios externos'
+    );
+
+-- ITEM-GROUP
+INSERT INTO
+    sbmbusiness.item_group (id, group_name, description)
+VALUES
+    (
+        1,
+        'BOLSA GRANEL PORCIONADA',
+        'ENVASE CON CONTENIDO A GRANEL PORCIONADO'
+    );
+
+INSERT INTO
+    sbmbusiness.item_group (id, group_name, description)
+VALUES
+    (
+        2,
+        'BOLSA GRANEL NO PORCIONADA',
+        'ENVASE CON CONTENIDO A GRANEL NO PORCIONADO'
+    );
+
+INSERT INTO
+    sbmbusiness.item_group (id, group_name, description)
+VALUES
+    (3, 'BANDEJA', 'BANDEJA');
+
+INSERT INTO
+    sbmbusiness.item_group (id, group_name, description)
+VALUES
+    (
+        4,
+        'TIENDA',
+        'PRESENTACION PARA VENTA DIRECTA COMENSAL'
+    );
+
+INSERT INTO
+    sbmbusiness.item_group (id, group_name, description)
+VALUES
+    (5, 'SERVICIO', 'SERVICIO INTERNO O EXTERNO');
+
+-- ITEM-CATEGORY
+INSERT INTO
+    sbmbusiness.item_category (id, category, description)
+VALUES
+    (1, 'PASTA LISA', 'PRODUCTO PASTA LISTA');
+
+INSERT INTO
+    sbmbusiness.item_category (id, category, description)
+VALUES
+    (2, 'PASTA RELLENA', 'PRODUCTO PASTA CON RELLENO');
+
+INSERT INTO
+    sbmbusiness.item_category (id, category, description)
+VALUES
+    (3, 'SALSA', 'PRODUCTO SALSA PARA PASTA');
+
+INSERT INTO
+    sbmbusiness.item_category (id, category, description)
+VALUES
+    (4, 'BEBESTIBLE', 'PRODUCTO BEBIDA O AGUA FRIA');
+
+INSERT INTO
+    sbmbusiness.item_category (id, category, description)
+VALUES
+    (
+        5,
+        'DESECHABLE',
+        'PRODUCTO DESECHABLE DE ENVASES O VASOS'
+    );
+
+INSERT INTO
+    sbmbusiness.item_category (id, category, description)
+VALUES
+    (6, 'PASTELERIA', 'PRODUCTO PASTELERIA');
+
+INSERT INTO
+    sbmbusiness.item_category (id, category, description)
+VALUES
+    (7, 'SANDWICH', 'PRODUCTO SANDWICH');
+
+INSERT INTO
+    sbmbusiness.item_category (id, category, description)
+VALUES
+    (
+        8,
+        'CONDIMIENTO',
+        'PRODUCTO DE CONDIMENTO PARA ALIMENTOS'
+    );
+
+-- ITEM-TYPE
+INSERT INTO
+    sbmbusiness.item_type (id, `type`, description)
+VALUES
+    (
+        1,
+        'PRODUCTO CONGELADO',
+        'PRODCUTO QUE REQUIERE CONGELAMIENTO (-18C)'
+    );
+
+INSERT INTO
+    sbmbusiness.item_type (id, `type`, description)
+VALUES
+    (
+        2,
+        'PRODUCTO REFRIGERADO',
+        'PRODUCTO QUE REQUIERE REFRIGERACION'
+    );
+
+INSERT INTO
+    sbmbusiness.item_type (id, `type`, description)
+VALUES
+    (3, 'MATERIAL', 'PRODUCTO NO-ALIMENTICIO');
+
+INSERT INTO
+    sbmbusiness.item_type (id, `type`, description)
+VALUES
+    (
+        4,
+        'PRODUCTO ALMACEN',
+        'PRODUCTO SIMPLE QUE NO REQUIERE REFRIGERACION'
+    );
+
+INSERT INTO
+    sbmbusiness.item_type (id, `type`, description)
+VALUES
+    (5, 'SERVICIO', 'SERVICIO INTERNO O EXTERNO');
+
+-- USER-TYPE
+INSERT INTO
+    sbmbusiness.user_type (id, `type`, description, created_at)
+VALUES
+(1, 'ADMIN', 'SYSADMIN', '2025-06-16 16:19:23');
+
+INSERT INTO
+    sbmbusiness.user_type (id, `type`, description, created_at)
+VALUES
+(
+        2,
+        'DISTRIBUCION',
+        'CLIENTE DISTRIBUCION',
+        '2025-06-16 16:19:23'
+    );
+
+INSERT INTO
+    sbmbusiness.user_type (id, `type`, description, created_at)
+VALUES
+(
+        3,
+        'FRANQUICIA',
+        'CLIENTE FRANQUICIA',
+        '2025-06-16 16:19:23'
+    );
+
+INSERT INTO
+    sbmbusiness.user_type (id, `type`, description, created_at)
+VALUES
+(
+        4,
+        'VISITA',
+        'USUARIO VISITA',
+        '2025-06-16 16:19:23'
+    );
+
+
+
+    

@@ -1,4 +1,5 @@
 GRANT ALL PRIVILEGES ON sbmbusiness.* TO 'sbmqa' @'%';
+GRANT TRIGGER ON sbmbusiness.* TO 'sbmqa'@'%';
 
 FLUSH PRIVILEGES;
 
