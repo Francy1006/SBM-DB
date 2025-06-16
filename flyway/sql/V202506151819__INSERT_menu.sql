@@ -33,8 +33,3 @@ VALUES
         'SERVICIOS EXTERNOS',
         'Carta de servicios externos'
     );
-
-INSERT INTO
-    sbmbusiness.menu (menu, description)
-VALUES
-    ('TEST', 'DELETE');
