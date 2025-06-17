@@ -13,6 +13,8 @@ services:
     volumes:
       - ./mysql_sbm_vol:/var/lib/mysql
       - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - shared-net
 
 
   flyway:
@@ -26,6 +28,12 @@ services:
     environment:
       FLYWAY_USER: ${MYSQL_USER}
       FLYWAY_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - shared-net
 
 volumes:
   mysql_sbm_vol:
+
+networks:
+  shared-net:
+    external: true

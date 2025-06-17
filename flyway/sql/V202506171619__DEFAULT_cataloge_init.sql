@@ -1,0 +1,156 @@
+-- PACKAGE
+
+INSERT INTO
+    sbmbusiness.package (
+        description,
+        package_type,
+        transport_type,
+        size,
+        weight,
+        measure_unit,
+        quantity_unit,
+        storage_instructions,
+        transport_instructions,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by
+    )
+VALUES
+(
+        'CAJA CARTON',
+        1,
+        1,
+        1.50,
+        1.50,
+        5,
+        10,
+        'fb903bca-4ae0-11f0-8273-0242ac1a0002',
+        'fb903bca-4ae0-11f0-8273-0242ac1a0002',
+        NULL,
+        1,
+        '2025-06-17 20:51:36',
+        NULL,
+        '2025-06-17 20:51:36',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL
+    );
+
+-- ITEM-CONFIGURATION
+INSERT INTO
+    sbmbusiness.item_configuration (
+        code,
+        configuration,
+        description,
+        package,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by,
+        LOG,
+        version
+    )
+VALUES
+    (
+        '765aca2b-4bb6-11f0-aafd-0242ac1b0002',
+        'P-01-1',
+        'FETUCCINI AL HUEVO 1.5 KG',
+        1,
+        NULL,
+        1,
+        '2025-06-17 20:05:49',
+        NULL,
+        '2025-06-17 20:05:49',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL,
+        'init;',
+        1
+    );
+
+-- CATALOGE
+INSERT INTO
+    sbmbusiness.cataloge (
+        code,
+        sku,
+        menu,
+        `group`,
+        category,
+        `type`,
+        restriction,
+        name,
+        description,
+        OBS,
+        usage_instructions,
+        startard_gross_price,
+        premium_gross_price,
+        min_quantity_purchase,
+        rations_quantity,
+        cover_image,
+        image_gallery,
+        configuration,
+        is_visible,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by,
+        LOG,
+        version
+    )
+VALUES
+    (
+        '0f9e03e9-4bb8-11f0-aafd-0242ac1b0002',
+        'CTG-01-1',
+        1,
+        1,
+        1,
+        1,
+        '57775b30-4ad4-11f0-8378-0242ac180002',
+        'FETUCCINI AL HUEVO 1.5 KG',
+        'FETUCCINI AL HUEVO 1, PORCIONES 150 GR',
+        'FETUCCINI AL HUEVO 1, PORCIONES 150 GR',
+        'fb903bca-4ae0-11f0-8273-0242ac1a0002',
+        11952,
+        10865,
+        1,
+        10,
+        'WWW.GOOGLE.CL',
+        'WWW.GOOGLE.CL',
+        '765aca2b-4bb6-11f0-aafd-0242ac1b0002',
+        1,
+        NULL,
+        1,
+        '2025-06-17 20:17:15',
+        NULL,
+        '2025-06-17 20:17:15',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL,
+        'init;',
+        1
+    );

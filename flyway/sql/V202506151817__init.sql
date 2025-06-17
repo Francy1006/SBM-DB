@@ -258,7 +258,7 @@ CREATE TABLE `item_configuration` (
 );
 
 CREATE TABLE `package` (
-    `id` integer PRIMARY KEY,
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
     `description` text NOT NULL,
     `package_type` integer NOT NULL,
     `transport_type` integer NOT NULL,

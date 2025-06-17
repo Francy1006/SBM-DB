@@ -225,7 +225,7 @@ VALUES
     (
         '57775b30-4ad4-11f0-8378-0242ac180002',
         'PUBLIC_VIEW',
-        'FRONT RENDER',
+        'FRONT RENDER FOR UNKWONW AND REGISTERED USERS',
         NULL,
         1,
         '2025-06-16 17:07:10',

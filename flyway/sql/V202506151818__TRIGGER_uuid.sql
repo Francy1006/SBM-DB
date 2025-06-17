@@ -58,8 +58,8 @@ CREATE TRIGGER cataloge_before_insert
 BEFORE INSERT ON cataloge
 FOR EACH ROW
 BEGIN
-    IF NEW.id IS NULL THEN
-        SET NEW.id = UUID();
+    IF NEW.code IS NULL THEN
+        SET NEW.code = UUID();
     END IF;
 END$$
 DELIMITER ;
@@ -69,8 +69,8 @@ CREATE TRIGGER item_configuration_before_insert
 BEFORE INSERT ON item_configuration
 FOR EACH ROW
 BEGIN
-    IF NEW.id IS NULL THEN
-        SET NEW.id = UUID();
+    IF NEW.code IS NULL THEN
+        SET NEW.code = UUID();
     END IF;
 END$$
 DELIMITER ;

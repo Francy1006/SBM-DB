@@ -164,12 +164,12 @@ VALUES
 INSERT INTO
     sbmbusiness.user_type (id, `type`, description, created_at)
 VALUES
-(1, 'ADMIN', 'SYSADMIN', '2025-06-16 16:19:23');
+    (1, 'ADMIN', 'SYSADMIN', '2025-06-16 16:19:23');
 
 INSERT INTO
     sbmbusiness.user_type (id, `type`, description, created_at)
 VALUES
-(
+    (
         2,
         'DISTRIBUCION',
         'CLIENTE DISTRIBUCION',
@@ -179,7 +179,7 @@ VALUES
 INSERT INTO
     sbmbusiness.user_type (id, `type`, description, created_at)
 VALUES
-(
+    (
         3,
         'FRANQUICIA',
         'CLIENTE FRANQUICIA',
@@ -189,13 +189,73 @@ VALUES
 INSERT INTO
     sbmbusiness.user_type (id, `type`, description, created_at)
 VALUES
-(
+    (
         4,
         'VISITA',
         'USUARIO VISITA',
         '2025-06-16 16:19:23'
     );
 
+-- PACKAGE-TYPE
+INSERT INTO
+    sbmbusiness.package_type (`type`, description)
+VALUES
+    ('CAJA', 'ENVASE TIPO CAJA CARTON');
 
+INSERT INTO
+    sbmbusiness.package_type (`type`, description)
+VALUES
+    ('BANDEJA', 'BANDEJA PARA USO DESECHABLE');
 
-    
+INSERT INTO
+    sbmbusiness.package_type (`type`, description)
+VALUES
+    ('CANASTO', 'CANASTO PLASTICO REUTILIZABLE');
+
+-- TRANSPORT-TYPE
+INSERT INTO
+    sbmbusiness.transport_type (`type`, description)
+VALUES
+    (
+        'CONGELADO',
+        'TRANSPORTE CAMION/FURGON CON FRIGORIFICO'
+    );
+
+INSERT INTO
+    sbmbusiness.transport_type (`type`, description)
+VALUES
+    ('SIMPLE', 'TRANSPORTE AUTO/CAMIONETA PEQUEÑA');
+
+INSERT INTO
+    sbmbusiness.transport_type (`type`, description)
+VALUES
+    (
+        'FLETES',
+        'TRANSPORTE CAMION/CAMIONETA/FURGON PARA FLETES'
+    );
+
+-- MEASURE-UNIT
+INSERT INTO
+    sbmbusiness.measure_unit (measure_unit, description)
+VALUES
+('GR', 'GRAMOS');
+
+INSERT INTO
+    sbmbusiness.measure_unit (measure_unit, description)
+VALUES
+('KG', 'KILOS');
+
+INSERT INTO
+    sbmbusiness.measure_unit (measure_unit, description)
+VALUES
+('ML', 'MILILITROS');
+
+INSERT INTO
+    sbmbusiness.measure_unit (measure_unit, description)
+VALUES
+('LT', 'LITROS');
+
+INSERT INTO
+    sbmbusiness.measure_unit (measure_unit, description)
+VALUES
+('UNIDAD', 'UNIDAD POR EMBALAJE');
