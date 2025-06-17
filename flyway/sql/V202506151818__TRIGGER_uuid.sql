@@ -1,90 +1,131 @@
-CREATE TRIGGER before_insert_role
-BEFORE INSERT ON `role`
+DELIMITER $$
+CREATE TRIGGER restriction_before_insert
+BEFORE INSERT ON restriction
 FOR EACH ROW
 BEGIN
-    IF NEW.id IS NULL OR NEW.id = '' THEN
+    IF NEW.id IS NULL THEN
         SET NEW.id = UUID();
     END IF;
-END;
+END$$
+DELIMITER ;
 
-
-CREATE TRIGGER before_insert_restriction
-BEFORE INSERT ON `restriction`
+DELIMITER $$
+CREATE TRIGGER role_permissions_before_insert
+BEFORE INSERT ON role_permissions
 FOR EACH ROW
 BEGIN
-    IF NEW.id IS NULL OR NEW.id = '' THEN
+    IF NEW.id IS NULL THEN
         SET NEW.id = UUID();
     END IF;
-END;
+END$$
+DELIMITER ;
 
-
-CREATE TRIGGER before_insert_role_permissions
-BEFORE INSERT ON `role_permissions`
+DELIMITER $$
+CREATE TRIGGER permission_before_insert
+BEFORE INSERT ON permission
 FOR EACH ROW
 BEGIN
-    IF NEW.id IS NULL OR NEW.id = '' THEN
+    IF NEW.id IS NULL THEN
         SET NEW.id = UUID();
     END IF;
-END;
+END$$
+DELIMITER ;
 
-
-CREATE TRIGGER before_insert_permission
-BEFORE INSERT ON `permission`
+DELIMITER $$
+CREATE TRIGGER role_before_insert
+BEFORE INSERT ON role
 FOR EACH ROW
 BEGIN
-    IF NEW.id IS NULL OR NEW.id = '' THEN
+    IF NEW.id IS NULL THEN
         SET NEW.id = UUID();
     END IF;
-END;
+END$$
+DELIMITER ;
 
-
-
-
-CREATE TRIGGER before_insert_instruction
-BEFORE INSERT ON `instruction`
+DELIMITER $$
+CREATE TRIGGER instruction_before_insert
+BEFORE INSERT ON instruction
 FOR EACH ROW
 BEGIN
-    IF NEW.id IS NULL OR NEW.id = '' THEN
+    IF NEW.id IS NULL THEN
         SET NEW.id = UUID();
     END IF;
-END;
+END$$
+DELIMITER ;
 
-CREATE TRIGGER before_insert_cataloge
-BEFORE INSERT ON `cataloge`
+DELIMITER $$
+CREATE TRIGGER cataloge_before_insert
+BEFORE INSERT ON cataloge
 FOR EACH ROW
 BEGIN
-    IF NEW.sku IS NULL OR NEW.sku = '' THEN
-        SET NEW.sku = UUID();
-    END IF;
-END;
-
-
-CREATE TRIGGER before_insert_item_configuration
-BEFORE INSERT ON `item_configuration`
-FOR EACH ROW
-BEGIN
-    IF NEW.code IS NULL OR NEW.code = '' THEN
-        SET NEW.code = UUID();
-    END IF;
-END;
-
-
-CREATE TRIGGER before_insert_user
-BEFORE INSERT ON `user`
-FOR EACH ROW
-BEGIN
-    IF NEW.code IS NULL OR NEW.code = '' THEN
-        SET NEW.code = UUID();
-    END IF;
-END;
-
-
-CREATE TRIGGER before_insert_user_token
-BEFORE INSERT ON `user_token`
-FOR EACH ROW
-BEGIN
-    IF NEW.id IS NULL OR NEW.id = '' THEN
+    IF NEW.id IS NULL THEN
         SET NEW.id = UUID();
     END IF;
-END;
+END$$
+DELIMITER ;
 
+DELIMITER $$
+CREATE TRIGGER item_configuration_before_insert
+BEFORE INSERT ON item_configuration
+FOR EACH ROW
+BEGIN
+    IF NEW.id IS NULL THEN
+        SET NEW.id = UUID();
+    END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER product_before_insert
+BEFORE INSERT ON product
+FOR EACH ROW
+BEGIN
+    IF NEW.id IS NULL THEN
+        SET NEW.id = UUID();
+    END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER material_before_insert
+BEFORE INSERT ON material
+FOR EACH ROW
+BEGIN
+    IF NEW.id IS NULL THEN
+        SET NEW.id = UUID();
+    END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER service_before_insert
+BEFORE INSERT ON service
+FOR EACH ROW
+BEGIN
+    IF NEW.id IS NULL THEN
+        SET NEW.id = UUID();
+    END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER user_before_insert
+BEFORE INSERT ON user
+FOR EACH ROW
+BEGIN
+    IF NEW.id IS NULL THEN
+        SET NEW.id = UUID();
+    END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER user_token_before_insert
+BEFORE INSERT ON user_token
+FOR EACH ROW
+BEGIN
+    IF NEW.id IS NULL THEN
+        SET NEW.id = UUID();
+    END IF;
+END$$
+DELIMITER ;

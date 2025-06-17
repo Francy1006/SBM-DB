@@ -40,6 +40,12 @@ CREATE TABLE `measure_unit` (
     `description` text NOT NULL
 );
 
+CREATE TABLE `provider_type` (
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
+    `type` varchar(50) NOT NULL,
+    `description` text NOT NULL
+);
+
 CREATE TABLE `instruction_type` (
     `id` int PRIMARY KEY AUTO_INCREMENT,
     `type` varchar(50) NOT NULL,
@@ -72,6 +78,25 @@ CREATE TABLE `permission_type` (
     `deleted_by` char(36)
 );
 
+CREATE TABLE `bank_account_type` (
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
+    `type` varchar(255) NOT NULL,
+    `description` text NOT NULL
+);
+
+CREATE TABLE `district` (
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
+    `district` varchar(255) NOT NULL,
+    `region` integer NOT NULL,
+    `description` text NOT NULL
+);
+
+CREATE TABLE `region` (
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
+    `region` varchar(255) NOT NULL,
+    `description` text NOT NULL
+);
+
 CREATE TABLE `restriction` (
     `id` char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     `restriction` varchar(50) UNIQUE NOT NULL,
@@ -85,7 +110,9 @@ CREATE TABLE `restriction` (
     `created_by` char(36) NOT NULL,
     `confirmed_by` char(36),
     `updated_by` char(36),
-    `deleted_by` char(36)
+    `deleted_by` char(36),
+    `LOG` text NOT NULL,
+    `version` integer NOT NULL DEFAULT 1
 );
 
 CREATE TABLE `restriction_roles` (
@@ -134,7 +161,9 @@ CREATE TABLE `permission` (
     `created_by` char(36) NOT NULL,
     `updated_by` char(36),
     `confirmed_by` char(36),
-    `deleted_by` char(36)
+    `deleted_by` char(36),
+    `LOG` text NOT NULL,
+    `version` integer NOT NULL DEFAULT 1
 );
 
 CREATE TABLE `role` (
@@ -150,7 +179,9 @@ CREATE TABLE `role` (
     `created_by` char(36) NOT NULL,
     `confirmed_by` char(36),
     `updated_by` char(36),
-    `deleted_by` char(36)
+    `deleted_by` char(36),
+    `LOG` text NOT NULL,
+    `version` integer NOT NULL DEFAULT 1
 );
 
 CREATE TABLE `instruction` (
@@ -173,7 +204,8 @@ CREATE TABLE `instruction` (
 
 CREATE TABLE `cataloge` (
     `id` int PRIMARY KEY AUTO_INCREMENT,
-    `sku` char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
+    `code` char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
+    `sku` varchar(50) NOT NULL,
     `menu` integer NOT NULL,
     `group` integer NOT NULL,
     `category` integer NOT NULL,
@@ -200,7 +232,9 @@ CREATE TABLE `cataloge` (
     `created_by` char(36) NOT NULL,
     `confirmed_by` char(36),
     `updated_by` char(36),
-    `deleted_by` char(36)
+    `deleted_by` char(36),
+    `LOG` text NOT NULL,
+    `version` integer NOT NULL DEFAULT 1
 );
 
 CREATE TABLE `item_configuration` (
@@ -218,7 +252,9 @@ CREATE TABLE `item_configuration` (
     `created_by` char(36) NOT NULL,
     `confirmed_by` char(36),
     `updated_by` char(36),
-    `deleted_by` char(36)
+    `deleted_by` char(36),
+    `LOG` text NOT NULL,
+    `version` integer NOT NULL DEFAULT 1
 );
 
 CREATE TABLE `package` (
@@ -263,12 +299,153 @@ CREATE TABLE `item_configuration_detail` (
     `deleted_by` char(36)
 );
 
+CREATE TABLE `product` (
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
+    `code` char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
+    `sku` varchar(50) NOT NULL,
+    `description` text NOT NULL,
+    `OBS` text NOT NULL,
+    `package_unit` integer NOT NULL,
+    `min_package_purchase` integer NOT NULL,
+    `gross_price` integer NOT NULL DEFAULT 0,
+    `provider` integer NOT NULL,
+    `type` integer NOT NULL,
+    `group` integer NOT NULL,
+    `category` integer NOT NULL,
+    `url` varchar(255),
+    `package` integer NOT NULL,
+    `is_active` boolean NOT NULL DEFAULT 1,
+    `is_deleted` boolean,
+    `is_confirmed` boolean,
+    `created_at` datetime DEFAULT (CURRENT_TIMESTAMP),
+    `updated_at` datetime,
+    `confirmed_at` datetime,
+    `deleted_at` datetime,
+    `created_by` char(36) NOT NULL,
+    `confirmed_by` char(36),
+    `updated_by` char(36),
+    `deleted_by` char(36),
+    `LOG` text NOT NULL,
+    `version` integer NOT NULL DEFAULT 1
+);
+
+CREATE TABLE `material` (
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
+    `code` char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
+    `sku` varchar(50) NOT NULL,
+    `description` text NOT NULL,
+    `OBS` text NOT NULL,
+    `package_unit` integer NOT NULL,
+    `min_package_purchase` integer NOT NULL,
+    `gross_price` integer NOT NULL DEFAULT 0,
+    `provider` integer NOT NULL,
+    `type` integer NOT NULL,
+    `group` integer NOT NULL,
+    `category` integer NOT NULL,
+    `url` varchar(255),
+    `package` integer NOT NULL,
+    `is_active` boolean NOT NULL DEFAULT 1,
+    `is_deleted` boolean,
+    `is_confirmed` boolean,
+    `created_at` datetime DEFAULT (CURRENT_TIMESTAMP),
+    `updated_at` datetime,
+    `confirmed_at` datetime,
+    `deleted_at` datetime,
+    `created_by` char(36) NOT NULL,
+    `confirmed_by` char(36),
+    `updated_by` char(36),
+    `deleted_by` char(36),
+    `LOG` text NOT NULL,
+    `version` integer NOT NULL DEFAULT 1
+);
+
+CREATE TABLE `service` (
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
+    `code` char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
+    `sku` varchar(50) NOT NULL,
+    `description` text NOT NULL,
+    `OBS` text NOT NULL,
+    `package_unit` integer NOT NULL,
+    `min_package_purchase` integer NOT NULL,
+    `gross_price` integer NOT NULL DEFAULT 0,
+    `provider` integer NOT NULL,
+    `type` integer NOT NULL,
+    `group` integer NOT NULL,
+    `category` integer NOT NULL,
+    `url` varchar(255),
+    `is_active` boolean NOT NULL DEFAULT 1,
+    `is_deleted` boolean,
+    `is_confirmed` boolean,
+    `created_at` datetime DEFAULT (CURRENT_TIMESTAMP),
+    `updated_at` datetime,
+    `confirmed_at` datetime,
+    `deleted_at` datetime,
+    `created_by` char(36) NOT NULL,
+    `confirmed_by` char(36),
+    `updated_by` char(36),
+    `deleted_by` char(36),
+    `LOG` text NOT NULL,
+    `version` integer NOT NULL DEFAULT 1
+);
+
+CREATE TABLE `provider` (
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
+    `code` char(36) UNIQUE NOT NULL COMMENT 'CUSTOM TRIGGER',
+    `provider` varchar(50) UNIQUE NOT NULL,
+    `type` integer NOT NULL,
+    `rating` integer NOT NULL DEFAULT 0,
+    `OBS_provider` text NOT NULL,
+    `contact_name` varchar(100),
+    `contact_mail` varchar(255),
+    `contact_phone` bigint,
+    `contact_phone2` bigint,
+    `website_url` text,
+    `OBS_contact` varchar(255),
+    `company_name` varchar(255),
+    `company_rut` varchar(12),
+    `company_activity` varchar(255),
+    `legal_representative` varchar(255),
+    `billing_address` text,
+    `billing_mail` varchar(255),
+    `billing_phone` bigint,
+    `company_bank` integer,
+    `bank_account_type` integer,
+    `bank_account_number` varchar(255),
+    `bank_account_mail` varchar(255),
+    `dispatch_address` varchar(255),
+    `dispatch_maps_location` varchar(255),
+    `OBS_dispatch` text,
+    `dispatch_district` integer,
+    `dispatch_region` integer,
+    `is_active` boolean NOT NULL DEFAULT 1,
+    `is_deleted` boolean,
+    `is_confirmed` boolean,
+    `created_at` datetime DEFAULT (CURRENT_TIMESTAMP),
+    `updated_at` datetime,
+    `confirmed_at` datetime,
+    `deleted_at` datetime,
+    `created_by` char(36) NOT NULL,
+    `confirmed_by` char(36),
+    `updated_by` char(36),
+    `deleted_by` char(36),
+    `LOG` text NOT NULL,
+    `version` integer NOT NULL DEFAULT 1
+);
+
+CREATE TABLE `bank` (
+    `id` integer PRIMARY KEY AUTO_INCREMENT,
+    `bank` varchar(255) NOT NULL,
+    `description` text NOT NULL,
+    `created_at` datetime NOT NULL DEFAULT (CURRENT_TIMESTAMP)
+);
+
 CREATE TABLE `user` (
     `id` integer PRIMARY KEY AUTO_INCREMENT,
     `code` char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
     `type` integer NOT NULL,
     `google_id` varchar(255) UNIQUE NOT NULL,
-    `email` varchar(255) UNIQUE NOT NULL,
+    `mail` varchar(255) UNIQUE NOT NULL,
+    `phone` bigint NULL,
     `name` varchar(255) NOT NULL,
     `last_name` varchar(255) NOT NULL,
     `is_active` boolean,
@@ -278,7 +455,9 @@ CREATE TABLE `user` (
     `updated_at` datetime,
     `confirmed_at` datetime,
     `deleted_at` datetime,
-    `deleted_by` char(36)
+    `deleted_by` char(36),
+    `LOG` text NOT NULL,
+    `version` integer NOT NULL DEFAULT 1
 );
 
 CREATE TABLE `user_token` (
@@ -338,6 +517,11 @@ ALTER TABLE
     `permission_type`
 ADD
     CONSTRAINT `fk_permission_type_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `district`
+ADD
+    CONSTRAINT `fk_district_region` FOREIGN KEY (`region`) REFERENCES `region` (`id`);
 
 ALTER TABLE
     `restriction`
@@ -467,7 +651,7 @@ ADD
 ALTER TABLE
     `instruction`
 ADD
-    CONSTRAINT `fk_instruction_type_id` FOREIGN KEY (`type`) REFERENCES `instruction_type` (`id`);
+    CONSTRAINT `fk_instruction_type` FOREIGN KEY (`type`) REFERENCES `instruction_type` (`id`);
 
 ALTER TABLE
     `instruction`
@@ -572,7 +756,7 @@ ADD
 ALTER TABLE
     `package`
 ADD
-    CONSTRAINT `fk_package_type` FOREIGN KEY (`package_type`) REFERENCES `package_type` (`id`);
+    CONSTRAINT `fk_package_package_type` FOREIGN KEY (`package_type`) REFERENCES `package_type` (`id`);
 
 ALTER TABLE
     `package`
@@ -617,32 +801,207 @@ ADD
 ALTER TABLE
     `item_configuration_detail`
 ADD
-    CONSTRAINT `fk_item_config_detail_type` FOREIGN KEY (`type`) REFERENCES `item_type` (`id`);
+    CONSTRAINT `fk_icd_type` FOREIGN KEY (`type`) REFERENCES `item_type` (`id`);
 
 ALTER TABLE
     `item_configuration_detail`
 ADD
-    CONSTRAINT `fk_item_config_detail_configuration` FOREIGN KEY (`configuration`) REFERENCES `item_configuration` (`code`);
+    CONSTRAINT `fk_icd_configuration` FOREIGN KEY (`configuration`) REFERENCES `item_configuration` (`code`);
 
 ALTER TABLE
     `item_configuration_detail`
 ADD
-    CONSTRAINT `fk_item_config_detail_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+    CONSTRAINT `fk_icd_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
 
 ALTER TABLE
     `item_configuration_detail`
 ADD
-    CONSTRAINT `fk_item_config_detail_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+    CONSTRAINT `fk_icd_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
 
 ALTER TABLE
     `item_configuration_detail`
 ADD
-    CONSTRAINT `fk_item_config_detail_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+    CONSTRAINT `fk_icd_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
 
 ALTER TABLE
     `item_configuration_detail`
 ADD
-    CONSTRAINT `fk_item_config_detail_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+    CONSTRAINT `fk_icd_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_provider` FOREIGN KEY (`provider`) REFERENCES `provider` (`id`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_type` FOREIGN KEY (`type`) REFERENCES `item_type` (`id`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_group` FOREIGN KEY (`group`) REFERENCES `item_group` (`id`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_category` FOREIGN KEY (`category`) REFERENCES `item_category` (`id`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_package` FOREIGN KEY (`package`) REFERENCES `package` (`id`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_provider` FOREIGN KEY (`provider`) REFERENCES `provider` (`id`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_type` FOREIGN KEY (`type`) REFERENCES `item_type` (`id`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_group` FOREIGN KEY (`group`) REFERENCES `item_group` (`id`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_category` FOREIGN KEY (`category`) REFERENCES `item_category` (`id`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_package` FOREIGN KEY (`package`) REFERENCES `package` (`id`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_provider` FOREIGN KEY (`provider`) REFERENCES `provider` (`id`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_type` FOREIGN KEY (`type`) REFERENCES `item_type` (`id`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_group` FOREIGN KEY (`group`) REFERENCES `item_group` (`id`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_category` FOREIGN KEY (`category`) REFERENCES `item_category` (`id`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_type` FOREIGN KEY (`type`) REFERENCES `provider_type` (`id`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_company_bank` FOREIGN KEY (`company_bank`) REFERENCES `bank` (`id`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_bank_account_type` FOREIGN KEY (`bank_account_type`) REFERENCES `bank_account_type` (`id`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_dispatch_district` FOREIGN KEY (`dispatch_district`) REFERENCES `district` (`id`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_dispatch_region` FOREIGN KEY (`dispatch_region`) REFERENCES `region` (`id`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
 
 ALTER TABLE
     `user`
@@ -652,4 +1011,4 @@ ADD
 ALTER TABLE
     `user_token`
 ADD
-    CONSTRAINT `fk_user_token_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`code`);
+    CONSTRAINT `fk_user_token_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`code`);

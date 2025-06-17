@@ -1,7 +1,6 @@
 -- PERMISSION-TYPE
 INSERT INTO
     sbmbusiness.permission_type (
-        id,
         `type`,
         description,
         is_deleted,
@@ -17,7 +16,6 @@ INSERT INTO
     )
 VALUES
     (
-        1,
         'CATALOGE',
         'CATALOGE PRODUCT',
         NULL,
@@ -34,7 +32,6 @@ VALUES
 
 INSERT INTO
     sbmbusiness.permission_type (
-        id,
         `type`,
         description,
         is_deleted,
@@ -50,7 +47,6 @@ INSERT INTO
     )
 VALUES
     (
-        2,
         'PRICE',
         'PRICE LABEL',
         NULL,
@@ -81,7 +77,8 @@ INSERT INTO
         created_by,
         updated_by,
         confirmed_by,
-        deleted_by
+        deleted_by,
+        LOG
     )
 VALUES
     (
@@ -98,7 +95,8 @@ VALUES
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        NULL
+        NULL,
+        "init;"
     );
 
 INSERT INTO
@@ -116,7 +114,8 @@ INSERT INTO
         created_by,
         updated_by,
         confirmed_by,
-        deleted_by
+        deleted_by,
+        LOG
     )
 VALUES
     (
@@ -133,7 +132,8 @@ VALUES
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        NULL
+        NULL,
+        "init;"
     );
 
 -- ROLE-PERMISSION
@@ -218,7 +218,8 @@ INSERT INTO
         created_by,
         confirmed_by,
         updated_by,
-        deleted_by
+        deleted_by,
+        LOG
     )
 VALUES
     (
@@ -234,13 +235,13 @@ VALUES
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
-        NULL
+        NULL,
+        "init;"
     );
 
 -- RESTRICTION-ROLES
 INSERT INTO
     sbmbusiness.restriction_roles (
-        id,
         restriction,
         `role`,
         is_deleted,
@@ -256,7 +257,6 @@ INSERT INTO
     )
 VALUES
 (
-        1,
         '57775b30-4ad4-11f0-8378-0242ac180002',
         'e134d17c-4ad0-11f0-8ce6-0242ac120002',
         NULL,
