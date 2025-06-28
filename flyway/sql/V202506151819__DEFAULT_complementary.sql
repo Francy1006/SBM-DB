@@ -37,73 +37,76 @@ VALUES
 
 -- ITEM-GROUP
 INSERT INTO
-    sbmbusiness.item_group (group_name, description)
+    sbmbusiness.item_group (group_name, description, cataloge_render)
 VALUES
-('GRANEL', 'ENVASE CON CONTENIDO A GRANEL');
+('GRANEL', 'ENVASE CON CONTENIDO A GRANEL', 1);
 
 INSERT INTO
-    sbmbusiness.item_group (group_name, description)
+    sbmbusiness.item_group (group_name, description, cataloge_render)
 VALUES
-('UNIDAD', 'UNIDAD');
+('UNIDAD', 'UNIDAD', 1);
 
 INSERT INTO
-    sbmbusiness.item_group (group_name, description)
+    sbmbusiness.item_group (group_name, description, cataloge_render)
 VALUES
-('BANDEJA', 'BANDEJA');
+('BANDEJA', 'BANDEJA', 1);
 
 INSERT INTO
-    sbmbusiness.item_group (group_name, description)
+    sbmbusiness.item_group (group_name, description, cataloge_render)
 VALUES
 (
         'TIENDA',
-        'PRESENTACION PARA VENTA DIRECTA COMENSAL'
+        'PRESENTACION PARA VENTA DIRECTA COMENSAL',
+        1
     );
 
 INSERT INTO
-    sbmbusiness.item_group (group_name, description)
+    sbmbusiness.item_group (group_name, description, cataloge_render)
 VALUES
-('SERVICIO', 'SERVICIO INTERNO O EXTERNO');
+('SERVICIO', 'SERVICIO INTERNO O EXTERNO', 1);
 
 -- ITEM-CATEGORY
 INSERT INTO
-    sbmbusiness.item_category (category, description)
+    sbmbusiness.item_category (category, description, cataloge_render)
 VALUES
-    ('PASTA', 'PRODUCTO PASTA LISA O RELLENA');
+    ('PASTA', 'PRODUCTO PASTA LISA O RELLENA', 1);
 
 INSERT INTO
-    sbmbusiness.item_category (category, description)
+    sbmbusiness.item_category (category, description, cataloge_render)
 VALUES
-    ('SALSA', 'PRODUCTO SALSA PARA PASTA');
+    ('SALSA', 'PRODUCTO SALSA PARA PASTA', 1);
 
 INSERT INTO
-    sbmbusiness.item_category (category, description)
+    sbmbusiness.item_category (category, description, cataloge_render)
 VALUES
-    ('BEBESTIBLE', 'PRODUCTO BEBIDA O AGUA FRIA');
+    ('BEBESTIBLE', 'PRODUCTO BEBIDA O AGUA FRIA', 1);
 
 INSERT INTO
-    sbmbusiness.item_category (category, description)
+    sbmbusiness.item_category (category, description, cataloge_render)
 VALUES
     (
         'DESECHABLE',
-        'PRODUCTO DESECHABLE DE ENVASES O VASOS'
+        'PRODUCTO DESECHABLE DE ENVASES O VASOS',
+        1
     );
 
 INSERT INTO
-    sbmbusiness.item_category (category, description)
+    sbmbusiness.item_category (category, description, cataloge_render)
 VALUES
-    ('PASTELERIA', 'PRODUCTO PASTELERIA');
+    ('PASTELERIA', 'PRODUCTO PASTELERIA', 1);
 
 INSERT INTO
-    sbmbusiness.item_category (category, description)
+    sbmbusiness.item_category (category, description, cataloge_render)
 VALUES
-    ('SANDWICH', 'PRODUCTO SANDWICH');
+    ('SANDWICH', 'PRODUCTO SANDWICH', 1);
 
 INSERT INTO
-    sbmbusiness.item_category (category, description)
+    sbmbusiness.item_category (category, description, cataloge_render)
 VALUES
     (
         'CONDIMIENTO',
-        'PRODUCTO DE CONDIMENTO PARA ALIMENTOS'
+        'PRODUCTO DE CONDIMENTO PARA ALIMENTOS',
+        1
     );
 
 -- ITEM-TYPE

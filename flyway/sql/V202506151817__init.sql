@@ -7,13 +7,15 @@ CREATE TABLE `menu` (
 CREATE TABLE `item_group` (
     `id` integer PRIMARY KEY AUTO_INCREMENT,
     `group_name` varchar(50) NOT NULL,
-    `description` text NOT NULL
+    `description` text NOT NULL,
+    `cataloge_render` boolean NOT NULL DEFAULT 1
 );
 
 CREATE TABLE `item_category` (
     `id` integer PRIMARY KEY AUTO_INCREMENT,
     `category` varchar(50) NOT NULL,
-    `description` text NOT NULL
+    `description` text NOT NULL,
+    `cataloge_render` boolean NOT NULL DEFAULT 1
 );
 
 CREATE TABLE `item_type` (
