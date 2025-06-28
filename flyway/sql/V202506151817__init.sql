@@ -216,6 +216,7 @@ CREATE TABLE `cataloge` (
     `name` varchar(50) NOT NULL,
     `description` text NOT NULL,
     `OBS` varchar(255),
+    `chef_recommendation` boolean NOT NULL DEFAULT 0,
     `usage_instructions` char(36) NOT NULL,
     `base_gross_price` integer NOT NULL DEFAULT 0,
     `min_quantity_purchase` integer NOT NULL DEFAULT 1,
