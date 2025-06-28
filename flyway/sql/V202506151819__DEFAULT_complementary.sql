@@ -37,87 +37,71 @@ VALUES
 
 -- ITEM-GROUP
 INSERT INTO
-    sbmbusiness.item_group (id, group_name, description)
+    sbmbusiness.item_group (group_name, description)
 VALUES
-    (
-        1,
-        'BOLSA GRANEL PORCIONADA',
-        'ENVASE CON CONTENIDO A GRANEL PORCIONADO'
-    );
+('GRANEL', 'ENVASE CON CONTENIDO A GRANEL');
 
 INSERT INTO
-    sbmbusiness.item_group (id, group_name, description)
+    sbmbusiness.item_group (group_name, description)
 VALUES
-    (
-        2,
-        'BOLSA GRANEL NO PORCIONADA',
-        'ENVASE CON CONTENIDO A GRANEL NO PORCIONADO'
-    );
+('UNIDAD', 'UNIDAD');
 
 INSERT INTO
-    sbmbusiness.item_group (id, group_name, description)
+    sbmbusiness.item_group (group_name, description)
 VALUES
-    (3, 'BANDEJA', 'BANDEJA');
+('BANDEJA', 'BANDEJA');
 
 INSERT INTO
-    sbmbusiness.item_group (id, group_name, description)
+    sbmbusiness.item_group (group_name, description)
 VALUES
-    (
-        4,
+(
         'TIENDA',
         'PRESENTACION PARA VENTA DIRECTA COMENSAL'
     );
 
 INSERT INTO
-    sbmbusiness.item_group (id, group_name, description)
+    sbmbusiness.item_group (group_name, description)
 VALUES
-    (5, 'SERVICIO', 'SERVICIO INTERNO O EXTERNO');
+('SERVICIO', 'SERVICIO INTERNO O EXTERNO');
 
 -- ITEM-CATEGORY
 INSERT INTO
-    sbmbusiness.item_category (id, category, description)
+    sbmbusiness.item_category (category, description)
 VALUES
-    (1, 'PASTA LISA', 'PRODUCTO PASTA LISTA');
+    ('PASTA', 'PRODUCTO PASTA LISA O RELLENA');
 
 INSERT INTO
-    sbmbusiness.item_category (id, category, description)
+    sbmbusiness.item_category (category, description)
 VALUES
-    (2, 'PASTA RELLENA', 'PRODUCTO PASTA CON RELLENO');
+    ('SALSA', 'PRODUCTO SALSA PARA PASTA');
 
 INSERT INTO
-    sbmbusiness.item_category (id, category, description)
+    sbmbusiness.item_category (category, description)
 VALUES
-    (3, 'SALSA', 'PRODUCTO SALSA PARA PASTA');
+    ('BEBESTIBLE', 'PRODUCTO BEBIDA O AGUA FRIA');
 
 INSERT INTO
-    sbmbusiness.item_category (id, category, description)
-VALUES
-    (4, 'BEBESTIBLE', 'PRODUCTO BEBIDA O AGUA FRIA');
-
-INSERT INTO
-    sbmbusiness.item_category (id, category, description)
+    sbmbusiness.item_category (category, description)
 VALUES
     (
-        5,
         'DESECHABLE',
         'PRODUCTO DESECHABLE DE ENVASES O VASOS'
     );
 
 INSERT INTO
-    sbmbusiness.item_category (id, category, description)
+    sbmbusiness.item_category (category, description)
 VALUES
-    (6, 'PASTELERIA', 'PRODUCTO PASTELERIA');
+    ('PASTELERIA', 'PRODUCTO PASTELERIA');
 
 INSERT INTO
-    sbmbusiness.item_category (id, category, description)
+    sbmbusiness.item_category (category, description)
 VALUES
-    (7, 'SANDWICH', 'PRODUCTO SANDWICH');
+    ('SANDWICH', 'PRODUCTO SANDWICH');
 
 INSERT INTO
-    sbmbusiness.item_category (id, category, description)
+    sbmbusiness.item_category (category, description)
 VALUES
     (
-        8,
         'CONDIMIENTO',
         'PRODUCTO DE CONDIMENTO PARA ALIMENTOS'
     );
@@ -238,24 +222,24 @@ VALUES
 INSERT INTO
     sbmbusiness.measure_unit (measure_unit, description)
 VALUES
-('GR', 'GRAMOS');
+    ('GR', 'GRAMOS');
 
 INSERT INTO
     sbmbusiness.measure_unit (measure_unit, description)
 VALUES
-('KG', 'KILOS');
+    ('KG', 'KILOS');
 
 INSERT INTO
     sbmbusiness.measure_unit (measure_unit, description)
 VALUES
-('ML', 'MILILITROS');
+    ('ML', 'MILILITROS');
 
 INSERT INTO
     sbmbusiness.measure_unit (measure_unit, description)
 VALUES
-('LT', 'LITROS');
+    ('LT', 'LITROS');
 
 INSERT INTO
     sbmbusiness.measure_unit (measure_unit, description)
 VALUES
-('UNIDAD', 'UNIDAD POR EMBALAJE');
+    ('UNIDAD', 'UNIDAD POR EMBALAJE');
