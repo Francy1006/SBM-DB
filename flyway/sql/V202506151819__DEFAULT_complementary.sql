@@ -1,26 +1,26 @@
 -- MENU
 INSERT INTO
-    sbmbusiness.menu (menu, description)
+    ditaly_pasta.menu (menu, description)
 VALUES
     ('BELLAVITA', 'Carta de pasta 1');
 
 INSERT INTO
-    sbmbusiness.menu (menu, description)
+    ditaly_pasta.menu (menu, description)
 VALUES
     ('VEROGUSTO', 'Carta de pasta 2');
 
 INSERT INTO
-    sbmbusiness.menu (menu, description)
+    ditaly_pasta.menu (menu, description)
 VALUES
     ('DESECHABLE', 'Carta general desechables');
 
 INSERT INTO
-    sbmbusiness.menu (menu, description)
+    ditaly_pasta.menu (menu, description)
 VALUES
     ('DOLCEZZA', 'Carta de postres 1');
 
 INSERT INTO
-    sbmbusiness.menu (menu, description)
+    ditaly_pasta.menu (menu, description)
 VALUES
     (
         'SERVICIOS INTERNOS',
@@ -28,7 +28,7 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.menu (menu, description)
+    ditaly_pasta.menu (menu, description)
 VALUES
     (
         'SERVICIOS EXTERNOS',
@@ -37,22 +37,22 @@ VALUES
 
 -- ITEM-GROUP
 INSERT INTO
-    sbmbusiness.item_group (group_name, description, cataloge_render)
+    ditaly_pasta.item_group (group_name, description, cataloge_render)
 VALUES
 ('GRANEL', 'ENVASE CON CONTENIDO A GRANEL', 1);
 
 INSERT INTO
-    sbmbusiness.item_group (group_name, description, cataloge_render)
+    ditaly_pasta.item_group (group_name, description, cataloge_render)
 VALUES
 ('UNIDAD', 'UNIDAD', 1);
 
 INSERT INTO
-    sbmbusiness.item_group (group_name, description, cataloge_render)
+    ditaly_pasta.item_group (group_name, description, cataloge_render)
 VALUES
 ('BANDEJA', 'BANDEJA', 1);
 
 INSERT INTO
-    sbmbusiness.item_group (group_name, description, cataloge_render)
+    ditaly_pasta.item_group (group_name, description, cataloge_render)
 VALUES
 (
         'TIENDA',
@@ -61,28 +61,28 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.item_group (group_name, description, cataloge_render)
+    ditaly_pasta.item_group (group_name, description, cataloge_render)
 VALUES
 ('SERVICIO', 'SERVICIO INTERNO O EXTERNO', 1);
 
 -- ITEM-CATEGORY
 INSERT INTO
-    sbmbusiness.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, cataloge_render)
 VALUES
     ('PASTA', 'PRODUCTO PASTA LISA O RELLENA', 1);
 
 INSERT INTO
-    sbmbusiness.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, cataloge_render)
 VALUES
     ('SALSA', 'PRODUCTO SALSA PARA PASTA', 1);
 
 INSERT INTO
-    sbmbusiness.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, cataloge_render)
 VALUES
     ('BEBESTIBLE', 'PRODUCTO BEBIDA O AGUA FRIA', 1);
 
 INSERT INTO
-    sbmbusiness.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, cataloge_render)
 VALUES
     (
         'DESECHABLE',
@@ -91,17 +91,17 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, cataloge_render)
 VALUES
     ('PASTELERIA', 'PRODUCTO PASTELERIA', 1);
 
 INSERT INTO
-    sbmbusiness.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, cataloge_render)
 VALUES
     ('SANDWICH', 'PRODUCTO SANDWICH', 1);
 
 INSERT INTO
-    sbmbusiness.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, cataloge_render)
 VALUES
     (
         'CONDIMIENTO',
@@ -111,7 +111,7 @@ VALUES
 
 -- ITEM-TYPE
 INSERT INTO
-    sbmbusiness.item_type (id, `type`, description)
+    ditaly_pasta.item_type (id, `type`, description)
 VALUES
     (
         1,
@@ -120,7 +120,7 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.item_type (id, `type`, description)
+    ditaly_pasta.item_type (id, `type`, description)
 VALUES
     (
         2,
@@ -129,12 +129,12 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.item_type (id, `type`, description)
+    ditaly_pasta.item_type (id, `type`, description)
 VALUES
     (3, 'MATERIAL', 'PRODUCTO NO-ALIMENTICIO');
 
 INSERT INTO
-    sbmbusiness.item_type (id, `type`, description)
+    ditaly_pasta.item_type (id, `type`, description)
 VALUES
     (
         4,
@@ -143,18 +143,18 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.item_type (id, `type`, description)
+    ditaly_pasta.item_type (id, `type`, description)
 VALUES
     (5, 'SERVICIO', 'SERVICIO INTERNO O EXTERNO');
 
 -- USER-TYPE
 INSERT INTO
-    sbmbusiness.user_type (id, `type`, description, created_at)
+    ditaly_pasta.user_type (id, `type`, description, created_at)
 VALUES
     (1, 'ADMIN', 'SYSADMIN', '2025-06-16 16:19:23');
 
 INSERT INTO
-    sbmbusiness.user_type (id, `type`, description, created_at)
+    ditaly_pasta.user_type (id, `type`, description, created_at)
 VALUES
     (
         2,
@@ -164,7 +164,7 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.user_type (id, `type`, description, created_at)
+    ditaly_pasta.user_type (id, `type`, description, created_at)
 VALUES
     (
         3,
@@ -174,7 +174,7 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.user_type (id, `type`, description, created_at)
+    ditaly_pasta.user_type (id, `type`, description, created_at)
 VALUES
     (
         4,
@@ -185,23 +185,23 @@ VALUES
 
 -- PACKAGE-TYPE
 INSERT INTO
-    sbmbusiness.package_type (`type`, description)
+    ditaly_pasta.package_type (`type`, description)
 VALUES
     ('CAJA', 'ENVASE TIPO CAJA CARTON');
 
 INSERT INTO
-    sbmbusiness.package_type (`type`, description)
+    ditaly_pasta.package_type (`type`, description)
 VALUES
     ('BANDEJA', 'BANDEJA PARA USO DESECHABLE');
 
 INSERT INTO
-    sbmbusiness.package_type (`type`, description)
+    ditaly_pasta.package_type (`type`, description)
 VALUES
     ('CANASTO', 'CANASTO PLASTICO REUTILIZABLE');
 
 -- TRANSPORT-TYPE
 INSERT INTO
-    sbmbusiness.transport_type (`type`, description)
+    ditaly_pasta.transport_type (`type`, description)
 VALUES
     (
         'CONGELADO',
@@ -209,12 +209,12 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.transport_type (`type`, description)
+    ditaly_pasta.transport_type (`type`, description)
 VALUES
     ('SIMPLE', 'TRANSPORTE AUTO/CAMIONETA PEQUEÑA');
 
 INSERT INTO
-    sbmbusiness.transport_type (`type`, description)
+    ditaly_pasta.transport_type (`type`, description)
 VALUES
     (
         'FLETES',
@@ -223,26 +223,26 @@ VALUES
 
 -- MEASURE-UNIT
 INSERT INTO
-    sbmbusiness.measure_unit (measure_unit, description)
+    ditaly_pasta.measure_unit (measure_unit, description)
 VALUES
     ('GR', 'GRAMOS');
 
 INSERT INTO
-    sbmbusiness.measure_unit (measure_unit, description)
+    ditaly_pasta.measure_unit (measure_unit, description)
 VALUES
     ('KG', 'KILOS');
 
 INSERT INTO
-    sbmbusiness.measure_unit (measure_unit, description)
+    ditaly_pasta.measure_unit (measure_unit, description)
 VALUES
     ('ML', 'MILILITROS');
 
 INSERT INTO
-    sbmbusiness.measure_unit (measure_unit, description)
+    ditaly_pasta.measure_unit (measure_unit, description)
 VALUES
     ('LT', 'LITROS');
 
 INSERT INTO
-    sbmbusiness.measure_unit (measure_unit, description)
+    ditaly_pasta.measure_unit (measure_unit, description)
 VALUES
     ('UNIDAD', 'UNIDAD POR EMBALAJE');

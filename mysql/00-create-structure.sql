@@ -1,8 +1,8 @@
-GRANT ALL PRIVILEGES ON sbmbusiness.* TO 'sbmqa' @'%';
-GRANT TRIGGER ON sbmbusiness.* TO 'sbmqa'@'%';
+GRANT ALL PRIVILEGES ON ditaly_pasta.* TO 'sbmqa' @'%';
+GRANT TRIGGER ON ditaly_pasta.* TO 'sbmqa'@'%';
 
 FLUSH PRIVILEGES;
 
-CREATE SCHEMA IF NOT EXISTS sbmbusiness;
+CREATE SCHEMA IF NOT EXISTS ditaly_pasta;
 
-USE sbmbusiness;
+USE ditaly_pasta;

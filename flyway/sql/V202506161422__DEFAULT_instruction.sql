@@ -1,6 +1,6 @@
 -- INSTRUCTION-TYPE
 INSERT INTO
-    sbmbusiness.instruction_type (
+    ditaly_pasta.instruction_type (
         id,
         `type`,
         description,
@@ -33,7 +33,7 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.instruction_type (
+    ditaly_pasta.instruction_type (
         id,
         `type`,
         description,
@@ -67,7 +67,7 @@ VALUES
 
 -- INSTRUCTION
 INSERT INTO
-    sbmbusiness.instruction (
+    ditaly_pasta.instruction (
         id,
         instruction,
         description,

@@ -1,6 +1,6 @@
 -- INSERT para la tabla user (sin el campo id)
 INSERT INTO
-    sbmbusiness.`user` (
+    ditaly_pasta.`user` (
         code,
         `type`,
         google_id,
@@ -38,7 +38,7 @@ VALUES
 
 -- INSERT para la tabla role (asumo que id es UUID tipo CHAR(36), por eso lo dejamos)
 INSERT INTO
-    sbmbusiness.`role` (
+    ditaly_pasta.`role` (
         id,
         `role`,
         description,

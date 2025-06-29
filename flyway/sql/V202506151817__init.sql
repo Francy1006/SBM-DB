@@ -482,6 +482,8 @@ CREATE TABLE `user_type` (
     `created_at` datetime DEFAULT (CURRENT_TIMESTAMP)
 );
 
+
+
 ALTER TABLE
     `instruction_type`
 ADD
@@ -540,4 +542,487 @@ ADD
 ALTER TABLE
     `restriction`
 ADD
-    CONSTRAINT `fk_restriction_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user`
+    CONSTRAINT `fk_restriction_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `restriction`
+ADD
+    CONSTRAINT `fk_restriction_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `restriction_roles`
+ADD
+    CONSTRAINT `fk_restriction_roles_restriction` FOREIGN KEY (`restriction`) REFERENCES `restriction` (`id`);
+
+
+ALTER TABLE
+    `restriction_roles`
+ADD
+    CONSTRAINT `fk_restriction_roles_role` FOREIGN KEY (`role`) REFERENCES `role` (`id`);
+
+ALTER TABLE
+    `restriction_roles`
+ADD
+    CONSTRAINT `fk_restriction_roles_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `restriction_roles`
+ADD
+    CONSTRAINT `fk_restriction_roles_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `restriction_roles`
+ADD
+    CONSTRAINT `fk_restriction_roles_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `restriction_roles`
+ADD
+    CONSTRAINT `fk_restriction_roles_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `role_permissions`
+ADD
+    CONSTRAINT `fk_role_permissions_role` FOREIGN KEY (`role`) REFERENCES `role` (`id`);
+
+ALTER TABLE
+    `role_permissions`
+ADD
+    CONSTRAINT `fk_role_permissions_permission` FOREIGN KEY (`permission`) REFERENCES `permission` (`id`);
+
+ALTER TABLE
+    `role_permissions`
+ADD
+    CONSTRAINT `fk_role_permissions_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `role_permissions`
+ADD
+    CONSTRAINT `fk_role_permissions_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `role_permissions`
+ADD
+    CONSTRAINT `fk_role_permissions_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `role_permissions`
+ADD
+    CONSTRAINT `fk_role_permissions_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `permission`
+ADD
+    CONSTRAINT `fk_permission_type` FOREIGN KEY (`type`) REFERENCES `permission_type` (`id`);
+
+ALTER TABLE
+    `permission`
+ADD
+    CONSTRAINT `fk_permission_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `permission`
+ADD
+    CONSTRAINT `fk_permission_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `permission`
+ADD
+    CONSTRAINT `fk_permission_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `permission`
+ADD
+    CONSTRAINT `fk_permission_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `role`
+ADD
+    CONSTRAINT `fk_role_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `role`
+ADD
+    CONSTRAINT `fk_role_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `role`
+ADD
+    CONSTRAINT `fk_role_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `role`
+ADD
+    CONSTRAINT `fk_role_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `instruction`
+ADD
+    CONSTRAINT `fk_instruction_type` FOREIGN KEY (`type`) REFERENCES `instruction_type` (`id`);
+
+ALTER TABLE
+    `instruction`
+ADD
+    CONSTRAINT `fk_instruction_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `instruction`
+ADD
+    CONSTRAINT `fk_instruction_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `instruction`
+ADD
+    CONSTRAINT `fk_instruction_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `instruction`
+ADD
+    CONSTRAINT `fk_instruction_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `cataloge`
+ADD
+    CONSTRAINT `fk_cataloge_menu` FOREIGN KEY (`menu`) REFERENCES `menu` (`id`);
+
+ALTER TABLE
+    `cataloge`
+ADD
+    CONSTRAINT `fk_cataloge_group` FOREIGN KEY (`group`) REFERENCES `item_group` (`id`);
+
+ALTER TABLE
+    `cataloge`
+ADD
+    CONSTRAINT `fk_cataloge_category` FOREIGN KEY (`category`) REFERENCES `item_category` (`id`);
+
+ALTER TABLE
+    `cataloge`
+ADD
+    CONSTRAINT `fk_cataloge_type` FOREIGN KEY (`type`) REFERENCES `item_type` (`id`);
+
+ALTER TABLE
+    `cataloge`
+ADD
+    CONSTRAINT `fk_cataloge_restriction` FOREIGN KEY (`restriction`) REFERENCES `restriction` (`id`);
+
+ALTER TABLE
+    `cataloge`
+ADD
+    CONSTRAINT `fk_cataloge_usage_instructions` FOREIGN KEY (`usage_instructions`) REFERENCES `instruction` (`id`);
+
+ALTER TABLE
+    `cataloge`
+ADD
+    CONSTRAINT `fk_cataloge_configuration` FOREIGN KEY (`configuration`) REFERENCES `item_configuration` (`code`);
+
+ALTER TABLE
+    `cataloge`
+ADD
+    CONSTRAINT `fk_cataloge_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `cataloge`
+ADD
+    CONSTRAINT `fk_cataloge_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `cataloge`
+ADD
+    CONSTRAINT `fk_cataloge_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `cataloge`
+ADD
+    CONSTRAINT `fk_cataloge_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+
+ALTER TABLE
+    `item_configuration`
+ADD
+    CONSTRAINT `fk_item_configuration_package` FOREIGN KEY (`package`) REFERENCES `package` (`id`);
+
+
+ALTER TABLE
+    `item_configuration`
+ADD
+    CONSTRAINT `fk_item_configuration_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+
+ALTER TABLE
+    `item_configuration`
+ADD
+    CONSTRAINT `fk_item_configuration_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `item_configuration`
+ADD
+    CONSTRAINT `fk_item_configuration_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `item_configuration`
+ADD
+    CONSTRAINT `fk_item_configuration_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `package`
+ADD
+    CONSTRAINT `fk_package_package_type` FOREIGN KEY (`package_type`) REFERENCES `package_type` (`id`);
+
+
+ALTER TABLE
+    `package`
+ADD
+    CONSTRAINT `fk_package_transport_type` FOREIGN KEY (`transport_type`) REFERENCES `transport_type` (`id`);
+
+ALTER TABLE
+    `package`
+ADD
+    CONSTRAINT `fk_package_measure_unit` FOREIGN KEY (`measure_unit`) REFERENCES `measure_unit` (`id`);
+
+ALTER TABLE
+    `package`
+ADD
+    CONSTRAINT `fk_package_storage_instructions` FOREIGN KEY (`storage_instructions`) REFERENCES `instruction` (`id`);
+
+ALTER TABLE
+    `package`
+ADD
+    CONSTRAINT `fk_package_transport_instructions` FOREIGN KEY (`transport_instructions`) REFERENCES `instruction` (`id`);
+
+ALTER TABLE
+    `package`
+ADD
+    CONSTRAINT `fk_package_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `package`
+ADD
+    CONSTRAINT `fk_package_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `package`
+ADD
+    CONSTRAINT `fk_package_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `package`
+ADD
+    CONSTRAINT `fk_package_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `item_configuration_detail`
+ADD
+    CONSTRAINT `fk_icd_type` FOREIGN KEY (`type`) REFERENCES `item_type` (`id`);
+
+
+ALTER TABLE
+    `item_configuration_detail`
+ADD
+    CONSTRAINT `fk_icd_configuration` FOREIGN KEY (`configuration`) REFERENCES `item_configuration` (`code`);
+
+ALTER TABLE
+    `item_configuration_detail`
+ADD
+    CONSTRAINT `fk_icd_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `item_configuration_detail`
+ADD
+    CONSTRAINT `fk_icd_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `item_configuration_detail`
+ADD
+    CONSTRAINT `fk_icd_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+
+ALTER TABLE
+    `item_configuration_detail`
+ADD
+    CONSTRAINT `fk_icd_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_provider` FOREIGN KEY (`provider`) REFERENCES `provider` (`id`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_type` FOREIGN KEY (`type`) REFERENCES `item_type` (`id`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_group` FOREIGN KEY (`group`) REFERENCES `item_group` (`id`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_category` FOREIGN KEY (`category`) REFERENCES `item_category` (`id`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_package` FOREIGN KEY (`package`) REFERENCES `package` (`id`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `product`
+ADD
+    CONSTRAINT `fk_product_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_provider` FOREIGN KEY (`provider`) REFERENCES `provider` (`id`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_type` FOREIGN KEY (`type`) REFERENCES `item_type` (`id`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_group` FOREIGN KEY (`group`) REFERENCES `item_group` (`id`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_category` FOREIGN KEY (`category`) REFERENCES `item_category` (`id`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_package` FOREIGN KEY (`package`) REFERENCES `package` (`id`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `material`
+ADD
+    CONSTRAINT `fk_material_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_provider` FOREIGN KEY (`provider`) REFERENCES `provider` (`id`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_type` FOREIGN KEY (`type`) REFERENCES `item_type` (`id`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_group` FOREIGN KEY (`group`) REFERENCES `item_group` (`id`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_category` FOREIGN KEY (`category`) REFERENCES `item_category` (`id`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+
+ALTER TABLE
+    `service`
+ADD
+    CONSTRAINT `fk_service_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_type` FOREIGN KEY (`type`) REFERENCES `provider_type` (`id`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_company_bank` FOREIGN KEY (`company_bank`) REFERENCES `bank` (`id`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_bank_account_type` FOREIGN KEY (`bank_account_type`) REFERENCES `bank_account_type` (`id`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_dispatch_district` FOREIGN KEY (`dispatch_district`) REFERENCES `district` (`id`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_dispatch_region` FOREIGN KEY (`dispatch_region`) REFERENCES `region` (`id`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_created_by` FOREIGN KEY (`created_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `provider`
+ADD
+    CONSTRAINT `fk_provider_deleted_by` FOREIGN KEY (`deleted_by`) REFERENCES `user` (`code`);
+
+ALTER TABLE
+    `user`
+ADD
+    CONSTRAINT `fk_user_type` FOREIGN KEY (`type`) REFERENCES `user_type` (`id`);
+
+ALTER TABLE
+    `user_token`
+ADD
+    CONSTRAINT `fk_user_token_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`code`);

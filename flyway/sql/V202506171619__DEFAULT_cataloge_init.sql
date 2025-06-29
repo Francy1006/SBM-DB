@@ -1,7 +1,7 @@
 -- PACKAGE
 
 INSERT INTO
-    sbmbusiness.package (
+    ditaly_pasta.package (
         description,
         package_type,
         transport_type,
@@ -47,7 +47,7 @@ VALUES
 
 -- ITEM-CONFIGURATION
 INSERT INTO
-    sbmbusiness.item_configuration (
+    ditaly_pasta.item_configuration (
         code,
         configuration,
         description,
@@ -87,7 +87,7 @@ VALUES
 
 -- CATALOGE
 INSERT INTO
-    sbmbusiness.cataloge (
+    ditaly_pasta.cataloge (
         code,
         sku,
         menu,

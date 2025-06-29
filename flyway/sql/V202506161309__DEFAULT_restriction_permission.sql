@@ -1,6 +1,7 @@
 -- PERMISSION-TYPE
 INSERT INTO
-    sbmbusiness.permission_type (
+    ditaly_pasta.permission_type (
+        id,
         `type`,
         description,
         is_deleted,
@@ -16,6 +17,7 @@ INSERT INTO
     )
 VALUES
     (
+        '1',
         'CATALOGE',
         'CATALOGE PRODUCT',
         NULL,
@@ -31,7 +33,8 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.permission_type (
+    ditaly_pasta.permission_type (
+        id,
         `type`,
         description,
         is_deleted,
@@ -47,6 +50,7 @@ INSERT INTO
     )
 VALUES
     (
+        '2',
         'PRICE',
         'PRICE LABEL',
         NULL,
@@ -63,7 +67,7 @@ VALUES
 
 -- PERMISSION
 INSERT INTO
-    sbmbusiness.permission (
+    ditaly_pasta.permission (
         id,
         permission,
         description,
@@ -100,7 +104,7 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.permission (
+    ditaly_pasta.permission (
         id,
         permission,
         description,
@@ -138,7 +142,7 @@ VALUES
 
 -- ROLE-PERMISSION
 INSERT INTO
-    sbmbusiness.role_permissions (
+    ditaly_pasta.role_permissions (
         id,
         `role`,
         permission,
@@ -171,7 +175,7 @@ VALUES
     );
 
 INSERT INTO
-    sbmbusiness.role_permissions (
+    ditaly_pasta.role_permissions (
         id,
         `role`,
         permission,
@@ -205,7 +209,7 @@ VALUES
 
 -- RESTRICTION
 INSERT INTO
-    sbmbusiness.restriction (
+    ditaly_pasta.restriction (
         id,
         restriction,
         description,
@@ -219,29 +223,32 @@ INSERT INTO
         confirmed_by,
         updated_by,
         deleted_by,
-        LOG
+        LOG,
+        version
     )
 VALUES
     (
         '57775b30-4ad4-11f0-8378-0242ac180002',
-        'PUBLIC_VIEW',
-        'FRONT RENDER FOR UNKWONW AND REGISTERED USERS',
+        'RESTRICTION-01',
+        'RESTRICTION GENERAL',
         NULL,
         1,
-        '2025-06-16 17:07:10',
+        '2025-06-16 17:14:02',
         NULL,
-        '2025-06-16 17:07:10',
+        '2025-06-16 17:14:02',
         NULL,
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         NULL,
-        "init;"
+        'init;',
+        1
     );
 
 -- RESTRICTION-ROLES
 INSERT INTO
-    sbmbusiness.restriction_roles (
+    ditaly_pasta.restriction_roles (
+        id,
         restriction,
         `role`,
         is_deleted,
@@ -256,17 +263,18 @@ INSERT INTO
         deleted_by
     )
 VALUES
-(
+    (
+        1,
         '57775b30-4ad4-11f0-8378-0242ac180002',
         'e134d17c-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         1,
-        '2025-06-16 17:57:28',
+        '2025-06-16 17:58:46',
         NULL,
-        '2025-06-16 17:57:28',
+        '2025-06-16 17:58:46',
         NULL,
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         NULL
     );
