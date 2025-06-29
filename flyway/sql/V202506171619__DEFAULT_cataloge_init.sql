@@ -88,7 +88,6 @@ VALUES
 -- CATALOGE
 INSERT INTO
     ditaly_pasta.cataloge (
-        code,
         sku,
         menu,
         `group`,
@@ -124,7 +123,6 @@ INSERT INTO
     )
 VALUES
     (
-        'de715486-4bd1-11f0-8764-0242ac1b0002',
         'CTG-01-2',
         1,
         1,
