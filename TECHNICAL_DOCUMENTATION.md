@@ -14,7 +14,7 @@
 
 ---
 
-## Visión General del Proyecto
+## 1. Visión General del Proyecto
 
 **SBM-SUITE MySQL** es un sistema de base de datos integral diseñado para Ditaly Pasta, una plataforma de gestión de distribución y franquicias de pasta. El sistema gestiona catálogos de productos, proveedores, usuarios, permisos y operaciones comerciales con enfoque en productos de pasta italiana y servicios relacionados.
 
@@ -28,7 +28,7 @@
 
 ---
 
-## Arquitectura de Base de Datos
+## 2. Arquitectura de Base de Datos
 
 ### Stack Tecnológico
 - **Base de Datos**: MySQL 8.0+
@@ -44,7 +44,7 @@
 
 ---
 
-## Análisis del Esquema
+## 3. Análisis del Esquema
 
 ### Estadísticas de la Base de Datos
 - **Total de Tablas**: 25
@@ -75,7 +75,7 @@
 
 ---
 
-## Definiciones de Tablas
+## 4. Definiciones de Tablas
 
 ### Tablas de Referencia
 
@@ -334,7 +334,7 @@ CREATE TABLE restriction (
 
 ---
 
-## Relaciones y Restricciones
+## 5. Relaciones y Restricciones
 
 ### Relaciones de Clave Foránea
 
@@ -416,7 +416,7 @@ district.region → region.id
 
 ---
 
-## Triggers y Automatización
+## 6. Triggers y Automatización
 
 ### Triggers de Generación de UUID
 
@@ -480,7 +480,7 @@ END
 
 ---
 
-## Flujo de Datos y Lógica de Negocio
+## 7. Flujo de Datos y Lógica de Negocio
 
 ### Ciclo de Vida de Productos
 
@@ -520,7 +520,7 @@ Google OAuth → Creación de Usuario → Asignación de Rol → Asignación de 
 
 ---
 
-## Seguridad y Control de Acceso
+## 8. Seguridad y Control de Acceso
 
 ### Sistema de Autenticación
 - **Integración OAuth**: Autenticación de Google vía `google_id`
@@ -544,7 +544,7 @@ Google OAuth → Creación de Usuario → Asignación de Rol → Asignación de 
 
 ---
 
-## Consideraciones de Performance
+## 9. Consideraciones de Performance
 
 ### Estrategia de Indexación
 - **Claves Primarias**: Indexes de auto-increment y UUID
@@ -569,7 +569,7 @@ Google OAuth → Creación de Usuario → Asignación de Rol → Asignación de 
 
 ---
 
-## Despliegue e Infraestructura
+## 10. Despliegue e Infraestructura
 
 ### Arquitectura de Contenedores
 ```yaml
@@ -617,7 +617,7 @@ services:
 
 ---
 
-## Conclusión
+## 11. Conclusión
 
 La base de datos SBM-SUITE MySQL representa una solución integral para la gestión de distribución y franquicias de pasta. El sistema demuestra:
 
