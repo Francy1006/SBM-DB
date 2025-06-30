@@ -37,22 +37,22 @@ VALUES
 
 -- ITEM-GROUP
 INSERT INTO
-    ditaly_pasta.item_group (group_name, description, cataloge_render)
+    ditaly_pasta.item_group (group_name, description, catalog_render)
 VALUES
 ('GRANEL', 'ENVASE CON CONTENIDO A GRANEL', 1);
 
 INSERT INTO
-    ditaly_pasta.item_group (group_name, description, cataloge_render)
+    ditaly_pasta.item_group (group_name, description, catalog_render)
 VALUES
 ('UNIDAD', 'UNIDAD', 0);
 
 INSERT INTO
-    ditaly_pasta.item_group (group_name, description, cataloge_render)
+    ditaly_pasta.item_group (group_name, description, catalog_render)
 VALUES
 ('BANDEJA', 'BANDEJA', 0);
 
 INSERT INTO
-    ditaly_pasta.item_group (group_name, description, cataloge_render)
+    ditaly_pasta.item_group (group_name, description, catalog_render)
 VALUES
 (
         'TIENDA',
@@ -61,28 +61,28 @@ VALUES
     );
 
 INSERT INTO
-    ditaly_pasta.item_group (group_name, description, cataloge_render)
+    ditaly_pasta.item_group (group_name, description, catalog_render)
 VALUES
 ('SERVICIO', 'SERVICIO INTERNO O EXTERNO', 0);
 
 -- ITEM-CATEGORY
 INSERT INTO
-    ditaly_pasta.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, catalog_render)
 VALUES
     ('PASTA', 'PRODUCTO PASTA LISA O RELLENA', 1);
 
 INSERT INTO
-    ditaly_pasta.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, catalog_render)
 VALUES
     ('SALSA', 'PRODUCTO SALSA PARA PASTA', 1);
 
 INSERT INTO
-    ditaly_pasta.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, catalog_render)
 VALUES
     ('BEBESTIBLE', 'PRODUCTO BEBIDA O AGUA FRIA', 0);
 
 INSERT INTO
-    ditaly_pasta.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, catalog_render)
 VALUES
     (
         'DESECHABLE',
@@ -91,17 +91,17 @@ VALUES
     );
 
 INSERT INTO
-    ditaly_pasta.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, catalog_render)
 VALUES
     ('PASTELERIA', 'PRODUCTO PASTELERIA', 0);
 
 INSERT INTO
-    ditaly_pasta.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, catalog_render)
 VALUES
     ('SANDWICH', 'PRODUCTO SANDWICH', 0);
 
 INSERT INTO
-    ditaly_pasta.item_category (category, description, cataloge_render)
+    ditaly_pasta.item_category (category, description, catalog_render)
 VALUES
     (
         'CONDIMIENTO',

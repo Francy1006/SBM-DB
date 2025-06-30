@@ -54,8 +54,8 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER cataloge_before_insert
-BEFORE INSERT ON cataloge
+CREATE TRIGGER catalog_before_insert
+BEFORE INSERT ON catalog
 FOR EACH ROW
 BEGIN
     IF NEW.code IS NULL THEN

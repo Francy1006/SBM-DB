@@ -62,7 +62,7 @@
 - `bank_account_type`, `district`, `region`
 
 #### 2. Entidades de Negocio Principal
-- `cataloge`, `product`, `material`, `service`
+- `catalog`, `product`, `material`, `service`
 - `provider`, `package`, `item_configuration`
 - `user`, `role`, `permission`, `restriction`
 
@@ -97,11 +97,11 @@ CREATE TABLE item_group (
     id integer PRIMARY KEY AUTO_INCREMENT,
     group_name varchar(50) NOT NULL,
     description text NOT NULL,
-    cataloge_render boolean NOT NULL DEFAULT 1
+    catalog_render boolean NOT NULL DEFAULT 1
 );
 ```
 **Propósito**: Agrupación de productos (GRANEL, UNIDAD, BANDEJA, TIENDA, SERVICIO)
-**Característica Clave**: `cataloge_render` controla la visibilidad del catálogo
+**Característica Clave**: `catalog_render` controla la visibilidad del catálogo
 **Lógica de Negocio**: Determina cómo se muestran los productos en los catálogos
 
 #### Tabla Item Category
@@ -110,7 +110,7 @@ CREATE TABLE item_category (
     id integer PRIMARY KEY AUTO_INCREMENT,
     category varchar(50) NOT NULL,
     description text NOT NULL,
-    cataloge_render boolean NOT NULL DEFAULT 1
+    catalog_render boolean NOT NULL DEFAULT 1
 );
 ```
 **Propósito**: Categorización de productos (PASTA, SALSA, BEBESTIBLE, DESECHABLE, etc.)
@@ -129,9 +129,9 @@ CREATE TABLE item_type (
 
 ### Tablas de Negocio Principal
 
-#### Tabla Cataloge
+#### Tabla Catalog
 ```sql
-CREATE TABLE cataloge (
+CREATE TABLE catalog (
     id int PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NULL COMMENT 'UUID() REQUIRES TRIGGER',
     sku varchar(50) NOT NULL,
@@ -355,13 +355,13 @@ restriction_roles.role → role.id
 #### Relaciones de Gestión de Productos
 ```sql
 -- Categorización del catálogo
-cataloge.menu → menu.id
-cataloge.group → item_group.id
-cataloge.category → item_category.id
-cataloge.type → item_type.id
-cataloge.restriction → restriction.id
-cataloge.usage_instructions → instruction.id
-cataloge.configuration → item_configuration.code
+catalog.menu → menu.id
+catalog.group → item_group.id
+catalog.category → item_category.id
+catalog.type → item_type.id
+catalog.restriction → restriction.id
+catalog.usage_instructions → instruction.id
+catalog.configuration → item_configuration.code
 
 -- Configuración de productos
 item_configuration.package → package.id
@@ -405,7 +405,7 @@ district.region → region.id
 - **Claves Compuestas**: Ninguna identificada
 
 #### Restricciones Únicas
-- **Claves de Negocio**: `provider.provider`, `cataloge.sku`, `user.google_id`, `user.mail`
+- **Claves de Negocio**: `provider.provider`, `catalog.sku`, `user.google_id`, `user.mail`
 - **Claves del Sistema**: Todos los campos UUID con restricciones únicas
 - **Claves Naturales**: `menu.menu`, `item_group.group_name`, `item_category.category`
 
@@ -423,7 +423,7 @@ district.region → region.id
 #### Triggers UUID Estándar
 ```sql
 -- Aplicado a: restriction, role_permissions, permission, role, instruction, 
--- cataloge, item_configuration, product, material, service, user, user_token
+-- catalog, item_configuration, product, material, service, user, user_token
 
 DELIMITER $$
 CREATE TRIGGER [table_name]_before_insert
@@ -490,7 +490,7 @@ Creación de Proveedor → Definición de Empaque → Configuración de Item →
 ```
 
 #### 2. Gestión de Catálogos
-- **Control de Visibilidad**: `cataloge.is_visible` y `cataloge.is_confirmed`
+- **Control de Visibilidad**: `catalog.is_visible` y `catalog.is_confirmed`
 - **Estrategia de Precios**: `base_gross_price` con `min_quantity_purchase`
 - **Sistema de Recomendaciones**: Bandera `chef_recommendation`
 - **Gestión de Imágenes**: Múltiples URLs de imagen para diferentes propósitos
@@ -509,7 +509,7 @@ Google OAuth → Creación de Usuario → Asignación de Rol → Asignación de 
 ```
 
 #### 2. Jerarquía de Permisos
-- **Tipos de Permisos**: CATALOGE, PRICE, etc.
+- **Tipos de Permisos**: CATALOG, PRICE, etc.
 - **Acceso Basado en Roles**: Los usuarios heredan permisos a través de roles
 - **Sistema de Restricciones**: Controles de acceso adicionales para recursos específicos
 

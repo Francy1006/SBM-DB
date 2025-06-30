@@ -8,14 +8,14 @@ CREATE TABLE IF NOT EXISTS item_group (
     id integer PRIMARY KEY AUTO_INCREMENT,
     group_name varchar(50) NOT NULL,
     description text NOT NULL,
-    cataloge_render boolean NOT NULL DEFAULT 1
+    catalog_render boolean NOT NULL DEFAULT 1
 );
 
 CREATE TABLE IF NOT EXISTS item_category (
     id integer PRIMARY KEY AUTO_INCREMENT,
     category varchar(50) NOT NULL,
     description text NOT NULL,
-    cataloge_render boolean NOT NULL DEFAULT 1
+    catalog_render boolean NOT NULL DEFAULT 1
 );
 
 CREATE TABLE IF NOT EXISTS item_type (
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS instruction (
     deleted_by char(36)
 );
 
-CREATE TABLE IF NOT EXISTS cataloge (
+CREATE TABLE IF NOT EXISTS catalog (
     id int PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NULL COMMENT 'UUID() REQUIRES TRIGGER',
     sku varchar(50) NOT NULL,

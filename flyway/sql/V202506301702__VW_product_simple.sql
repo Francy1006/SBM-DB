@@ -4,9 +4,9 @@
 CREATE OR REPLACE VIEW vw_product_simple AS
 SELECT 
     p.*,
-    pr.provider AS provider_name,
-    pr.rating AS provider_rating,
-    pr.contact_name AS provider_contact,
+    p.description AS nombre_producto,
+    p.OBS AS observaciones,
+    p.package_unit AS cantidad_unidades_embalaje,
     pr.contact_mail AS provider_email,
     pr.contact_phone AS provider_phone
 FROM product p

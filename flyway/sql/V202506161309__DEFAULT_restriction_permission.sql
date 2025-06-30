@@ -18,8 +18,8 @@ INSERT INTO
 VALUES
     (
         '1',
-        'CATALOGE',
-        'CATALOGE PRODUCT',
+        'CATALOG',
+        'CATALOG PRODUCT',
         NULL,
         1,
         '2025-06-16 17:14:02',
@@ -87,8 +87,8 @@ INSERT INTO
 VALUES
     (
         'b375e975-4ad5-11f0-8378-0242ac180002',
-        'VIEW_CATALOGE',
-        'PRODUCT CATALOGE VIEW',
+        'VIEW_CATALOG',
+        'PRODUCT CATALOG VIEW',
         1,
         NULL,
         1,

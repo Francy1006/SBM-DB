@@ -85,9 +85,9 @@ VALUES
         1
     );
 
--- CATALOGE
+-- CATALOG
 INSERT INTO
-    ditaly_pasta.cataloge (
+    ditaly_pasta.catalog (
         sku,
         menu,
         `group`,
