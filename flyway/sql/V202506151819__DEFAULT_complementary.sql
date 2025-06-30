@@ -44,12 +44,12 @@ VALUES
 INSERT INTO
     ditaly_pasta.item_group (group_name, description, cataloge_render)
 VALUES
-('UNIDAD', 'UNIDAD', 1);
+('UNIDAD', 'UNIDAD', 0);
 
 INSERT INTO
     ditaly_pasta.item_group (group_name, description, cataloge_render)
 VALUES
-('BANDEJA', 'BANDEJA', 1);
+('BANDEJA', 'BANDEJA', 0);
 
 INSERT INTO
     ditaly_pasta.item_group (group_name, description, cataloge_render)
@@ -57,13 +57,13 @@ VALUES
 (
         'TIENDA',
         'PRESENTACION PARA VENTA DIRECTA COMENSAL',
-        1
+        0
     );
 
 INSERT INTO
     ditaly_pasta.item_group (group_name, description, cataloge_render)
 VALUES
-('SERVICIO', 'SERVICIO INTERNO O EXTERNO', 1);
+('SERVICIO', 'SERVICIO INTERNO O EXTERNO', 0);
 
 -- ITEM-CATEGORY
 INSERT INTO
@@ -79,7 +79,7 @@ VALUES
 INSERT INTO
     ditaly_pasta.item_category (category, description, cataloge_render)
 VALUES
-    ('BEBESTIBLE', 'PRODUCTO BEBIDA O AGUA FRIA', 1);
+    ('BEBESTIBLE', 'PRODUCTO BEBIDA O AGUA FRIA', 0);
 
 INSERT INTO
     ditaly_pasta.item_category (category, description, cataloge_render)
@@ -87,18 +87,18 @@ VALUES
     (
         'DESECHABLE',
         'PRODUCTO DESECHABLE DE ENVASES O VASOS',
-        1
+        0
     );
 
 INSERT INTO
     ditaly_pasta.item_category (category, description, cataloge_render)
 VALUES
-    ('PASTELERIA', 'PRODUCTO PASTELERIA', 1);
+    ('PASTELERIA', 'PRODUCTO PASTELERIA', 0);
 
 INSERT INTO
     ditaly_pasta.item_category (category, description, cataloge_render)
 VALUES
-    ('SANDWICH', 'PRODUCTO SANDWICH', 1);
+    ('SANDWICH', 'PRODUCTO SANDWICH', 0);
 
 INSERT INTO
     ditaly_pasta.item_category (category, description, cataloge_render)
@@ -106,7 +106,7 @@ VALUES
     (
         'CONDIMIENTO',
         'PRODUCTO DE CONDIMENTO PARA ALIMENTOS',
-        1
+        0
     );
 
 -- ITEM-TYPE
@@ -116,7 +116,7 @@ VALUES
     (
         1,
         'PRODUCTO CONGELADO',
-        'PRODCUTO QUE REQUIERE CONGELAMIENTO (-18C)'
+        'PRODUCTO QUE REQUIERE CONGELAMIENTO (-18C)'
     );
 
 INSERT INTO
