@@ -3,12 +3,11 @@
 
 CREATE OR REPLACE VIEW vw_product_simple AS
 SELECT 
-    p.*,
     p.description AS nombre_producto,
     p.OBS AS observaciones,
     p.package_unit AS cantidad_unidades_embalaje,
-    pr.contact_mail AS provider_email,
-    pr.contact_phone AS provider_phone
+    p.min_package_purchase AS compra_embalajes_minima,
+    p.gross_price AS provider_phone
 FROM product p
 LEFT JOIN provider pr ON p.provider = pr.id
 WHERE p.is_deleted IS NULL OR p.is_deleted = 0;

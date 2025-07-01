@@ -1,0 +1,611 @@
+// START complementary tables
+Table menu {
+  id integer [pk, increment]
+  menu varchar(50) [not null]
+  description text [not null]
+}
+
+
+Table item_group {
+  id integer [pk, increment]
+  group_name varchar(50) [not null]
+  description text [not null]
+  catalog_render boolean [not null, default: 1]
+}
+
+Table item_category {
+  id integer [pk, increment]
+  category varchar(50) [not null]
+  description text [not null]
+  catalog_render boolean [not null, default: 1]
+}
+
+Table item_type {
+  id integer [pk, increment]
+  type varchar(50) [not null]
+  description text [not null]
+}
+
+Table package_type {
+  id integer [pk, increment]
+  type varchar(50) [not null]
+  description text [not null]
+}
+
+Table transport_type {
+  id integer [pk, increment]
+  type varchar(50) [not null]
+  description text [not null]
+}
+
+Table measure_unit {
+  id integer [pk, increment]
+  measure_unit varchar(50) [not null]
+  description text [not null]
+}
+
+Table provider_type {
+  id integer [pk, increment]
+  type varchar(50) [not null]
+  description text [not null]
+}
+
+Table instruction_type {
+  id int [pk, increment]
+  type varchar(50) [not null]
+  description text [not null]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+}
+
+Table permission_type {
+  id integer [pk, increment]
+  type varchar(50) [not null]
+  description text [not null]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+}
+
+Table bank_account_type {
+  id integer [pk, increment]
+  type varchar(255) [not null]
+  description text [not null]
+}
+
+Table district {
+  id integer [pk, increment]
+  district varchar(255) [not null]
+  region integer [not null, ref: > region.id]
+  description text [not null]
+}
+
+Table region {
+  id integer [pk, increment]
+  region varchar(255) [not null]
+  description text [not null]
+}
+
+Table fiscal_directive_type {
+  id integer [pk, increment]
+  type varchar(255) [not null]
+  description text [not null]
+}
+
+// END complementary tables
+
+
+
+// START documentation & security tables
+Table restriction {
+  id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
+  restriction varchar(50) [not null, unique]
+  description text [not null]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table restriction_roles {
+  id integer [pk, increment]
+  restriction char(36) [not null, ref: > restriction.id]
+  role char(36) [not null, ref: > role.id]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+}
+
+
+
+Table role_permissions {
+  id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
+  role char(36) [not null, ref: > role.id]
+  permission char(36) [not null, ref: > permission.id]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+}
+
+Table permission {
+  id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
+  permission varchar(50) [not null, unique]
+  description text [not null]
+  type integer [not null, ref: > permission_type.id]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table role {
+  id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
+  role varchar(50) [not null, unique]
+  description text [not null]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table instruction {
+  id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
+  instruction varchar(50) [not null]
+  description text [not null]
+  url_documentation varchar(2083) [null]
+  type integer [not null, ref: > instruction_type.id]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+}
+// END documentation & security tables
+
+// START product tables
+Table catalog {
+  id int [pk, increment]
+  code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
+  sku varchar(50) [not null]
+  menu integer [not null, ref: > menu.id]
+  group integer [not null, ref: > item_group.id]
+  category integer [not null, ref: > item_category.id]
+  type integer [not null, ref: > item_type.id]
+  restriction char(36) [not null, ref: > restriction.id]
+  name varchar(50) [not null]
+  description text [not null]
+  obs varchar(255)
+  chef_recommendation boolean [not null, default: 0]
+  usage_instructions char(36) [not null, ref: > instruction.id]
+  price char(36) [not null, ref: > price.code]
+  min_quantity_purchase integer [not null, default: 1]
+  rations_quantity integer [not null, default: 1]
+  cover_image varchar(2083) [null]
+  secondary_image varchar(2083) [null]
+  complementary_image varchar(2083) [null]
+  image_gallery varchar(2083) [null]
+  configuration char(36) [not null, ref: > item_configuration.code]
+  is_visible boolean [not null, default: 1]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table item_configuration {
+  id int [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  configuration varchar(50) [not null]
+  description text [not null]
+  package integer [not null, ref: > package.id]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table package {
+  id integer [pk, increment]
+  description text [not null]
+  package_type integer [not null, ref: > package_type.id]
+  transport_type integer [not null, ref: > transport_type.id]
+  size decimal(10,2) [not null, default: 0]
+  weight decimal(10,2) [not null, default: 0]
+  measure_unit integer [not null, ref: > measure_unit.id]
+  quantity_unit integer [not null, default: 1]
+  storage_instructions char(36) [not null, ref: > instruction.id]
+  transport_instructions char(36) [not null, ref: > instruction.id]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+}
+
+Table item_configuration_detail {
+  code char(36) [not null]
+  detail varchar(50) [not null]
+  type integer [not null, ref: > item_type.id]
+  configuration char(36) [not null, ref: > item_configuration.code]
+  id_item char(36) [not null]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+
+  Indexes {
+    (code, type, id_item) [pk]
+  }
+}
+
+
+
+Table product {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  sku varchar(50) [not null]
+  description text [not null]
+  obs text [not null]
+  package_unit integer [not null]
+  min_package_purchase integer [not null]
+  price char(36) [not null, ref: > price.code]
+  provider integer [not null, ref: > provider.id] 
+  type integer [not null, ref: > item_type.id]
+  group integer [not null, ref: > item_group.id]
+  category integer [not null, ref: > item_category.id]
+  url varchar(255) [null]
+  package integer [not null, ref: > package.id]
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table material {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  sku varchar(50) [not null]
+  description text [not null]
+  obs text [not null]
+  package_unit integer [not null]
+  min_package_purchase integer [not null]
+  price char(36) [not null, ref: > price.code]
+  provider integer [not null, ref: > provider.id] 
+  type integer [not null, ref: > item_type.id]
+  group integer [not null, ref: > item_group.id]
+  category integer [not null, ref: > item_category.id]
+  url varchar(255) [null]
+  package integer [not null, ref: > package.id]
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+
+Table service {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  sku varchar(50) [not null]
+  description text [not null]
+  obs text [not null]
+  package_unit integer [not null]
+  min_package_purchase integer [not null]
+  price char(36) [not null, ref: > price.code]
+  provider integer [not null, ref: > provider.id] 
+  type integer [not null, ref: > item_type.id]
+  group integer [not null, ref: > item_group.id]
+  category integer [not null, ref: > item_category.id]
+  url varchar(255) [null]
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table provider {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'CUSTOM TRIGGER']
+  provider varchar(50) [not null, unique]
+  type integer [not null,ref: > provider_type.id]
+  rating integer [not null, default: 0]
+  obs_provider text [not null]
+  contact_name varchar(100) [null]
+  contact_mail varchar(255) [null]
+  contact_phone bigint [null]
+  contact_phone2 bigint [null]
+  website_url text [null]
+  obs_contact varchar(255) [null]
+  company_name varchar(255) [null]
+  company_rut varchar(12) [null]
+  company_activity varchar(255) [null]
+  legal_representative varchar(255) [null]
+  billing_address text [null]
+  billing_mail varchar(255) [null]
+  billing_phone bigint [null]
+  company_bank integer [null, ref: > bank.id]
+  bank_account_type integer [null, ref: > bank_account_type.id]
+  bank_account_number varchar(255) [null]
+  bank_account_mail varchar(255) [null]
+  dispatch_address varchar(255) [null]
+  dispatch_maps_location varchar(255) [null]
+  obs_dispatch text [null]
+  dispatch_district integer [null, ref: > district.id]
+  dispatch_region integer [null, ref: > region.id]
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table bank {
+  id integer [pk, increment]
+  bank varchar(255) [not null]
+  description text [not null]
+  created_at datetime [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+
+// END product tables
+
+
+
+// START user tables
+Table user {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  type integer [not null, ref: > user_type.id]
+  google_id varchar(255) [not null, unique]
+  mail varchar(255) [not null, unique]
+  phone bigint [not null]
+  name varchar(255) [not null]
+  last_name varchar(255) [not null]
+  is_active boolean [null]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  deleted_by char(36) [null]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+
+Table user_token {
+  id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
+  user_id char(36) [not null, ref: > user.code]
+  token text [not null]
+  ip_address varchar(45) [not null]
+  user_agent text [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  expires_at datetime [null]
+  revoked_at datetime [null]
+}
+
+Table user_type {
+  id integer [pk, increment]
+  type varchar(50) [not null]
+  description text [not null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+
+// END user tables
+
+// START price & sales  tables 
+Table price {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  net_amount integer [not null, default: 0]
+  gross_amount integer [not null, default: 0]
+  iva_amount integer [not null, default: 0]
+  retention_amount integer [not null, default: 0]
+  price_fiscal_configuration char(36) [not null, ref: > price_fiscal_configuration.id]
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+}
+
+
+
+Table fiscal_directive {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  obs text [null]
+  fiscal_directive varchar(50) [not null, unique]
+  type integer [not null, ref: > fiscal_directive_type.id]
+  percentage decimal(10,2) [not null, default: 0]
+  official_source_url varchar(255) [not null]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+}
+
+Table price_fiscal_configuration {
+  id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
+  fiscal_configuration varchar(50) [not null, unique]
+  fiscal_formula char(36) [not null, ref: > fiscal_formula.id]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+}
+
+Table fiscal_configuration_detail {
+  id integer [pk, increment]
+  price_fiscal_configuration char(36) [not null, ref: > price_fiscal_configuration.id]
+  price char(36) [not null, ref: > price.code]
+  fiscal_directive char(36) [not null, ref: > fiscal_directive.code]
+  log text [not null, default: "init;"]
+  Indexes {
+    (id, price, fiscal_directive) [pk]
+  }
+}
+
+
+
+
+
+Table fiscal_formula {
+  id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
+  formula varchar(50) [not null]
+  formula_template text [not null]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > user.code]
+  confirmed_by char(36) [null, ref: > user.code]
+  updated_by char(36) [null, ref: > user.code]
+  deleted_by char(36) [null, ref: > user.code]
+}
+
+
+// END price & sales  tables 
+
