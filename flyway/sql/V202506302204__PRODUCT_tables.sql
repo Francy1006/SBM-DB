@@ -105,36 +105,6 @@ CREATE TABLE IF NOT EXISTS item_configuration_detail (
 );
 
 -- PRODUCT
-CREATE TABLE IF NOT EXISTS product (
-    id integer PRIMARY KEY AUTO_INCREMENT,
-    code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
-    sku varchar(50) NOT NULL,
-    description text NOT NULL,
-    obs text NOT NULL,
-    package_unit integer NOT NULL,
-    min_package_purchase integer NOT NULL,
-    price char(36) NOT NULL,
-    provider integer NOT NULL,
-    `type` integer NOT NULL,
-    `group` integer NOT NULL,
-    category integer NOT NULL,
-    url varchar(255),
-    package integer NOT NULL,
-    is_active boolean NOT NULL DEFAULT 1,
-    is_deleted boolean,
-    is_confirmed boolean,
-    created_at datetime DEFAULT (CURRENT_TIMESTAMP),
-    updated_at datetime,
-    confirmed_at datetime,
-    deleted_at datetime,
-    created_by char(36) NOT NULL,
-    confirmed_by char(36),
-    updated_by char(36),
-    deleted_by char(36),
-    log text NOT NULL,
-    version integer NOT NULL DEFAULT 1
-);
-
 -- MATERIAL
 CREATE TABLE IF NOT EXISTS material (
     id integer PRIMARY KEY AUTO_INCREMENT,
