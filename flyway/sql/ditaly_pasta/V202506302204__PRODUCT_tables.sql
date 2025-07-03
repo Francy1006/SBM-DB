@@ -2,7 +2,7 @@
 -- Tablas principales de productos, catálogos y proveedores
 
 -- CATALOG
-CREATE TABLE IF NOT EXISTS catalog (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.catalog (
     id int PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NULL COMMENT 'UUID() REQUIRES TRIGGER',
     sku varchar(50) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS catalog (
 );
 
 -- ITEM CONFIGURATION
-CREATE TABLE IF NOT EXISTS item_configuration (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration (
     id int PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
     configuration varchar(50) NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS item_configuration (
 );
 
 -- PACKAGE
-CREATE TABLE IF NOT EXISTS package (
+CREATE TABLE IF NOT EXISTS sbm_business.package (
     id integer PRIMARY KEY AUTO_INCREMENT,
     description text NOT NULL,
     package_type integer NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS package (
 );
 
 -- ITEM CONFIGURATION DETAIL
-CREATE TABLE IF NOT EXISTS item_configuration_detail (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration_detail (
     code char(36) NOT NULL,
     detail varchar(50) NOT NULL,
     type integer NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS item_configuration_detail (
 
 -- PRODUCT
 -- MATERIAL
-CREATE TABLE IF NOT EXISTS material (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.material (
     id integer PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
     sku varchar(50) NOT NULL,
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS material (
 );
 
 -- SERVICE
-CREATE TABLE IF NOT EXISTS service (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.service (
     id integer PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
     sku varchar(50) NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS service (
 );
 
 -- PROVIDER
-CREATE TABLE IF NOT EXISTS provider (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.provider (
     id integer PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NOT NULL COMMENT 'CUSTOM TRIGGER',
     provider varchar(50) UNIQUE NOT NULL,
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS provider (
 );
 
 -- BANK
-CREATE TABLE IF NOT EXISTS bank (
+CREATE TABLE IF NOT EXISTS sbm_business.bank (
     id integer PRIMARY KEY AUTO_INCREMENT,
     bank varchar(255) NOT NULL,
     description text NOT NULL,
@@ -224,7 +224,7 @@ DELIMITER $$
 
 DROP TRIGGER IF EXISTS catalog_before_insert$$
 CREATE TRIGGER catalog_before_insert
-BEFORE INSERT ON catalog
+BEFORE INSERT ON ditaly_pasta.catalog
 FOR EACH ROW
 BEGIN
     IF NEW.code IS NULL THEN
@@ -237,7 +237,7 @@ END$$
 
 DROP TRIGGER IF EXISTS item_configuration_before_insert$$
 CREATE TRIGGER item_configuration_before_insert
-BEFORE INSERT ON item_configuration
+BEFORE INSERT ON ditaly_pasta.item_configuration
 FOR EACH ROW
 BEGIN
     IF NEW.code IS NULL THEN
@@ -263,7 +263,7 @@ END$$
 
 DROP TRIGGER IF EXISTS material_before_insert$$
 CREATE TRIGGER material_before_insert
-BEFORE INSERT ON material
+BEFORE INSERT ON ditaly_pasta.material
 FOR EACH ROW
 BEGIN
     IF NEW.code IS NULL THEN
@@ -276,7 +276,7 @@ END$$
 
 DROP TRIGGER IF EXISTS service_before_insert$$
 CREATE TRIGGER service_before_insert
-BEFORE INSERT ON service
+BEFORE INSERT ON ditaly_pasta.service
 FOR EACH ROW
 BEGIN
     IF NEW.code IS NULL THEN
@@ -289,7 +289,7 @@ END$$
 
 DROP TRIGGER IF EXISTS before_insert_provider$$
 CREATE TRIGGER before_insert_provider
-BEFORE INSERT ON provider
+BEFORE INSERT ON ditaly_pasta.provider
 FOR EACH ROW
 BEGIN
   DECLARE prefix VARCHAR(3);
@@ -306,7 +306,7 @@ BEGIN
 
     -- Contar proveedores existentes del mismo tipo
     SELECT COUNT(*) + 1 INTO count_same_type
-    FROM provider
+    FROM ditaly_pasta.provider
     WHERE type = NEW.type;
 
     -- Generar código con formato: PVP-001

@@ -1,6 +1,6 @@
-DROP VIEW IF EXISTS VW_material_simple;
+DROP VIEW IF EXISTS ditaly_pasta.VW_material_simple;
 
-CREATE VIEW VW_material_simple AS
+CREATE VIEW ditaly_pasta.VW_material_simple AS
 SELECT 
     m.sku AS sku,
     m.description AS nombre_material,
@@ -19,7 +19,7 @@ SELECT
     pv.company_rut AS rut_empresa,
     pv.billing_address AS direccion_facturacion,
     pv.dispatch_address AS direccion_empresa
-FROM material m
-LEFT JOIN price pr ON m.price = pr.code
-LEFT JOIN provider pv ON m.provider = pv.id
+FROM ditaly_pasta.material m
+LEFT JOIN ditaly_pasta.price pr ON m.price = pr.code
+LEFT JOIN ditaly_pasta.provider pv ON m.provider = pv.id
 WHERE m.is_deleted IS NULL OR m.is_deleted = 0; 

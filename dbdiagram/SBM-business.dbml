@@ -1,56 +1,56 @@
 // START complementary tables
-Table menu {
+Table sbm_business.menu {
   id integer [pk, increment]
   menu varchar(50) [not null]
   description text [not null]
 }
 
 
-Table item_group {
+Table sbm_business.item_group {
   id integer [pk, increment]
   group_name varchar(50) [not null]
   description text [not null]
   catalog_render boolean [not null, default: 1]
 }
 
-Table item_category {
+Table sbm_business.item_category {
   id integer [pk, increment]
   category varchar(50) [not null]
   description text [not null]
   catalog_render boolean [not null, default: 1]
 }
 
-Table item_type {
+Table sbm_business.item_type {
   id integer [pk, increment]
   type varchar(50) [not null]
   description text [not null]
 }
 
-Table package_type {
+Table sbm_business.package_type {
   id integer [pk, increment]
   type varchar(50) [not null]
   description text [not null]
 }
 
-Table transport_type {
+Table sbm_business.transport_type {
   id integer [pk, increment]
   type varchar(50) [not null]
   description text [not null]
 }
 
-Table measure_unit {
+Table sbm_business.measure_unit {
   id integer [pk, increment]
   measure_unit varchar(50) [not null]
   description text [not null]
 }
 
-Table provider_type {
+Table sbm_business.provider_type {
   id integer [pk, increment]
   type varchar(50) [not null]
   description text [not null]
 }
 
-Table instruction_type {
+Table sbm_business.instruction_type {
   id int [pk, increment]
   type varchar(50) [not null]
   description text [not null]
@@ -60,13 +60,13 @@ Table instruction_type {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 
-Table permission_type {
+Table sbm_business.permission_type {
   id integer [pk, increment]
   type varchar(50) [not null]
   description text [not null]
@@ -76,35 +76,42 @@ Table permission_type {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 
-Table bank_account_type {
+Table sbm_business.bank_account_type {
   id integer [pk, increment]
   type varchar(255) [not null]
   description text [not null]
 }
 
-Table district {
+Table sbm_business.district {
   id integer [pk, increment]
   district varchar(255) [not null]
-  region integer [not null, ref: > region.id]
+  region integer [not null, ref: > sbm_business.region.id]
   description text [not null]
 }
 
-Table region {
+Table sbm_business.region {
   id integer [pk, increment]
   region varchar(255) [not null]
   description text [not null]
 }
 
-Table fiscal_directive_type {
+Table sbm_business.fiscal_directive_type {
   id integer [pk, increment]
   type varchar(255) [not null]
   description text [not null]
+}
+
+Table sbm_business.user_type {
+  id integer [pk, increment]
+  type varchar(50) [not null]
+  description text [not null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
 }
 
 // END complementary tables
@@ -112,7 +119,7 @@ Table fiscal_directive_type {
 
 
 // START documentation & security tables
-Table restriction {
+Table sbm_business.restriction {
   id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
   restriction varchar(50) [not null, unique]
   description text [not null]
@@ -122,68 +129,68 @@ Table restriction {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
   log text [not null, default: "init;"]
   version integer [not null, default: 1]
 }
 
-Table restriction_roles {
+Table sbm_business.restriction_roles {
   id integer [pk, increment]
-  restriction char(36) [not null, ref: > restriction.id]
-  role char(36) [not null, ref: > role.id]
+  restriction char(36) [not null, ref: > sbm_business.restriction.id]
+  role char(36) [not null, ref: > sbm_business.role.id]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 
 
 
-Table role_permissions {
+Table sbm_business.role_permissions {
   id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
-  role char(36) [not null, ref: > role.id]
-  permission char(36) [not null, ref: > permission.id]
+  role char(36) [not null, ref: > sbm_business.role.id]
+  permission char(36) [not null, ref: > sbm_business.permission.id]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 
-Table permission {
+Table sbm_business.permission {
   id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
   permission varchar(50) [not null, unique]
   description text [not null]
-  type integer [not null, ref: > permission_type.id]
+  type integer [not null, ref: > sbm_business.permission_type.id]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
   log text [not null, default: "init;"]
   version integer [not null, default: 1]
 }
 
-Table role {
+Table sbm_business.role {
   id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
   role varchar(50) [not null, unique]
   description text [not null]
@@ -193,56 +200,56 @@ Table role {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
   log text [not null, default: "init;"]
   version integer [not null, default: 1]
 }
 
-Table instruction {
+Table sbm_business.instruction {
   id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
   instruction varchar(50) [not null]
   description text [not null]
   url_documentation varchar(2083) [null]
-  type integer [not null, ref: > instruction_type.id]
+  type integer [not null, ref: > sbm_business.instruction_type.id]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 // END documentation & security tables
 
 // START product tables
-Table catalog {
+Table ditay_pasta.catalog {
   id int [pk, increment]
   code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
   sku varchar(50) [not null]
-  menu integer [not null, ref: > menu.id]
-  group integer [not null, ref: > item_group.id]
-  category integer [not null, ref: > item_category.id]
-  type integer [not null, ref: > item_type.id]
-  restriction char(36) [not null, ref: > restriction.id]
+  menu integer [not null, ref: > sbm_business.menu.id]
+  group integer [not null, ref: > sbm_business.item_group.id]
+  category integer [not null, ref: > sbm_business.item_category.id]
+  type integer [not null, ref: > sbm_business.item_type.id]
+  restriction char(36) [not null, ref: > sbm_business.restriction.id]
   name varchar(50) [not null]
   description text [not null]
   obs varchar(255)
   chef_recommendation boolean [not null, default: 0]
-  usage_instructions char(36) [not null, ref: > instruction.id]
-  price char(36) [not null, ref: > price.code]
+  usage_instructions char(36) [not null, ref: > sbm_business.instruction.id]
+  price char(36) [not null, ref: > ditaly_pasta.price.code]
   min_quantity_purchase integer [not null, default: 1]
   rations_quantity integer [not null, default: 1]
   cover_image varchar(2083) [null]
   secondary_image varchar(2083) [null]
   complementary_image varchar(2083) [null]
   image_gallery varchar(2083) [null]
-  configuration char(36) [not null, ref: > item_configuration.code]
+  configuration char(36) [not null, ref: > ditaly_pasta.item_configuration.code]
   is_visible boolean [not null, default: 1]
   is_deleted boolean [null]
   is_confirmed boolean [null]
@@ -250,62 +257,62 @@ Table catalog {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
   log text [not null, default: "init;"]
   version integer [not null, default: 1]
 }
 
-Table item_configuration {
+Table ditaly_pasta.item_configuration {
   id int [pk, increment]
   code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
   configuration varchar(50) [not null]
   description text [not null]
-  package integer [not null, ref: > package.id]
+  package integer [not null, ref: > sbm_business.package.id]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
   log text [not null, default: "init;"]
   version integer [not null, default: 1]
 }
 
-Table package {
+Table sbm_business.package {
   id integer [pk, increment]
   description text [not null]
-  package_type integer [not null, ref: > package_type.id]
-  transport_type integer [not null, ref: > transport_type.id]
+  package_type integer [not null, ref: > sbm_business.package_type.id]
+  transport_type integer [not null, ref: > sbm_business.transport_type.id]
   size decimal(10,2) [not null, default: 0]
   weight decimal(10,2) [not null, default: 0]
-  measure_unit integer [not null, ref: > measure_unit.id]
+  measure_unit integer [not null, ref: > sbm_business.measure_unit.id]
   quantity_unit integer [not null, default: 1]
-  storage_instructions char(36) [not null, ref: > instruction.id]
-  transport_instructions char(36) [not null, ref: > instruction.id]
+  storage_instructions char(36) [not null, ref: > sbm_business.instruction.id]
+  transport_instructions char(36) [not null, ref: > sbm_business.instruction.id]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 
-Table item_configuration_detail {
+Table ditaly_pasta.item_configuration_detail {
   code char(36) [not null]
   detail varchar(50) [not null]
-  type integer [not null, ref: > item_type.id]
-  configuration char(36) [not null, ref: > item_configuration.code]
+  type integer [not null, ref: > sbm_business.item_type.id]
+  configuration char(36) [not null, ref: > ditaly_pasta.item_configuration.code]
   id_item char(36) [not null]
   is_deleted boolean [null]
   is_confirmed boolean [null]
@@ -313,10 +320,10 @@ Table item_configuration_detail {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
 
   Indexes {
     (code, type, id_item) [pk]
@@ -325,7 +332,7 @@ Table item_configuration_detail {
 
 
 
-Table product {
+Table ditaly_pasta.product {
   id integer [pk, increment]
   code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
   sku varchar(50) [not null]
@@ -333,13 +340,13 @@ Table product {
   obs text [not null]
   package_unit integer [not null]
   min_package_purchase integer [not null]
-  price char(36) [not null, ref: > price.code]
-  provider integer [not null, ref: > provider.id] 
-  type integer [not null, ref: > item_type.id]
-  group integer [not null, ref: > item_group.id]
-  category integer [not null, ref: > item_category.id]
+  price char(36) [not null, ref: > ditaly_pasta.price.code]
+  provider integer [not null, ref: > ditaly_pasta.provider.id] 
+  type integer [not null, ref: > sbm_business.item_type.id]
+  group integer [not null, ref: > sbm_business.item_group.id]
+  category integer [not null, ref: > sbm_business.item_category.id]
   url varchar(255) [null]
-  package integer [not null, ref: > package.id]
+  package integer [not null, ref: > sbm_business.package.id]
   is_active boolean [not null, default: 1]
   is_deleted boolean [null]
   is_confirmed boolean [null]
@@ -347,15 +354,15 @@ Table product {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
   log text [not null, default: "init;"]
   version integer [not null, default: 1]
 }
 
-Table material {
+Table ditaly_pasta.material {
   id integer [pk, increment]
   code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
   sku varchar(50) [not null]
@@ -363,13 +370,13 @@ Table material {
   obs text [not null]
   package_unit integer [not null]
   min_package_purchase integer [not null]
-  price char(36) [not null, ref: > price.code]
-  provider integer [not null, ref: > provider.id] 
-  type integer [not null, ref: > item_type.id]
-  group integer [not null, ref: > item_group.id]
-  category integer [not null, ref: > item_category.id]
+  price char(36) [not null, ref: > ditaly_pasta.price.code]
+  provider integer [not null, ref: > ditaly_pasta.provider.id] 
+  type integer [not null, ref: > sbm_business.item_type.id]
+  group integer [not null, ref: > sbm_business.item_group.id]
+  category integer [not null, ref: > sbm_business.item_category.id]
   url varchar(255) [null]
-  package integer [not null, ref: > package.id]
+  package integer [not null, ref: > sbm_business.package.id]
   is_active boolean [not null, default: 1]
   is_deleted boolean [null]
   is_confirmed boolean [null]
@@ -377,16 +384,16 @@ Table material {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
   log text [not null, default: "init;"]
   version integer [not null, default: 1]
 }
 
 
-Table service {
+Table ditaly_pasta.service {
   id integer [pk, increment]
   code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
   sku varchar(50) [not null]
@@ -394,11 +401,11 @@ Table service {
   obs text [not null]
   package_unit integer [not null]
   min_package_purchase integer [not null]
-  price char(36) [not null, ref: > price.code]
-  provider integer [not null, ref: > provider.id] 
-  type integer [not null, ref: > item_type.id]
-  group integer [not null, ref: > item_group.id]
-  category integer [not null, ref: > item_category.id]
+  price char(36) [not null, ref: > ditaly_pasta.price.code]
+  provider integer [not null, ref: > ditaly_pasta.provider.id] 
+  type integer [not null, ref: > sbm_business.item_type.id]
+  group integer [not null, ref: > sbm_business.item_group.id]
+  category integer [not null, ref: > sbm_business.item_category.id]
   url varchar(255) [null]
   is_active boolean [not null, default: 1]
   is_deleted boolean [null]
@@ -407,19 +414,19 @@ Table service {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
   log text [not null, default: "init;"]
   version integer [not null, default: 1]
 }
 
-Table provider {
+Table ditaly_pasta.provider {
   id integer [pk, increment]
   code char(36) [not null, unique, note: 'CUSTOM TRIGGER']
   provider varchar(50) [not null, unique]
-  type integer [not null,ref: > provider_type.id]
+  type integer [not null,ref: > sbm_business.provider_type.id]
   rating integer [not null, default: 0]
   obs_provider text [not null]
   contact_name varchar(100) [null]
@@ -435,15 +442,15 @@ Table provider {
   billing_address text [null]
   billing_mail varchar(255) [null]
   billing_phone bigint [null]
-  company_bank integer [null, ref: > bank.id]
-  bank_account_type integer [null, ref: > bank_account_type.id]
+  company_bank integer [null, ref: > sbm_business.bank.id]
+  bank_account_type integer [null, ref: > sbm_business.bank_account_type.id]
   bank_account_number varchar(255) [null]
   bank_account_mail varchar(255) [null]
   dispatch_address varchar(255) [null]
   dispatch_maps_location varchar(255) [null]
   obs_dispatch text [null]
-  dispatch_district integer [null, ref: > district.id]
-  dispatch_region integer [null, ref: > region.id]
+  dispatch_district integer [null, ref: > sbm_business.district.id]
+  dispatch_region integer [null, ref: > sbm_business.region.id]
   is_active boolean [not null, default: 1]
   is_deleted boolean [null]
   is_confirmed boolean [null]
@@ -451,15 +458,15 @@ Table provider {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
   log text [not null, default: "init;"]
   version integer [not null, default: 1]
 }
 
-Table bank {
+Table sbm_business.bank {
   id integer [pk, increment]
   bank varchar(255) [not null]
   description text [not null]
@@ -472,10 +479,10 @@ Table bank {
 
 
 // START user tables
-Table user {
+Table sbm_business.user {
   id integer [pk, increment]
   code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
-  type integer [not null, ref: > user_type.id]
+  type integer [not null, ref: > sbm_business.user_type.id]
   google_id varchar(255) [not null, unique]
   mail varchar(255) [not null, unique]
   phone bigint [not null]
@@ -494,9 +501,9 @@ Table user {
 }
 
 
-Table user_token {
+Table sbm_business.user_token {
   id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
-  user_id char(36) [not null, ref: > user.code]
+  user_id char(36) [not null, ref: > sbm_business.user.code]
   token text [not null]
   ip_address varchar(45) [not null]
   user_agent text [null]
@@ -505,25 +512,18 @@ Table user_token {
   revoked_at datetime [null]
 }
 
-Table user_type {
-  id integer [pk, increment]
-  type varchar(50) [not null]
-  description text [not null]
-  created_at datetime [default: `CURRENT_TIMESTAMP`]
-}
-
 
 // END user tables
 
 // START price & sales  tables 
-Table price {
+Table ditaly_pasta.price {
   id integer [pk, increment]
   code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
   net_amount integer [not null, default: 0]
   gross_amount integer [not null, default: 0]
   iva_amount integer [not null, default: 0]
   retention_amount integer [not null, default: 0]
-  price_fiscal_configuration char(36) [not null, ref: > price_fiscal_configuration.id]
+  price_fiscal_configuration char(36) [not null, ref: > ditaly_pasta.price_fiscal_configuration.id]
   is_active boolean [not null, default: 1]
   is_deleted boolean [null]
   is_confirmed boolean [null]
@@ -531,20 +531,20 @@ Table price {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 
 
 
-Table fiscal_directive {
+Table sbm_business.fiscal_directive {
   id integer [pk, increment]
   code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
   obs text [null]
   fiscal_directive varchar(50) [not null, unique]
-  type integer [not null, ref: > fiscal_directive_type.id]
+  type integer [not null, ref: > sbm_business.fiscal_directive_type.id]
   percentage decimal(10,2) [not null, default: 0]
   official_source_url varchar(255) [not null]
   is_deleted boolean [null]
@@ -553,33 +553,33 @@ Table fiscal_directive {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 
-Table price_fiscal_configuration {
+Table ditaly_pasta.price_fiscal_configuration {
   id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
   fiscal_configuration varchar(50) [not null, unique]
-  fiscal_formula char(36) [not null, ref: > fiscal_formula.id]
+  fiscal_formula char(36) [not null, ref: > sbm_business.fiscal_formula.id]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 
-Table fiscal_configuration_detail {
+Table ditaly_pasta.fiscal_configuration_detail {
   id integer [pk, increment]
-  price_fiscal_configuration char(36) [not null, ref: > price_fiscal_configuration.id]
-  price char(36) [not null, ref: > price.code]
-  fiscal_directive char(36) [not null, ref: > fiscal_directive.code]
+  price_fiscal_configuration char(36) [not null, ref: > ditaly_pasta.price_fiscal_configuration.id]
+  price char(36) [not null, ref: > ditaly_pasta.price.code]
+  fiscal_directive char(36) [not null, ref: > sbm_business.fiscal_directive.code]
   log text [not null, default: "init;"]
   Indexes {
     (id, price, fiscal_directive) [pk]
@@ -590,7 +590,7 @@ Table fiscal_configuration_detail {
 
 
 
-Table fiscal_formula {
+Table sbm_business.fiscal_formula {
   id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
   formula varchar(50) [not null]
   formula_template text [not null]
@@ -600,10 +600,10 @@ Table fiscal_formula {
   updated_at datetime [null]
   confirmed_at datetime [null]
   deleted_at datetime [null]
-  created_by char(36) [not null, ref: > user.code]
-  confirmed_by char(36) [null, ref: > user.code]
-  updated_by char(36) [null, ref: > user.code]
-  deleted_by char(36) [null, ref: > user.code]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 
 

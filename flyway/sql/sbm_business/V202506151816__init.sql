@@ -1,54 +1,59 @@
-CREATE TABLE IF NOT EXISTS menu (
+-- Create schemas
+CREATE SCHEMA IF NOT EXISTS sbm_business;
+CREATE SCHEMA IF NOT EXISTS ditaly_pasta;
+
+-- START complementary tables (sbm_business schema)
+CREATE TABLE IF NOT EXISTS sbm_business.menu (
     id integer PRIMARY KEY AUTO_INCREMENT,
     menu varchar(50) NOT NULL,
     description text NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS item_group (
+CREATE TABLE IF NOT EXISTS sbm_business.item_group (
     id integer PRIMARY KEY AUTO_INCREMENT,
     group_name varchar(50) NOT NULL,
     description text NOT NULL,
     catalog_render boolean NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS item_category (
+CREATE TABLE IF NOT EXISTS sbm_business.item_category (
     id integer PRIMARY KEY AUTO_INCREMENT,
     category varchar(50) NOT NULL,
     description text NOT NULL,
     catalog_render boolean NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS item_type (
+CREATE TABLE IF NOT EXISTS sbm_business.item_type (
     id integer PRIMARY KEY AUTO_INCREMENT,
     `type` varchar(50) NOT NULL,
     description text NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS package_type (
+CREATE TABLE IF NOT EXISTS sbm_business.package_type (
     id integer PRIMARY KEY AUTO_INCREMENT,
     `type` varchar(50) NOT NULL,
     description text NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS transport_type (
+CREATE TABLE IF NOT EXISTS sbm_business.transport_type (
     id integer PRIMARY KEY AUTO_INCREMENT,
     `type` varchar(50) NOT NULL,
     description text NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS measure_unit (
+CREATE TABLE IF NOT EXISTS sbm_business.measure_unit (
     id integer PRIMARY KEY AUTO_INCREMENT,
     measure_unit varchar(50) NOT NULL,
     description text NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS provider_type (
+CREATE TABLE IF NOT EXISTS sbm_business.provider_type (
     id integer PRIMARY KEY AUTO_INCREMENT,
     `type` varchar(50) NOT NULL,
     description text NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS instruction_type (
+CREATE TABLE IF NOT EXISTS sbm_business.instruction_type (
     id int PRIMARY KEY AUTO_INCREMENT,
     `type` varchar(50) NOT NULL,
     description text NOT NULL,
@@ -64,7 +69,7 @@ CREATE TABLE IF NOT EXISTS instruction_type (
     deleted_by char(36)
 );
 
-CREATE TABLE IF NOT EXISTS permission_type (
+CREATE TABLE IF NOT EXISTS sbm_business.permission_type (
     id integer PRIMARY KEY AUTO_INCREMENT,
     `type` varchar(50) NOT NULL,
     description text NOT NULL,
@@ -80,26 +85,40 @@ CREATE TABLE IF NOT EXISTS permission_type (
     deleted_by char(36)
 );
 
-CREATE TABLE IF NOT EXISTS bank_account_type (
+CREATE TABLE IF NOT EXISTS sbm_business.bank_account_type (
     id integer PRIMARY KEY AUTO_INCREMENT,
     `type` varchar(255) NOT NULL,
     description text NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS district (
+CREATE TABLE IF NOT EXISTS sbm_business.district (
     id integer PRIMARY KEY AUTO_INCREMENT,
     district varchar(255) NOT NULL,
     region integer NOT NULL,
     description text NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS region (
+CREATE TABLE IF NOT EXISTS sbm_business.region (
     id integer PRIMARY KEY AUTO_INCREMENT,
     region varchar(255) NOT NULL,
     description text NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS restriction (
+CREATE TABLE IF NOT EXISTS sbm_business.fiscal_directive_type (
+    id integer PRIMARY KEY AUTO_INCREMENT,
+    type varchar(255) NOT NULL,
+    description text NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS sbm_business.user_type (
+    id integer PRIMARY KEY AUTO_INCREMENT,
+    `type` varchar(50) NOT NULL,
+    description text NOT NULL,
+    created_at datetime DEFAULT (CURRENT_TIMESTAMP)
+);
+
+-- START documentation & security tables (sbm_business schema)
+CREATE TABLE IF NOT EXISTS sbm_business.restriction (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     restriction varchar(50) UNIQUE NOT NULL,
     description text NOT NULL,
@@ -117,7 +136,7 @@ CREATE TABLE IF NOT EXISTS restriction (
     version integer NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS restriction_roles (
+CREATE TABLE IF NOT EXISTS sbm_business.restriction_roles (
     id integer PRIMARY KEY AUTO_INCREMENT,
     restriction char(36) NOT NULL,
     role char(36) NOT NULL,
@@ -133,7 +152,7 @@ CREATE TABLE IF NOT EXISTS restriction_roles (
     deleted_by char(36)
 );
 
-CREATE TABLE IF NOT EXISTS role_permissions (
+CREATE TABLE IF NOT EXISTS sbm_business.role_permissions (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     role char(36) NOT NULL,
     permission char(36) NOT NULL,
@@ -149,7 +168,7 @@ CREATE TABLE IF NOT EXISTS role_permissions (
     deleted_by char(36)
 );
 
-CREATE TABLE IF NOT EXISTS permission (
+CREATE TABLE IF NOT EXISTS sbm_business.permission (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     permission varchar(50) UNIQUE NOT NULL,
     description text NOT NULL,
@@ -168,7 +187,7 @@ CREATE TABLE IF NOT EXISTS permission (
     version integer NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS role (
+CREATE TABLE IF NOT EXISTS sbm_business.role (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     role varchar(50) UNIQUE NOT NULL,
     description text NOT NULL,
@@ -186,7 +205,7 @@ CREATE TABLE IF NOT EXISTS role (
     version integer NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS instruction (
+CREATE TABLE IF NOT EXISTS sbm_business.instruction (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     instruction varchar(50) NOT NULL,
     description text NOT NULL,
@@ -204,7 +223,8 @@ CREATE TABLE IF NOT EXISTS instruction (
     deleted_by char(36)
 );
 
-CREATE TABLE IF NOT EXISTS catalog (
+-- START product tables (ditaly_pasta schema)
+CREATE TABLE IF NOT EXISTS ditaly_pasta.catalog (
     id int PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NULL COMMENT 'UUID() REQUIRES TRIGGER',
     sku varchar(50) NOT NULL,
@@ -241,7 +261,7 @@ CREATE TABLE IF NOT EXISTS catalog (
     version integer NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS item_configuration (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration (
     id int PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
     configuration varchar(50) NOT NULL,
@@ -261,7 +281,7 @@ CREATE TABLE IF NOT EXISTS item_configuration (
     version integer NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS package (
+CREATE TABLE IF NOT EXISTS sbm_business.package (
     id integer PRIMARY KEY AUTO_INCREMENT,
     description text NOT NULL,
     package_type integer NOT NULL,
@@ -284,7 +304,7 @@ CREATE TABLE IF NOT EXISTS package (
     deleted_by char(36)
 );
 
-CREATE TABLE IF NOT EXISTS item_configuration_detail (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration_detail (
     id integer PRIMARY KEY AUTO_INCREMENT,
     code char(36) NOT NULL,
     detail varchar(50) NOT NULL,
@@ -303,7 +323,7 @@ CREATE TABLE IF NOT EXISTS item_configuration_detail (
     deleted_by char(36)
 );
 
-CREATE TABLE IF NOT EXISTS product (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.product (
     id integer PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
     sku varchar(50) NOT NULL,
@@ -333,7 +353,7 @@ CREATE TABLE IF NOT EXISTS product (
     version integer NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS material (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.material (
     id integer PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
     sku varchar(50) NOT NULL,
@@ -363,7 +383,7 @@ CREATE TABLE IF NOT EXISTS material (
     version integer NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS service (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.service (
     id integer PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
     sku varchar(50) NOT NULL,
@@ -392,7 +412,7 @@ CREATE TABLE IF NOT EXISTS service (
     version integer NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS provider (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.provider (
     id integer PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NOT NULL COMMENT 'CUSTOM TRIGGER',
     provider varchar(50) UNIQUE NOT NULL,
@@ -436,14 +456,15 @@ CREATE TABLE IF NOT EXISTS provider (
     version integer NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS bank (
+CREATE TABLE IF NOT EXISTS sbm_business.bank (
     id integer PRIMARY KEY AUTO_INCREMENT,
     bank varchar(255) NOT NULL,
     description text NOT NULL,
     created_at datetime NOT NULL DEFAULT (CURRENT_TIMESTAMP)
 );
 
-CREATE TABLE IF NOT EXISTS user (
+-- START user tables (sbm_business schema)
+CREATE TABLE IF NOT EXISTS sbm_business.user (
     id integer PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
     `type` integer NOT NULL,
@@ -464,7 +485,7 @@ CREATE TABLE IF NOT EXISTS user (
     version integer NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS user_token (
+CREATE TABLE IF NOT EXISTS sbm_business.user_token (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     user_id char(36) NOT NULL,
     token text NOT NULL,
@@ -473,11 +494,4 @@ CREATE TABLE IF NOT EXISTS user_token (
     created_at datetime DEFAULT (CURRENT_TIMESTAMP),
     expires_at datetime,
     revoked_at datetime
-);
-
-CREATE TABLE IF NOT EXISTS user_type (
-    id integer PRIMARY KEY AUTO_INCREMENT,
-    `type` varchar(50) NOT NULL,
-    description text NOT NULL,
-    created_at datetime DEFAULT (CURRENT_TIMESTAMP)
 );

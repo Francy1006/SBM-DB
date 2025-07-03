@@ -64,14 +64,14 @@
 #### 2. Entidades de Negocio Principal
 - `catalog`, `product`, `material`, `service`
 - `provider`, `package`, `item_configuration`
-- `user`, `role`, `permission`, `restriction`
+- `user`, `role`, `permission`, `restriction`, `instruction`
 
 #### 3. Tablas de Relación
 - `role_permissions`, `restriction_roles`
 - `item_configuration_detail`
 
 #### 4. Tablas del Sistema
-- `user_token`, `instruction`
+- `user_token`, 
 
 ---
 
@@ -599,11 +599,67 @@ services:
       - mysql
 ```
 
-### Estrategia de Migraciones
-- **Control de Versiones**: Migraciones gestionadas por Flyway con versionado
-- **Soporte de Baseline**: `flyway.baselineOnMigrate=true`
-- **Capacidad de Rollback**: Procedimientos manuales de rollback requeridos
-- **Gestión de Entornos**: Configuraciones separadas por entorno
+### Estrategia de Migraciones Multi-Esquema y Dependencias Cruzadas
+
+A partir de 2025-07, la base de datos se gestiona con **migraciones separadas por esquema** usando Flyway y Docker Compose:
+
+- **Carpetas de migración independientes:**
+  - `flyway/sql/sbm_business/` para el esquema `sbm_business`.
+  - `flyway/sql/ditaly_pasta/` para el esquema `ditaly_pasta`.
+- **Cada carpeta contiene solo migraciones de su propio esquema** (tablas, triggers, constraints locales).
+- **Las constraints y relaciones cruzadas** (por ejemplo, claves foráneas de `ditaly_pasta` hacia `sbm_business`) se gestionan en archivos de migración dentro de `ditaly_pasta`.
+- **Orden de migración:**
+  1. Primero se migran los esquemas base (`sbm_business` y `ditaly_pasta`).
+  2. Luego, si existen constraints cruzadas complejas, se recomienda una **tercera carpeta** `flyway/sql/cross_schema/` y un servicio Flyway adicional en Docker Compose para aplicar solo las constraints cruzadas, asegurando que ambas tablas existan antes de crear la relación.
+- **Naming y versionado:**
+  - Todos los archivos deben seguir el patrón `V<version>__<descripcion>.sql` para que Flyway los ejecute en el orden correcto.
+  - Las vistas y constraints que dependen de otras tablas deben tener un número de versión posterior a la creación de esas tablas.
+- **Validación:**
+  - Se recomienda activar `flyway.validateMigrationNaming=true` para detectar archivos mal nombrados.
+
+#### Ejemplo de estructura de carpetas:
+```
+flyway/sql/sbm_business/
+flyway/sql/ditaly_pasta/
+flyway/sql/cross_schema/   # (opcional, solo si hay constraints cruzadas complejas)
+```
+
+#### Ejemplo de Docker Compose para migraciones multi-esquema:
+```yaml
+services:
+  mysql:
+    # ... configuración ...
+  flyway-sbm:
+    image: flyway/flyway:9
+    command: -configFiles=/flyway/sql/sbm_business/flyway.conf migrate
+    volumes:
+      - ./flyway/sql/sbm_business:/flyway/sql
+      - ./flyway/sql/sbm_business/flyway.conf:/flyway/sql/sbm_business/flyway.conf
+    depends_on:
+      - mysql
+  flyway-ditaly:
+    image: flyway/flyway:9
+    command: -configFiles=/flyway/sql/ditaly_pasta/flyway.conf migrate
+    volumes:
+      - ./flyway/sql/ditaly_pasta:/flyway/sql
+      - ./flyway/sql/ditaly_pasta/flyway.conf:/flyway/sql/ditaly_pasta/flyway.conf
+    depends_on:
+      - mysql
+  flyway-cross-schema:
+    image: flyway/flyway:9
+    command: -configFiles=/flyway/sql/cross_schema/flyway.conf migrate
+    volumes:
+      - ./flyway/sql/cross_schema:/flyway/sql
+      - ./flyway/sql/cross_schema/flyway.conf:/flyway/sql/cross_schema/flyway.conf
+    depends_on:
+      - flyway-sbm
+      - flyway-ditaly
+```
+
+#### Consideraciones:
+- Si agregas una tabla en un esquema y otra tabla en el otro depende de ella (por ejemplo, una FK), asegúrate de que la migración de la FK esté en la carpeta correcta y con un número de versión posterior.
+- Si tienes constraints cruzadas complejas, usa la carpeta y servicio `cross_schema` para evitar errores de orden.
+- Siempre revisa los logs de Flyway para advertencias de orden o nombres de archivo.
 
 ### Gestión de Configuración
 - **Variables de Entorno**: Credenciales de base de datos y configuraciones de conexión

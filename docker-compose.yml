@@ -16,18 +16,25 @@ services:
     networks:
       - shared-net
 
-
-  flyway:
+  flyway_sbm_business:
     image: flyway/flyway:9
     command: -connectRetries=60 migrate
     volumes:
-      - ./flyway/sql:/flyway/sql
-      - ./flyway/flyway.conf:/flyway/conf/flyway.conf
+      - ./flyway/sql/sbm_business:/flyway/sql
+      - ./flyway/sql/sbm_business/flyway.conf:/flyway/conf/flyway.conf
     depends_on:
       - mysql
-    environment:
-      FLYWAY_USER: ${MYSQL_USER}
-      FLYWAY_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - shared-net
+
+  flyway_ditaly_pasta:
+    image: flyway/flyway:9
+    command: -connectRetries=60 migrate
+    volumes:
+      - ./flyway/sql/ditaly_pasta:/flyway/sql
+      - ./flyway/sql/ditaly_pasta/flyway.conf:/flyway/conf/flyway.conf
+    depends_on:
+      - mysql
     networks:
       - shared-net
 

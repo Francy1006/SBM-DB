@@ -1,5 +1,5 @@
 CREATE TRIGGER before_insert_provider
-BEFORE INSERT ON provider
+BEFORE INSERT ON ditaly_pasta.provider
 FOR EACH ROW
 BEGIN
   DECLARE prefix VARCHAR(3);
@@ -16,7 +16,7 @@ BEGIN
 
     -- Contar cuántos proveedores existen ya con ese tipo
     SELECT COUNT(*) + 1 INTO count_same_type
-    FROM provider
+    FROM ditaly_pasta.provider
     WHERE type = NEW.type;
 
     -- Generar el código con formato tipo: PVP-001

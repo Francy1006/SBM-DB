@@ -1,6 +1,5 @@
-DROP VIEW IF EXISTS VW_product_simple;
-
-CREATE VIEW VW_product_simple AS
+DROP VIEW IF EXISTS ditaly_pasta.VW_product_simple;
+CREATE VIEW ditaly_pasta.VW_product_simple AS
 SELECT 
     p.sku AS sku,
     p.description AS nombre_producto,
@@ -19,7 +18,7 @@ SELECT
     pv.company_rut AS rut_empresa,
     pv.billing_address AS direccion_facturacion,
     pv.dispatch_address AS direccion_empresa
-FROM product p
-LEFT JOIN price pr ON p.price = pr.code
-LEFT JOIN provider pv ON p.provider = pv.id
+FROM ditaly_pasta.product p
+LEFT JOIN ditaly_pasta.price pr ON p.price = pr.code
+LEFT JOIN ditaly_pasta.provider pv ON p.provider = pv.id
 WHERE p.is_deleted IS NULL OR p.is_deleted = 0; 

@@ -2,7 +2,7 @@
 -- Tablas de documentación, instrucciones y control de acceso
 
 -- RESTRICTION
-CREATE TABLE IF NOT EXISTS restriction (
+CREATE TABLE IF NOT EXISTS sbm_business.restriction (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     restriction varchar(50) UNIQUE NOT NULL,
     description text NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS restriction (
 );
 
 -- RESTRICTION ROLES
-CREATE TABLE IF NOT EXISTS restriction_roles (
+CREATE TABLE IF NOT EXISTS sbm_business.restriction_roles (
     id integer PRIMARY KEY AUTO_INCREMENT,
     restriction char(36) NOT NULL,
     role char(36) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS restriction_roles (
 );
 
 -- ROLE PERMISSIONS
-CREATE TABLE IF NOT EXISTS role_permissions (
+CREATE TABLE IF NOT EXISTS sbm_business.role_permissions (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     role char(36) NOT NULL,
     permission char(36) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS role_permissions (
 );
 
 -- PERMISSION
-CREATE TABLE IF NOT EXISTS permission (
+CREATE TABLE IF NOT EXISTS sbm_business.permission (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     permission varchar(50) UNIQUE NOT NULL,
     description text NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS permission (
 );
 
 -- ROLE
-CREATE TABLE IF NOT EXISTS role (
+CREATE TABLE IF NOT EXISTS sbm_business.role (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     role varchar(50) UNIQUE NOT NULL,
     description text NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS role (
 );
 
 -- INSTRUCTION
-CREATE TABLE IF NOT EXISTS instruction (
+CREATE TABLE IF NOT EXISTS sbm_business.instruction (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     instruction varchar(50) NOT NULL,
     description text NOT NULL,
@@ -117,7 +117,7 @@ DELIMITER $$
 
 DROP TRIGGER IF EXISTS restriction_before_insert$$
 CREATE TRIGGER restriction_before_insert
-BEFORE INSERT ON restriction
+BEFORE INSERT ON sbm_business.restriction
 FOR EACH ROW
 BEGIN
     IF NEW.id IS NULL THEN
@@ -130,7 +130,7 @@ END$$
 
 DROP TRIGGER IF EXISTS role_permissions_before_insert$$
 CREATE TRIGGER role_permissions_before_insert
-BEFORE INSERT ON role_permissions
+BEFORE INSERT ON sbm_business.role_permissions
 FOR EACH ROW
 BEGIN
     IF NEW.id IS NULL THEN
@@ -140,7 +140,7 @@ END$$
 
 DROP TRIGGER IF EXISTS permission_before_insert$$
 CREATE TRIGGER permission_before_insert
-BEFORE INSERT ON permission
+BEFORE INSERT ON sbm_business.permission
 FOR EACH ROW
 BEGIN
     IF NEW.id IS NULL THEN
@@ -153,7 +153,7 @@ END$$
 
 DROP TRIGGER IF EXISTS role_before_insert$$
 CREATE TRIGGER role_before_insert
-BEFORE INSERT ON role
+BEFORE INSERT ON sbm_business.role
 FOR EACH ROW
 BEGIN
     IF NEW.id IS NULL THEN
@@ -166,7 +166,7 @@ END$$
 
 DROP TRIGGER IF EXISTS instruction_before_insert$$
 CREATE TRIGGER instruction_before_insert
-BEFORE INSERT ON instruction
+BEFORE INSERT ON sbm_business.instruction
 FOR EACH ROW
 BEGIN
     IF NEW.id IS NULL THEN

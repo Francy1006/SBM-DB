@@ -2,7 +2,7 @@
 -- Tablas de usuarios, autenticación y tipos de usuario
 
 -- USER (user_type ya existe de migración anterior)
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS sbm_business.user (
     id integer PRIMARY KEY AUTO_INCREMENT,
     code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
     `type` integer NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS user (
 );
 
 -- USER TOKEN
-CREATE TABLE IF NOT EXISTS user_token (
+CREATE TABLE IF NOT EXISTS sbm_business.user_token (
     id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
     user_id char(36) NOT NULL,
     token text NOT NULL,
@@ -40,7 +40,7 @@ DELIMITER $$
 
 DROP TRIGGER IF EXISTS user_before_insert$$
 CREATE TRIGGER user_before_insert
-BEFORE INSERT ON user
+BEFORE INSERT ON sbm_business.user
 FOR EACH ROW
 BEGIN
     IF NEW.code IS NULL THEN
@@ -53,7 +53,7 @@ END$$
 
 DROP TRIGGER IF EXISTS user_token_before_insert$$
 CREATE TRIGGER user_token_before_insert
-BEFORE INSERT ON user_token
+BEFORE INSERT ON sbm_business.user_token
 FOR EACH ROW
 BEGIN
     IF NEW.id IS NULL THEN

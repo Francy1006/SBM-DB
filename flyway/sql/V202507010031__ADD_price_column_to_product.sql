@@ -1,1 +1,0 @@
-ALTER TABLE product ADD COLUMN price char(36) NOT NULL COMMENT 'UUID de la tabla price'; 

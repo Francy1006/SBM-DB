@@ -1,6 +1,6 @@
 -- PERMISSION-TYPE
 INSERT INTO
-    ditaly_pasta.permission_type (
+    sbm_business.permission_type (
         id,
         `type`,
         description,
@@ -33,7 +33,7 @@ VALUES
     );
 
 INSERT INTO
-    ditaly_pasta.permission_type (
+    sbm_business.permission_type (
         id,
         `type`,
         description,
@@ -67,7 +67,7 @@ VALUES
 
 -- PERMISSION
 INSERT INTO
-    ditaly_pasta.permission (
+    sbm_business.permission (
         id,
         permission,
         description,
@@ -104,7 +104,7 @@ VALUES
     );
 
 INSERT INTO
-    ditaly_pasta.permission (
+    sbm_business.permission (
         id,
         permission,
         description,
@@ -142,7 +142,7 @@ VALUES
 
 -- ROLE-PERMISSION
 INSERT INTO
-    ditaly_pasta.role_permissions (
+    sbm_business.role_permissions (
         id,
         `role`,
         permission,
@@ -175,7 +175,7 @@ VALUES
     );
 
 INSERT INTO
-    ditaly_pasta.role_permissions (
+    sbm_business.role_permissions (
         id,
         `role`,
         permission,
@@ -209,7 +209,7 @@ VALUES
 
 -- RESTRICTION
 INSERT INTO
-    ditaly_pasta.restriction (
+    sbm_business.restriction (
         id,
         restriction,
         description,
@@ -223,32 +223,99 @@ INSERT INTO
         confirmed_by,
         updated_by,
         deleted_by,
-        LOG,
-        version
+        LOG
     )
 VALUES
     (
-        '57775b30-4ad4-11f0-8378-0242ac180002',
-        'RESTRICTION-01',
-        'RESTRICTION GENERAL',
+        'f8b5e975-4ad5-11f0-8378-0242ac180002',
+        'PUBLIC',
+        'PUBLIC ACCESS',
         NULL,
         1,
-        '2025-06-16 17:14:02',
+        '2025-06-16 17:16:54',
         NULL,
-        '2025-06-16 17:14:02',
+        '2025-06-16 17:16:54',
         NULL,
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         NULL,
-        'init;',
-        1
+        "init;"
+    );
+
+INSERT INTO
+    sbm_business.restriction (
+        id,
+        restriction,
+        description,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by,
+        LOG
+    )
+VALUES
+    (
+        'f9b5e975-4ad5-11f0-8378-0242ac180002',
+        'PRIVATE',
+        'PRIVATE ACCESS',
+        NULL,
+        1,
+        '2025-06-16 17:16:54',
+        NULL,
+        '2025-06-16 17:16:54',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL,
+        "init;"
+    );
+
+INSERT INTO
+    sbm_business.restriction (
+        id,
+        restriction,
+        description,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by,
+        LOG
+    )
+VALUES
+    (
+        'fab5e975-4ad5-11f0-8378-0242ac180002',
+        'ADMIN',
+        'ADMIN ACCESS',
+        NULL,
+        1,
+        '2025-06-16 17:16:54',
+        NULL,
+        '2025-06-16 17:16:54',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL,
+        "init;"
     );
 
 -- RESTRICTION-ROLES
 INSERT INTO
-    ditaly_pasta.restriction_roles (
-        id,
+    sbm_business.restriction_roles (
         restriction,
         `role`,
         is_deleted,
@@ -264,8 +331,69 @@ INSERT INTO
     )
 VALUES
     (
+        'f8b5e975-4ad5-11f0-8378-0242ac180002',
+        'e134d17c-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
         1,
-        '57775b30-4ad4-11f0-8378-0242ac180002',
+        '2025-06-16 17:58:46',
+        NULL,
+        '2025-06-16 17:58:46',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL
+    );
+
+INSERT INTO
+    sbm_business.restriction_roles (
+        restriction,
+        `role`,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by
+    )
+VALUES
+    (
+        'f9b5e975-4ad5-11f0-8378-0242ac180002',
+        'e134d17c-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        1,
+        '2025-06-16 17:58:46',
+        NULL,
+        '2025-06-16 17:58:46',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL
+    );
+
+INSERT INTO
+    sbm_business.restriction_roles (
+        restriction,
+        `role`,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by
+    )
+VALUES
+    (
+        'fab5e975-4ad5-11f0-8378-0242ac180002',
         'e134d17c-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         1,

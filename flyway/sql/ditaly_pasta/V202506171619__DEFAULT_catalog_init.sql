@@ -1,7 +1,7 @@
 -- PACKAGE
 
 INSERT INTO
-    ditaly_pasta.package (
+    sbm_business.package (
         description,
         package_type,
         transport_type,
@@ -128,7 +128,7 @@ VALUES
         1,
         2,
         1,
-        '57775b30-4ad4-11f0-8378-0242ac180002',
+        'f8b5e975-4ad5-11f0-8378-0242ac180002',
         'SALSA POMODORO 1 KG',
         'SALSA POMODORO 1 KG GRANEL',
         'SALSA POMODORO 1 KG',
