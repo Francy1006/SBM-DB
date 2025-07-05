@@ -2,7 +2,7 @@
 INSERT INTO
     sbm_business.permission_type (
         id,
-        `type`,
+        type,
         description,
         is_deleted,
         is_confirmed,
@@ -20,8 +20,8 @@ VALUES
         '1',
         'CATALOG',
         'CATALOG PRODUCT',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 17:14:02',
         NULL,
         '2025-06-16 18:03:43',
@@ -31,11 +31,10 @@ VALUES
         NULL,
         NULL
     );
-
 INSERT INTO
     sbm_business.permission_type (
         id,
-        `type`,
+        type,
         description,
         is_deleted,
         is_confirmed,
@@ -53,8 +52,8 @@ VALUES
         '2',
         'PRICE',
         'PRICE LABEL',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 18:03:43',
         NULL,
         '2025-06-16 18:03:43',
@@ -64,14 +63,13 @@ VALUES
         NULL,
         NULL
     );
-
 -- PERMISSION
 INSERT INTO
     sbm_business.permission (
         id,
         permission,
         description,
-        `type`,
+        type,
         is_deleted,
         is_confirmed,
         created_at,
@@ -87,11 +85,11 @@ INSERT INTO
 VALUES
     (
         'b375e975-4ad5-11f0-8378-0242ac180002',
-        'VIEW_CATALOG',
-        'PRODUCT CATALOG VIEW',
+        'BASIC_PRICE',
+        'BASIC VIEW',
         1,
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 17:16:54',
         NULL,
         '2025-06-16 17:16:54',
@@ -100,15 +98,14 @@ VALUES
         NULL,
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
-        "init;"
+        'init;'
     );
-
 INSERT INTO
     sbm_business.permission (
         id,
         permission,
         description,
-        `type`,
+        type,
         is_deleted,
         is_confirmed,
         created_at,
@@ -127,8 +124,8 @@ VALUES
         'PREMIUM_PRICE',
         'PREMIUM VIEW',
         2,
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 17:16:54',
         NULL,
         '2025-06-16 17:16:54',
@@ -137,14 +134,13 @@ VALUES
         NULL,
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
-        "init;"
+        'init;'
     );
-
 -- ROLE-PERMISSION
 INSERT INTO
     sbm_business.role_permissions (
         id,
-        `role`,
+        role,
         permission,
         is_deleted,
         is_confirmed,
@@ -162,8 +158,8 @@ VALUES
         '8cb306e4-4adb-11f0-8378-0242ac180002',
         'e134d17c-4ad0-11f0-8ce6-0242ac120002',
         'b375e975-4ad5-11f0-8378-0242ac180002',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 17:58:46',
         NULL,
         '2025-06-16 17:58:46',
@@ -173,11 +169,10 @@ VALUES
         NULL,
         NULL
     );
-
 INSERT INTO
     sbm_business.role_permissions (
         id,
-        `role`,
+        role,
         permission,
         is_deleted,
         is_confirmed,
@@ -195,8 +190,8 @@ VALUES
         '8d695a81-4adc-11f0-8378-0242ac180002',
         'e134d17c-4ad0-11f0-8ce6-0242ac120002',
         '5303528f-4adc-11f0-8378-0242ac180002',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 17:58:46',
         NULL,
         '2025-06-16 17:58:46',
@@ -206,7 +201,6 @@ VALUES
         NULL,
         NULL
     );
-
 -- RESTRICTION
 INSERT INTO
     sbm_business.restriction (
@@ -230,8 +224,8 @@ VALUES
         'f8b5e975-4ad5-11f0-8378-0242ac180002',
         'PUBLIC',
         'PUBLIC ACCESS',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 17:16:54',
         NULL,
         '2025-06-16 17:16:54',
@@ -240,9 +234,8 @@ VALUES
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         NULL,
-        "init;"
+        'init;'
     );
-
 INSERT INTO
     sbm_business.restriction (
         id,
@@ -265,8 +258,8 @@ VALUES
         'f9b5e975-4ad5-11f0-8378-0242ac180002',
         'PRIVATE',
         'PRIVATE ACCESS',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 17:16:54',
         NULL,
         '2025-06-16 17:16:54',
@@ -275,9 +268,8 @@ VALUES
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         NULL,
-        "init;"
+        'init;'
     );
-
 INSERT INTO
     sbm_business.restriction (
         id,
@@ -300,8 +292,8 @@ VALUES
         'fab5e975-4ad5-11f0-8378-0242ac180002',
         'ADMIN',
         'ADMIN ACCESS',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 17:16:54',
         NULL,
         '2025-06-16 17:16:54',
@@ -310,14 +302,13 @@ VALUES
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         NULL,
-        "init;"
+        'init;'
     );
-
 -- RESTRICTION-ROLES
 INSERT INTO
     sbm_business.restriction_roles (
         restriction,
-        `role`,
+        role,
         is_deleted,
         is_confirmed,
         created_at,
@@ -333,8 +324,8 @@ VALUES
     (
         'f8b5e975-4ad5-11f0-8378-0242ac180002',
         'e134d17c-4ad0-11f0-8ce6-0242ac120002',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 17:58:46',
         NULL,
         '2025-06-16 17:58:46',
@@ -344,11 +335,10 @@ VALUES
         NULL,
         NULL
     );
-
 INSERT INTO
     sbm_business.restriction_roles (
         restriction,
-        `role`,
+        role,
         is_deleted,
         is_confirmed,
         created_at,
@@ -364,8 +354,8 @@ VALUES
     (
         'f9b5e975-4ad5-11f0-8378-0242ac180002',
         'e134d17c-4ad0-11f0-8ce6-0242ac120002',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 17:58:46',
         NULL,
         '2025-06-16 17:58:46',
@@ -375,11 +365,10 @@ VALUES
         NULL,
         NULL
     );
-
 INSERT INTO
     sbm_business.restriction_roles (
         restriction,
-        `role`,
+        role,
         is_deleted,
         is_confirmed,
         created_at,
@@ -395,8 +384,8 @@ VALUES
     (
         'fab5e975-4ad5-11f0-8378-0242ac180002',
         'e134d17c-4ad0-11f0-8ce6-0242ac120002',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 17:58:46',
         NULL,
         '2025-06-16 17:58:46',

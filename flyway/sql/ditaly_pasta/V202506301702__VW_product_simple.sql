@@ -1,6 +1,5 @@
 -- Vista de Productos con información del Proveedor
 -- Vista simple que incluye todos los campos de product más información básica del proveedor
-
 CREATE OR REPLACE VIEW ditaly_pasta.vw_product_simple AS
 SELECT 
     p.description AS nombre_producto,
@@ -10,4 +9,4 @@ SELECT
     p.gross_price AS provider_phone
 FROM ditaly_pasta.product p
 LEFT JOIN ditaly_pasta.provider pr ON p.provider = pr.id
-WHERE p.is_deleted IS NULL OR p.is_deleted = 0;
+WHERE p.is_deleted IS NULL OR p.is_deleted = false;

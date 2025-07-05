@@ -1,0 +1,43 @@
+# Cursor IDE ignore file
+# This file tells Cursor which files and directories to ignore
+
+# Environment files
+.env.local
+.env.development
+.env.production
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+mysql_sbm_vol/
+
+# Logs
+*.log
+logs/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if you have any)
+node_modules/
+
+# Docker volumes
+postgres_sbm_vol/
+
+# Temporary files
+*.tmp
+*.temp 

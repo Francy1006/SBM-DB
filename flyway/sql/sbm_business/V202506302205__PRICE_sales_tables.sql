@@ -3,15 +3,15 @@
 
 -- FISCAL FORMULA
 CREATE TABLE IF NOT EXISTS sbm_business.fiscal_formula (
-    id char(36) PRIMARY KEY COMMENT 'UUID() REQUIRES TRIGGER',
+    id char(36) PRIMARY KEY,
     formula varchar(50) NOT NULL,
     formula_template text NOT NULL,
     is_deleted boolean,
     is_confirmed boolean,
-    created_at datetime DEFAULT (CURRENT_TIMESTAMP),
-    updated_at datetime,
-    confirmed_at datetime,
-    deleted_at datetime,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+    confirmed_at TIMESTAMP,
+    deleted_at TIMESTAMP,
     created_by char(36) NOT NULL,
     confirmed_by char(36),
     updated_by char(36),
@@ -20,46 +20,54 @@ CREATE TABLE IF NOT EXISTS sbm_business.fiscal_formula (
 
 -- FISCAL DIRECTIVE
 CREATE TABLE IF NOT EXISTS sbm_business.fiscal_directive (
-    id integer PRIMARY KEY AUTO_INCREMENT,
-    code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
+    id SERIAL PRIMARY KEY,
+    code char(36) UNIQUE NOT NULL,
     obs text,
     fiscal_directive varchar(50) UNIQUE NOT NULL,
-    `type` integer NOT NULL,
+    type integer NOT NULL,
     percentage decimal(10, 2) NOT NULL DEFAULT 0,
     official_source_url varchar(255) NOT NULL,
     is_deleted boolean,
     is_confirmed boolean,
-    created_at datetime DEFAULT (CURRENT_TIMESTAMP),
-    updated_at datetime,
-    confirmed_at datetime,
-    deleted_at datetime,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+    confirmed_at TIMESTAMP,
+    deleted_at TIMESTAMP,
     created_by char(36) NOT NULL,
     confirmed_by char(36),
     updated_by char(36),
     deleted_by char(36)
 );
 
--- TRIGGERS PARA UUID
-DELIMITER $$
-
-DROP TRIGGER IF EXISTS fiscal_formula_before_insert$$
-CREATE TRIGGER fiscal_formula_before_insert
-BEFORE INSERT ON sbm_business.fiscal_formula
-FOR EACH ROW
+-- TRIGGERS PARA UUID (PostgreSQL)
+-- Trigger para la tabla fiscal_formula
+CREATE OR REPLACE FUNCTION fiscal_formula_before_insert()
+RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.id IS NULL THEN
-        SET NEW.id = UUID();
+        NEW.id := gen_random_uuid()::text;
     END IF;
-END$$
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS fiscal_directive_before_insert$$
-CREATE TRIGGER fiscal_directive_before_insert
-BEFORE INSERT ON sbm_business.fiscal_directive
-FOR EACH ROW
+CREATE TRIGGER trigger_fiscal_formula_before_insert
+    BEFORE INSERT ON sbm_business.fiscal_formula
+    FOR EACH ROW
+    EXECUTE FUNCTION fiscal_formula_before_insert();
+
+-- Trigger para la tabla fiscal_directive
+CREATE OR REPLACE FUNCTION fiscal_directive_before_insert()
+RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.code IS NULL THEN
-        SET NEW.code = UUID();
+        NEW.code := gen_random_uuid()::text;
     END IF;
-END$$
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-DELIMITER ; 
+CREATE TRIGGER trigger_fiscal_directive_before_insert
+    BEFORE INSERT ON sbm_business.fiscal_directive
+    FOR EACH ROW
+    EXECUTE FUNCTION fiscal_directive_before_insert(); 

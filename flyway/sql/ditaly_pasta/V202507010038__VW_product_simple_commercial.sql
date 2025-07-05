@@ -21,4 +21,4 @@ SELECT
 FROM ditaly_pasta.product p
 LEFT JOIN ditaly_pasta.price pr ON p.price = pr.code
 LEFT JOIN ditaly_pasta.provider pv ON p.provider = pv.id
-WHERE p.is_deleted IS NULL OR p.is_deleted = 0; 
+WHERE p.is_deleted IS NULL OR p.is_deleted = false; 

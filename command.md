@@ -22,3 +22,25 @@ docker-compose up -d flyway_ditaly_pasta
 
 # (Opcional) Si tienes un servicio cross-schema:
 # docker-compose up -d flyway_cross_schema
+
+# Comandos útiles para PostgreSQL + Flyway
+
+## Levantar la base de datos y aplicar migraciones
+
+```sh
+docker compose up -d postgres
+docker compose run --rm flyway_sbm_business
+docker compose run --rm flyway_ditaly_pasta
+```
+
+## Ver logs de PostgreSQL
+
+```sh
+docker compose logs -f postgres
+```
+
+## Acceder a la base de datos PostgreSQL
+
+```sh
+docker compose exec postgres psql -U sbm_user -d sbm_db
+```

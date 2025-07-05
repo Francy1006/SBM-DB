@@ -2,7 +2,7 @@
 INSERT INTO
     sbm_business.instruction_type (
         id,
-        `type`,
+        type,
         description,
         is_deleted,
         is_confirmed,
@@ -20,8 +20,8 @@ VALUES
         1,
         'PRODUCT',
         'PRODUCT INSTRUCTION',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 18:21:57',
         NULL,
         '2025-06-16 18:21:57',
@@ -31,11 +31,10 @@ VALUES
         NULL,
         NULL
     );
-
 INSERT INTO
     sbm_business.instruction_type (
         id,
-        `type`,
+        type,
         description,
         is_deleted,
         is_confirmed,
@@ -53,8 +52,8 @@ VALUES
         2,
         'SERVICE',
         'SERVICE INSTRUCTION',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 18:21:57',
         NULL,
         '2025-06-16 18:21:57',
@@ -64,7 +63,6 @@ VALUES
         NULL,
         NULL
     );
-
 -- INSTRUCTION
 INSERT INTO
     sbm_business.instruction (
@@ -72,7 +70,7 @@ INSERT INTO
         instruction,
         description,
         url_documentation,
-        `type`,
+        type,
         is_deleted,
         is_confirmed,
         created_at,
@@ -97,8 +95,8 @@ VALUES
 ',
         'www.google.cl',
         1,
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 18:37:40',
         NULL,
         '2025-06-16 18:37:40',
@@ -108,6 +106,3 @@ VALUES
         NULL,
         NULL
     );
-
-
-    

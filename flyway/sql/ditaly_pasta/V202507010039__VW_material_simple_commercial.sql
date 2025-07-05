@@ -1,5 +1,4 @@
 DROP VIEW IF EXISTS ditaly_pasta.VW_material_simple;
-
 CREATE VIEW ditaly_pasta.VW_material_simple AS
 SELECT 
     m.sku AS sku,
@@ -22,4 +21,4 @@ SELECT
 FROM ditaly_pasta.material m
 LEFT JOIN ditaly_pasta.price pr ON m.price = pr.code
 LEFT JOIN ditaly_pasta.provider pv ON m.provider = pv.id
-WHERE m.is_deleted IS NULL OR m.is_deleted = 0; 
+WHERE m.is_deleted IS NULL OR m.is_deleted = false; 

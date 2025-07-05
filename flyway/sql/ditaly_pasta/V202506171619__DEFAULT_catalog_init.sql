@@ -1,5 +1,4 @@
 -- PACKAGE
-
 INSERT INTO
     sbm_business.package (
         description,
@@ -34,7 +33,7 @@ VALUES
         'fb903bca-4ae0-11f0-8273-0242ac1a0002',
         'fb903bca-4ae0-11f0-8273-0242ac1a0002',
         NULL,
-        1,
+        true,
         '2025-06-17 20:51:36',
         NULL,
         '2025-06-17 20:51:36',
@@ -44,7 +43,6 @@ VALUES
         NULL,
         NULL
     );
-
 -- ITEM-CONFIGURATION
 INSERT INTO
     ditaly_pasta.item_configuration (
@@ -72,7 +70,7 @@ VALUES
         'FETUCCINI AL HUEVO 1.5 KG',
         1,
         NULL,
-        1,
+        true,
         '2025-06-17 20:05:49',
         NULL,
         '2025-06-17 20:05:49',
@@ -84,15 +82,14 @@ VALUES
         'init;',
         1
     );
-
 -- CATALOG
 INSERT INTO
     ditaly_pasta.catalog (
         sku,
         menu,
-        `group`,
+        item_group,
         category,
-        `type`,
+        type,
         restriction,
         name,
         description,
@@ -132,7 +129,7 @@ VALUES
         'SALSA POMODORO 1 KG',
         'SALSA POMODORO 1 KG GRANEL',
         'SALSA POMODORO 1 KG',
-        0,
+        false,
         'fb903bca-4ae0-11f0-8273-0242ac1a0002',
         11952,
         1,
@@ -142,9 +139,9 @@ VALUES
         NULL,
         'WWW.GOOGLE.CL',
         '765aca2b-4bb6-11f0-aafd-0242ac1b0002',
-        1,
+        true,
         NULL,
-        1,
+        true,
         '2025-06-17 20:17:15',
         NULL,
         '2025-06-17 20:17:15',
@@ -156,4 +153,3 @@ VALUES
         'init;',
         1
     );
-

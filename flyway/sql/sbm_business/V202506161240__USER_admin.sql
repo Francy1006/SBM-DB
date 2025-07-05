@@ -1,8 +1,8 @@
 -- INSERT para la tabla user (sin el campo id)
 INSERT INTO
-    sbm_business.`user` (
+    sbm_business.user (
         code,
-        `type`,
+        type,
         google_id,
         mail,
         name,
@@ -25,22 +25,21 @@ VALUES
         'fra.sotomen@gmail.com',
         'FRANCISCO',
         'MENDOZA',
-        1,
-        NULL,
-        1,
+        true,
+        false,
+        true,
         '2025-06-16 16:38:46',
         NULL,
         '2025-06-16 16:38:46',
         NULL,
         NULL,
-        "init;"
+        'init;'
     );
-
 -- INSERT para la tabla role (asumo que id es UUID tipo CHAR(36), por eso lo dejamos)
 INSERT INTO
-    sbm_business.`role` (
+    sbm_business.role (
         id,
-        `role`,
+        role,
         description,
         is_deleted,
         is_confirmed,
@@ -59,8 +58,8 @@ VALUES
         'e134d17c-4ad0-11f0-8ce6-0242ac120002',
         'ADMIN ROLE',
         'ADMIN ROLE',
-        NULL,
-        1,
+        false,
+        true,
         '2025-06-16 16:42:24',
         NULL,
         NULL,
@@ -69,5 +68,5 @@ VALUES
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         NULL,
-        "init;"
+        'init;'
     );

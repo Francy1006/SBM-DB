@@ -1,20 +1,19 @@
 -- PRODUCT TABLES
 -- Tablas principales de productos, catálogos y proveedores
-
 -- CATALOG
 CREATE TABLE IF NOT EXISTS ditaly_pasta.catalog (
-    id int PRIMARY KEY AUTO_INCREMENT,
-    code char(36) UNIQUE NULL COMMENT 'UUID() REQUIRES TRIGGER',
+    id SERIAL PRIMARY KEY,
+    code char(36) UNIQUE NULL,
     sku varchar(50) NOT NULL,
     menu integer NOT NULL,
-    `group` integer NOT NULL,
+    item_group integer NOT NULL,
     category integer NOT NULL,
-    `type` integer NOT NULL,
+    type integer NOT NULL,
     restriction char(36) NOT NULL,
     name varchar(50) NOT NULL,
     description text NOT NULL,
     obs varchar(255),
-    chef_recommendation boolean NOT NULL DEFAULT 0,
+    chef_recommendation boolean NOT NULL DEFAULT false,
     usage_instructions char(36) NOT NULL,
     price char(36) NOT NULL,
     min_quantity_purchase integer NOT NULL DEFAULT 1,
@@ -24,13 +23,13 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.catalog (
     complementary_image varchar(2083),
     image_gallery varchar(2083),
     configuration char(36) NOT NULL,
-    is_visible boolean NOT NULL DEFAULT 1,
+    is_visible boolean NOT NULL DEFAULT true,
     is_deleted boolean,
     is_confirmed boolean,
-    created_at datetime DEFAULT (CURRENT_TIMESTAMP),
-    updated_at datetime,
-    confirmed_at datetime,
-    deleted_at datetime,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+    confirmed_at TIMESTAMP,
+    deleted_at TIMESTAMP,
     created_by char(36) NOT NULL,
     confirmed_by char(36),
     updated_by char(36),
@@ -38,20 +37,19 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.catalog (
     log text NOT NULL,
     version integer NOT NULL DEFAULT 1
 );
-
 -- ITEM CONFIGURATION
 CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration (
-    id int PRIMARY KEY AUTO_INCREMENT,
-    code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
+    id SERIAL PRIMARY KEY,
+    code char(36) UNIQUE NOT NULL,
     configuration varchar(50) NOT NULL,
     description text NOT NULL,
     package integer NOT NULL,
     is_deleted boolean,
     is_confirmed boolean,
-    created_at datetime DEFAULT (CURRENT_TIMESTAMP),
-    updated_at datetime,
-    confirmed_at datetime,
-    deleted_at datetime,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+    confirmed_at TIMESTAMP,
+    deleted_at TIMESTAMP,
     created_by char(36) NOT NULL,
     confirmed_by char(36),
     updated_by char(36),
@@ -59,10 +57,9 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration (
     log text NOT NULL,
     version integer NOT NULL DEFAULT 1
 );
-
 -- PACKAGE
 CREATE TABLE IF NOT EXISTS sbm_business.package (
-    id integer PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     description text NOT NULL,
     package_type integer NOT NULL,
     transport_type integer NOT NULL,
@@ -74,16 +71,15 @@ CREATE TABLE IF NOT EXISTS sbm_business.package (
     transport_instructions char(36) NOT NULL,
     is_deleted boolean,
     is_confirmed boolean,
-    created_at datetime DEFAULT (CURRENT_TIMESTAMP),
-    updated_at datetime,
-    confirmed_at datetime,
-    deleted_at datetime,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+    confirmed_at TIMESTAMP,
+    deleted_at TIMESTAMP,
     created_by char(36) NOT NULL,
     confirmed_by char(36),
     updated_by char(36),
     deleted_by char(36)
 );
-
 -- ITEM CONFIGURATION DETAIL
 CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration_detail (
     code char(36) NOT NULL,
@@ -93,22 +89,21 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration_detail (
     id_item char(36) NOT NULL,
     is_deleted boolean,
     is_confirmed boolean,
-    created_at datetime DEFAULT (CURRENT_TIMESTAMP),
-    updated_at datetime,
-    confirmed_at datetime,
-    deleted_at datetime,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+    confirmed_at TIMESTAMP,
+    deleted_at TIMESTAMP,
     created_by char(36) NOT NULL,
     confirmed_by char(36),
     updated_by char(36),
     deleted_by char(36),
     PRIMARY KEY (code, type, id_item)
 );
-
 -- PRODUCT
 -- MATERIAL
 CREATE TABLE IF NOT EXISTS ditaly_pasta.material (
-    id integer PRIMARY KEY AUTO_INCREMENT,
-    code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
+    id SERIAL PRIMARY KEY,
+    code char(36) UNIQUE NOT NULL,
     sku varchar(50) NOT NULL,
     description text NOT NULL,
     obs text NOT NULL,
@@ -116,18 +111,18 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.material (
     min_package_purchase integer NOT NULL,
     price char(36) NOT NULL,
     provider integer NOT NULL,
-    `type` integer NOT NULL,
-    `group` integer NOT NULL,
+    type integer NOT NULL,
+    item_group integer NOT NULL,
     category integer NOT NULL,
     url varchar(255),
     package integer NOT NULL,
-    is_active boolean NOT NULL DEFAULT 1,
+    is_active boolean NOT NULL DEFAULT true,
     is_deleted boolean,
     is_confirmed boolean,
-    created_at datetime DEFAULT (CURRENT_TIMESTAMP),
-    updated_at datetime,
-    confirmed_at datetime,
-    deleted_at datetime,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+    confirmed_at TIMESTAMP,
+    deleted_at TIMESTAMP,
     created_by char(36) NOT NULL,
     confirmed_by char(36),
     updated_by char(36),
@@ -135,11 +130,10 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.material (
     log text NOT NULL,
     version integer NOT NULL DEFAULT 1
 );
-
 -- SERVICE
 CREATE TABLE IF NOT EXISTS ditaly_pasta.service (
-    id integer PRIMARY KEY AUTO_INCREMENT,
-    code char(36) UNIQUE NOT NULL COMMENT 'UUID() REQUIRES TRIGGER',
+    id SERIAL PRIMARY KEY,
+    code char(36) UNIQUE NOT NULL,
     sku varchar(50) NOT NULL,
     description text NOT NULL,
     obs text NOT NULL,
@@ -147,17 +141,17 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.service (
     min_package_purchase integer NOT NULL,
     price char(36) NOT NULL,
     provider integer NOT NULL,
-    `type` integer NOT NULL,
-    `group` integer NOT NULL,
+    type integer NOT NULL,
+    item_group integer NOT NULL,
     category integer NOT NULL,
     url varchar(255),
-    is_active boolean NOT NULL DEFAULT 1,
+    is_active boolean NOT NULL DEFAULT true,
     is_deleted boolean,
     is_confirmed boolean,
-    created_at datetime DEFAULT (CURRENT_TIMESTAMP),
-    updated_at datetime,
-    confirmed_at datetime,
-    deleted_at datetime,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+    confirmed_at TIMESTAMP,
+    deleted_at TIMESTAMP,
     created_by char(36) NOT NULL,
     confirmed_by char(36),
     updated_by char(36),
@@ -165,13 +159,12 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.service (
     log text NOT NULL,
     version integer NOT NULL DEFAULT 1
 );
-
 -- PROVIDER
 CREATE TABLE IF NOT EXISTS ditaly_pasta.provider (
-    id integer PRIMARY KEY AUTO_INCREMENT,
-    code char(36) UNIQUE NOT NULL COMMENT 'CUSTOM TRIGGER',
+    id SERIAL PRIMARY KEY,
+    code char(36) UNIQUE NOT NULL,
     provider varchar(50) UNIQUE NOT NULL,
-    `type` integer NOT NULL,
+    type integer NOT NULL,
     rating integer NOT NULL DEFAULT 0,
     obs_provider text NOT NULL,
     contact_name varchar(100),
@@ -196,13 +189,13 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.provider (
     obs_dispatch text,
     dispatch_district integer,
     dispatch_region integer,
-    is_active boolean NOT NULL DEFAULT 1,
+    is_active boolean NOT NULL DEFAULT true,
     is_deleted boolean,
     is_confirmed boolean,
-    created_at datetime DEFAULT (CURRENT_TIMESTAMP),
-    updated_at datetime,
-    confirmed_at datetime,
-    deleted_at datetime,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+    confirmed_at TIMESTAMP,
+    deleted_at TIMESTAMP,
     created_by char(36) NOT NULL,
     confirmed_by char(36),
     updated_by char(36),
@@ -210,111 +203,125 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.provider (
     log text NOT NULL,
     version integer NOT NULL DEFAULT 1
 );
-
 -- BANK
 CREATE TABLE IF NOT EXISTS sbm_business.bank (
-    id integer PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     bank varchar(255) NOT NULL,
     description text NOT NULL,
-    created_at datetime NOT NULL DEFAULT (CURRENT_TIMESTAMP)
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
 -- TRIGGERS PARA UUID
-DELIMITER $$
+-- Catalog trigger
+CREATE OR REPLACE FUNCTION ditaly_pasta.catalog_before_insert()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.code IS NULL THEN
+        NEW.code := gen_random_uuid();
+    END IF;
+    IF NEW.log IS NULL THEN
+        NEW.log := 'init;';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS catalog_before_insert$$
+DROP TRIGGER IF EXISTS catalog_before_insert ON ditaly_pasta.catalog;
 CREATE TRIGGER catalog_before_insert
-BEFORE INSERT ON ditaly_pasta.catalog
-FOR EACH ROW
+    BEFORE INSERT ON ditaly_pasta.catalog
+    FOR EACH ROW
+    EXECUTE FUNCTION ditaly_pasta.catalog_before_insert();
+
+-- Item configuration trigger
+CREATE OR REPLACE FUNCTION ditaly_pasta.item_configuration_before_insert()
+RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.code IS NULL THEN
-        SET NEW.code = UUID();
+        NEW.code := gen_random_uuid();
     END IF;
     IF NEW.log IS NULL THEN
-        SET NEW.log = "init;";
+        NEW.log := 'init;';
     END IF;
-END$$
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS item_configuration_before_insert$$
+DROP TRIGGER IF EXISTS item_configuration_before_insert ON ditaly_pasta.item_configuration;
 CREATE TRIGGER item_configuration_before_insert
-BEFORE INSERT ON ditaly_pasta.item_configuration
-FOR EACH ROW
+    BEFORE INSERT ON ditaly_pasta.item_configuration
+    FOR EACH ROW
+    EXECUTE FUNCTION ditaly_pasta.item_configuration_before_insert();
+
+-- Material trigger
+CREATE OR REPLACE FUNCTION ditaly_pasta.material_before_insert()
+RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.code IS NULL THEN
-        SET NEW.code = UUID();
+        NEW.code := gen_random_uuid();
     END IF;
     IF NEW.log IS NULL THEN
-        SET NEW.log = "init;";
+        NEW.log := 'init;';
     END IF;
-END$$
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS product_before_insert$$
-CREATE TRIGGER product_before_insert
-BEFORE INSERT ON product
-FOR EACH ROW
-BEGIN
-    IF NEW.code IS NULL THEN
-        SET NEW.code = UUID();
-    END IF;
-    IF NEW.log IS NULL THEN
-        SET NEW.log = "init;";
-    END IF;
-END$$
-
-DROP TRIGGER IF EXISTS material_before_insert$$
+DROP TRIGGER IF EXISTS material_before_insert ON ditaly_pasta.material;
 CREATE TRIGGER material_before_insert
-BEFORE INSERT ON ditaly_pasta.material
-FOR EACH ROW
+    BEFORE INSERT ON ditaly_pasta.material
+    FOR EACH ROW
+    EXECUTE FUNCTION ditaly_pasta.material_before_insert();
+
+-- Service trigger
+CREATE OR REPLACE FUNCTION ditaly_pasta.service_before_insert()
+RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.code IS NULL THEN
-        SET NEW.code = UUID();
+        NEW.code := gen_random_uuid();
     END IF;
     IF NEW.log IS NULL THEN
-        SET NEW.log = "init;";
+        NEW.log := 'init;';
     END IF;
-END$$
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS service_before_insert$$
+DROP TRIGGER IF EXISTS service_before_insert ON ditaly_pasta.service;
 CREATE TRIGGER service_before_insert
-BEFORE INSERT ON ditaly_pasta.service
-FOR EACH ROW
+    BEFORE INSERT ON ditaly_pasta.service
+    FOR EACH ROW
+    EXECUTE FUNCTION ditaly_pasta.service_before_insert();
+
+-- Provider trigger
+CREATE OR REPLACE FUNCTION ditaly_pasta.provider_before_insert()
+RETURNS TRIGGER AS $$
+DECLARE
+    prefix VARCHAR(3);
+    count_same_type INTEGER;
 BEGIN
-    IF NEW.code IS NULL THEN
-        SET NEW.code = UUID();
+    IF NEW.code IS NULL OR NEW.code = '' THEN
+        -- Definir prefijo basado en tipo
+        prefix := CASE NEW.type
+            WHEN 1 THEN 'PVP'  -- Proveedor de Productos
+            WHEN 2 THEN 'PVM'  -- Proveedor de Materiales  
+            WHEN 3 THEN 'PVS'  -- Proveedor de Servicios
+            ELSE 'PVX'         -- Proveedor Desconocido
+        END;
+        -- Contar proveedores existentes del mismo tipo
+        SELECT COUNT(*) + 1 INTO count_same_type
+        FROM ditaly_pasta.provider
+        WHERE type = NEW.type;
+        -- Generar código con formato: PVP-001
+        NEW.code := prefix || '-' || LPAD(count_same_type::text, 3, '0');
     END IF;
     IF NEW.log IS NULL THEN
-        SET NEW.log = "init;";
+        NEW.log := 'init;';
     END IF;
-END$$
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS before_insert_provider$$
-CREATE TRIGGER before_insert_provider
-BEFORE INSERT ON ditaly_pasta.provider
-FOR EACH ROW
-BEGIN
-  DECLARE prefix VARCHAR(3);
-  DECLARE count_same_type INT;
-
-  IF NEW.code IS NULL OR NEW.code = '' THEN
-    -- Definir prefijo basado en tipo
-    SET prefix = CASE NEW.type
-      WHEN 1 THEN 'PVP'  -- Proveedor de Productos
-      WHEN 2 THEN 'PVM'  -- Proveedor de Materiales  
-      WHEN 3 THEN 'PVS'  -- Proveedor de Servicios
-      ELSE 'PVX'         -- Proveedor Desconocido
-    END;
-
-    -- Contar proveedores existentes del mismo tipo
-    SELECT COUNT(*) + 1 INTO count_same_type
-    FROM ditaly_pasta.provider
-    WHERE type = NEW.type;
-
-    -- Generar código con formato: PVP-001
-    SET NEW.code = CONCAT(prefix, '-', LPAD(count_same_type, 3, '0'));
-  END IF;
-  IF NEW.log IS NULL THEN
-    SET NEW.log = "init;";
-  END IF;
-END$$
-
-DELIMITER ; 
+DROP TRIGGER IF EXISTS provider_before_insert ON ditaly_pasta.provider;
+CREATE TRIGGER provider_before_insert
+    BEFORE INSERT ON ditaly_pasta.provider
+    FOR EACH ROW
+    EXECUTE FUNCTION ditaly_pasta.provider_before_insert(); 
