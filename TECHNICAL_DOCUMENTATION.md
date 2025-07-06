@@ -5,19 +5,24 @@
 - **Migraciones**: Flyway 10.22.0
 - **Orquestación**: Docker Compose
 - **Repositorio**: https://github.com/Francy1006/SBM-DB
+- **Configuración**: Variables de entorno con valores por defecto
 
 ## Estructura del Proyecto
 
 ```
 SBM-DB/
-├── docker-compose.yml          # Configuración de contenedores
-├── .env                        # Variables de entorno
+├── docker-compose.yml          # Configuración de contenedores con variables
+├── .env                        # Variables de entorno (opcional)
 ├── .cursorignore               # Archivos ignorados por Cursor IDE
 ├── flyway/
-│   ├── flyway.conf            # Configuración principal de Flyway
+│   ├── flyway.conf            # Configuración principal con variables
 │   └── sql/
 │       ├── sbm_business/      # Migraciones del schema sbm_business
+│       │   ├── flyway.conf   # Configuración específica del schema
+│       │   └── V*.sql        # Archivos de migración
 │       └── ditaly_pasta/      # Migraciones del schema ditaly_pasta
+│           ├── flyway.conf   # Configuración específica del schema
+│           └── V*.sql        # Archivos de migración
 ├── dbdiagram/
 │   └── SBM-business.dbml      # Diagrama de base de datos
 └── mysql/                     # Configuración legacy de MySQL
@@ -27,22 +32,79 @@ SBM-DB/
 
 ### Variables de Entorno (.env)
 ```env
+# PostgreSQL Database Configuration
 POSTGRES_DB=sbm_db
 POSTGRES_USER=sbm_user
 POSTGRES_PASSWORD=sbm_password
 POSTGRES_HOST=postgres
 POSTGRES_PORT=5432
+
+# Flyway Configuration
+FLYWAY_SCHEMAS=sbm_business,ditaly_pasta
+FLYWAY_USER=sbm_user
+FLYWAY_PASSWORD=sbm_password
+
+# Docker Configuration
+DOCKER_COMPOSE_PROJECT_NAME=sbm-db
 ```
 
-### Configuración de Flyway
+### Variables con Valores por Defecto
+El sistema está configurado para usar valores por defecto si las variables no están definidas:
+- `POSTGRES_HOST` → `postgres`
+- `POSTGRES_PORT` → `5432`
+- `POSTGRES_DB` → `sbm_db`
+- `POSTGRES_USER` → `sbm_user`
+- `POSTGRES_PASSWORD` → `sbm_password`
+
+### Configuración de Variables de Entorno
+
+#### Opción 1: Archivo .env
+Crear un archivo `.env` en la raíz del proyecto:
+```env
+# PostgreSQL Database Configuration
+POSTGRES_DB=sbm_db
+POSTGRES_USER=sbm_user
+POSTGRES_PASSWORD=sbm_password
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+
+# Flyway Configuration
+FLYWAY_SCHEMAS=sbm_business,ditaly_pasta
+FLYWAY_USER=sbm_user
+FLYWAY_PASSWORD=sbm_password
+
+# Docker Configuration
+DOCKER_COMPOSE_PROJECT_NAME=sbm-db
+```
+
+#### Opción 2: Variables de Entorno del Sistema
+```bash
+export POSTGRES_DB=sbm_db
+export POSTGRES_USER=sbm_user
+export POSTGRES_PASSWORD=sbm_password
+export POSTGRES_HOST=postgres
+export POSTGRES_PORT=5432
+```
+
+#### Opción 3: Variables Inline
+```bash
+POSTGRES_PASSWORD=my_secure_password docker compose up -d
+```
+
+#### Opción 4: Archivo .env Personalizado
+```bash
+docker compose --env-file .env.production up -d
+```
+
+## Configuración de Flyway
 
 ### Configuración Principal (flyway/flyway.conf)
 ```properties
-flyway.url=jdbc:postgresql://postgres:5432/sbm_db
-flyway.user=sbm_user
-flyway.password=sbm_password
-flyway.locations=filesystem:sql
-flyway.schemas=sbm_business,ditaly_pasta
+flyway.url=jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+flyway.user=${POSTGRES_USER}
+flyway.password=${POSTGRES_PASSWORD}
+flyway.locations=filesystem:/flyway/sql
+flyway.schemas=${FLYWAY_SCHEMAS}
 flyway.baselineOnMigrate=true
 flyway.validateOnMigrate=true
 flyway.cleanDisabled=false
@@ -54,11 +116,12 @@ flyway.placeholderReplacement=false
 
 #### sbm_business (flyway/sql/sbm_business/flyway.conf)
 ```properties
-flyway.url=jdbc:postgresql://postgres:5432/sbm_db
-flyway.user=sbm_user
-flyway.password=sbm_password
-flyway.locations=filesystem:sql
+flyway.url=jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+flyway.user=${POSTGRES_USER}
+flyway.password=${POSTGRES_PASSWORD}
 flyway.schemas=sbm_business
+flyway.locations=filesystem:/flyway/sql
+flyway.validateMigrationNaming=true
 flyway.baselineOnMigrate=true
 flyway.validateOnMigrate=true
 flyway.cleanDisabled=false
@@ -68,11 +131,12 @@ flyway.placeholderReplacement=false
 
 #### ditaly_pasta (flyway/sql/ditaly_pasta/flyway.conf)
 ```properties
-flyway.url=jdbc:postgresql://postgres:5432/sbm_db
-flyway.user=sbm_user
-flyway.password=sbm_password
-flyway.locations=filesystem:sql
+flyway.url=jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+flyway.user=${POSTGRES_USER}
+flyway.password=${POSTGRES_PASSWORD}
 flyway.schemas=ditaly_pasta
+flyway.locations=filesystem:/flyway/sql
+flyway.validateMigrationNaming=true
 flyway.baselineOnMigrate=true
 flyway.validateOnMigrate=true
 flyway.cleanDisabled=false
@@ -81,7 +145,7 @@ flyway.placeholderReplacement=false
 ```
 
 ### Parámetros de Configuración
-- **flyway.url**: Conexión a PostgreSQL
+- **flyway.url**: Conexión a PostgreSQL con variables
 - **flyway.user**: Usuario de base de datos
 - **flyway.password**: Contraseña de base de datos
 - **flyway.locations**: Ubicación de archivos SQL
@@ -91,6 +155,7 @@ flyway.placeholderReplacement=false
 - **flyway.cleanDisabled**: Deshabilitar limpieza de base de datos
 - **flyway.encoding**: Codificación de archivos
 - **flyway.placeholderReplacement**: Deshabilitar reemplazo de placeholders
+- **flyway.validateMigrationNaming**: Validar nomenclatura de migraciones
 
 ## Esquemas de Base de Datos
 
@@ -228,6 +293,18 @@ docker compose run --rm flyway_sbm_business info
 docker compose run --rm flyway_ditaly_pasta info
 ```
 
+### Verificar Variables de Entorno:
+```bash
+# Ver variables en el contenedor de postgres
+docker compose exec postgres env | grep POSTGRES
+
+# Ver variables en el contenedor de flyway
+docker compose run --rm flyway_sbm_business env | grep POSTGRES
+
+# Ver configuración de flyway
+docker compose run --rm flyway_sbm_business -configFiles=/flyway/conf/flyway.conf info
+```
+
 ## Comandos y Operaciones de Flyway
 
 ### Comandos Básicos
@@ -360,12 +437,25 @@ docker compose run --rm flyway_sbm_business migrate -X -debug
 ## Estructura de Docker
 
 ### Servicios:
-- **postgres**: Base de datos PostgreSQL 16.9
+- **postgres**: Base de datos PostgreSQL 16.9 con variables de entorno
 - **flyway_sbm_business**: Migraciones del schema sbm_business
 - **flyway_ditaly_pasta**: Migraciones del schema ditaly_pasta
 
 ### Volúmenes:
 - **postgres_sbm_vol**: Datos persistentes de PostgreSQL
+
+### Redes:
+- **sbm-network**: Red bridge para comunicación entre servicios
+
+### Configuración de Variables en Docker Compose:
+```yaml
+environment:
+  POSTGRES_USER: ${POSTGRES_USER:-sbm_user}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sbm_password}
+  POSTGRES_DB: ${POSTGRES_DB:-sbm_db}
+  POSTGRES_HOST: ${POSTGRES_HOST:-postgres}
+  POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+```
 
 ## Notas Importantes
 
@@ -378,6 +468,8 @@ docker compose run --rm flyway_sbm_business migrate -X -debug
 4. **Compatibilidad**: Todas las migraciones han sido adaptadas para ser completamente compatibles con PostgreSQL.
 
 5. **Auditoría**: Todas las tablas incluyen campos de auditoría (created_at, updated_at, created_by, etc.).
+
+6. **Variables de Entorno**: Sistema completamente configurado con variables de entorno y valores por defecto.
 
 ## Troubleshooting y Mejores Prácticas de Flyway
 
@@ -520,5 +612,13 @@ docker compose exec -T postgres psql -U sbm_user sbm_db < backup.sql
 - ✅ **sbm_business**: Migraciones completadas (12/12)
 - ✅ **ditaly_pasta**: Migraciones completadas (12/12)
 - ✅ **PostgreSQL**: Configurado y funcionando
-- ✅ **Docker**: Contenedores configurados
+- ✅ **Docker**: Contenedores configurados con variables de entorno
 - ✅ **Flyway**: Migraciones automatizadas
+- ✅ **Variables de Entorno**: Sistema completamente configurado
+- ✅ **Documentación**: Actualizada y completa
+
+## Última Actualización
+- **Fecha**: 4 de Julio, 2025
+- **Versión**: 1.0.0
+- **Estado**: Producción Ready
+- **Compatibilidad**: PostgreSQL 16.9, Flyway 10.22.0

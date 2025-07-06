@@ -5,17 +5,17 @@ services:
     image: postgres:16
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER:-sbm_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sbm_password}
+      POSTGRES_DB: ${POSTGRES_DB:-sbm_db}
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_sbm_vol:/var/lib/postgresql/data
     networks:
       - sbm-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-sbm_user} -d ${POSTGRES_DB:-sbm_db}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -30,9 +30,11 @@ services:
       - ./flyway/sql/sbm_business:/flyway/sql
       - ./flyway/sql/sbm_business/flyway.conf:/flyway/conf/flyway.conf
     environment:
-      FLYWAY_URL: ${FLYWAY_URL}
-      FLYWAY_USER: ${FLYWAY_USER}
-      FLYWAY_PASSWORD: ${FLYWAY_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST:-postgres}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_DB: ${POSTGRES_DB:-sbm_db}
+      POSTGRES_USER: ${POSTGRES_USER:-sbm_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sbm_password}
     networks:
       - sbm-network
 
@@ -46,9 +48,11 @@ services:
       - ./flyway/sql/ditaly_pasta:/flyway/sql
       - ./flyway/sql/ditaly_pasta/flyway.conf:/flyway/conf/flyway.conf
     environment:
-      FLYWAY_URL: ${FLYWAY_URL}
-      FLYWAY_USER: ${FLYWAY_USER}
-      FLYWAY_PASSWORD: ${FLYWAY_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST:-postgres}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_DB: ${POSTGRES_DB:-sbm_db}
+      POSTGRES_USER: ${POSTGRES_USER:-sbm_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sbm_password}
     networks:
       - sbm-network
 
