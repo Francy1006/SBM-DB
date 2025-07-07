@@ -3,6 +3,7 @@ Table sbm_business.menu {
   id integer [pk, increment]
   menu varchar(50) [not null]
   description text [not null]
+  franchise_only boolean [not null, default: 0]
 }
 
 

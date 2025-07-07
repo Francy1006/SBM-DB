@@ -169,6 +169,8 @@ Esquema principal para funcionalidades core del sistema.
 - **`price_sales`** - Configuración de precios y ventas
 - **`bank`** - Información bancaria
 - **`package`** - Gestión de empaques
+- **`menu`** - Gestión de menús del sistema
+  - Campos: id, menu, description, franchise_only
 
 #### Triggers:
 - **`user_before_insert`** - Genera UUID automático para usuarios
@@ -177,6 +179,7 @@ Esquema principal para funcionalidades core del sistema.
 - **`price_sales_before_insert`** - Genera UUID automático para precios
 - **`bank_before_insert`** - Genera UUID automático para bancos
 - **`package_before_insert`** - Genera UUID automático para empaques
+- **`menu_before_insert`** - Trigger preparado para futuras expansiones
 
 ### 2. Schema: `ditaly_pasta`
 Esquema específico para el módulo de negocio Ditaly Pasta.
@@ -238,6 +241,7 @@ Esquema específico para el módulo de negocio Ditaly Pasta.
 10. **V202506302203** - Tablas de documentación de seguridad
 11. **V202506302205** - Tablas de precios y ventas
 12. **V202506302206** - Constraints de relaciones
+13. **V202507041601** - Alteración de tabla menu (agregar columna franchise_only)
 
 ### Schema: `ditaly_pasta`
 1. **V202506151817** - Inicialización del schema ditaly_pasta
@@ -271,6 +275,11 @@ Esquema específico para el módulo de negocio Ditaly Pasta.
 - **PostgreSQL**: `CREATE OR REPLACE FUNCTION`, `plpgsql`, `RETURN NEW`
 
 ## Comandos de Ejecución
+
+### Iniciar Todo Automáticamente (Recomendado):
+```bash
+docker compose up -d --build
+```
 
 ### Iniciar Base de Datos:
 ```bash
@@ -438,8 +447,8 @@ docker compose run --rm flyway_sbm_business migrate -X -debug
 
 ### Servicios:
 - **postgres**: Base de datos PostgreSQL 16.9 con variables de entorno
-- **flyway_sbm_business**: Migraciones del schema sbm_business
-- **flyway_ditaly_pasta**: Migraciones del schema ditaly_pasta
+- **flyway_sbm_business**: Migraciones del schema sbm_business (se ejecuta después de postgres)
+- **flyway_ditaly_pasta**: Migraciones del schema ditaly_pasta (se ejecuta después de sbm_business)
 
 ### Volúmenes:
 - **postgres_sbm_vol**: Datos persistentes de PostgreSQL
@@ -457,6 +466,28 @@ environment:
   POSTGRES_PORT: ${POSTGRES_PORT:-5432}
 ```
 
+### Dependencias y Healthchecks:
+```yaml
+# Secuencia de ejecución automática:
+# 1. postgres → se inicia y espera a estar healthy
+# 2. flyway_sbm_business → espera a postgres y ejecuta migraciones
+# 3. flyway_ditaly_pasta → espera a que sbm_business termine exitosamente
+
+flyway_ditaly_pasta:
+  depends_on:
+    postgres:
+      condition: service_healthy
+    flyway_sbm_business:
+      condition: service_completed_successfully
+  healthcheck:
+    test: ["CMD", "flyway", "-configFiles=/flyway/conf/flyway.conf", "info"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 60s
+  restart: on-failure
+```
+
 ## Notas Importantes
 
 1. **Separación de Esquemas**: Los esquemas `sbm_business` y `ditaly_pasta` están completamente separados para mantener la modularidad.
@@ -470,6 +501,7 @@ environment:
 5. **Auditoría**: Todas las tablas incluyen campos de auditoría (created_at, updated_at, created_by, etc.).
 
 6. **Variables de Entorno**: Sistema completamente configurado con variables de entorno y valores por defecto.
+7. **Ejecución Automática**: Docker Compose configurado para ejecutar migraciones en secuencia automáticamente.
 
 ## Troubleshooting y Mejores Prácticas de Flyway
 
@@ -609,16 +641,20 @@ docker compose exec -T postgres psql -U sbm_user sbm_db < backup.sql
 ```
 
 ## Estado Actual
-- ✅ **sbm_business**: Migraciones completadas (12/12)
+- ✅ **sbm_business**: Migraciones completadas (13/13)
 - ✅ **ditaly_pasta**: Migraciones completadas (12/12)
 - ✅ **PostgreSQL**: Configurado y funcionando
-- ✅ **Docker**: Contenedores configurados con variables de entorno
-- ✅ **Flyway**: Migraciones automatizadas
+- ✅ **Docker**: Contenedores configurados con variables de entorno y dependencias automáticas
+- ✅ **Flyway**: Migraciones automatizadas en secuencia
 - ✅ **Variables de Entorno**: Sistema completamente configurado
 - ✅ **Documentación**: Actualizada y completa
 
 ## Última Actualización
 - **Fecha**: 4 de Julio, 2025
-- **Versión**: 1.0.0
+- **Versión**: 1.1.0
 - **Estado**: Producción Ready
 - **Compatibilidad**: PostgreSQL 16.9, Flyway 10.22.0
+- **Nuevas Funcionalidades**: 
+  - Ejecución automática de migraciones en secuencia
+  - Tabla menu con columna franchise_only
+  - Dependencias automáticas en Docker Compose
