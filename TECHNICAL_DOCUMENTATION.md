@@ -1,3 +1,47 @@
+# Calavera Pirata Digital
+
+                                                       █                                                       █──▄────▄▄▄▄▄▄▄────▄───
+                                                       █─▀▀▄─▄█████████▄─▄▀▀──
+                                                       █─────██─▀███▀─██──────
+                                                       █───▄─▀████▀████▀─▄────
+                                                       █─▀█────██▀█▀██────█▀──
+        ▄████▄   ▒█████   ███▄    █  ██ ██░██████ ▄▄▄  █    
+       ▒██▀ ▀█  ▒██▒  ██▒ ██ ▀█   █  ██ █░ ▓█   ▀▒████▄█    
+       ▒▓█    ▄ ▒██░  ██▒ ██  ▀█ █▒  ████░ ▒███  ▒██   █▄   
+       ▒▓▓▄ ▄██ ▒██   ██░ ██▒  ▐▌█▒  ██ █▄ ▒▓█  ▄░████████  
+       ▒ ▓███▀ ░░ ████▓▒  ██░   ▓█░  █▒ ██▄░▒████▒▓█  █▒ 
+       ░ ░▒ ▒  ░░ ▒░▒░▒░ ░ ▒░   ▒ ▒  ▒▒ ▓▒░░ ▒░ ░▒▒   ▓▒█░ 
+         ░  ▒     ░ ▒ ▒░ ░ ░░   ░ ▒  ░▒ ▒░ ░ ░  ░ ▒   ▒▒ ░ 
+       ░        ░ ░ ░ ▒     ░   ░ ░ ░ ░░ ░    ░    ░   ▒    
+       ░ ░          ░ ░           ░ ░  ░      ░  ░     ░  ░ 
+       ░                                                           
+       ▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄
+      █ ▄▄▄ █ ▀▀ ▄▀ ▀▄▀ █ ▄▄▄ █ ▄▀ ▀▄▀ █ ▄▄▄ █ ▄▄▄ █ ▀▀ ▄▀ ▀▄
+      █ ███ █ ▀ ▀▄█ ▄ ▀ █ ███ █ ▀▄█ ▄ ▀ █ ███ █ ███ █ ▀ ▀▄█ ▄
+      █▄▄▄█ █ █▄▀ █ ▀█ █ █▄▄▄█ █▄▀ █ ▀█ █▄▄▄█ █▄▄▄█ █ █▄▀ █ ▀
+      ▄▄▄▄▄▄█ ▀▄█▄▀ ▀ █▄█▄▄▄▄▄█ ▀▄█▄▀ ▀ █▄▄▄▄▄█▄▄▄▄▄█ ▀▄█▄▀ ▀
+
+    ████████████████████████████████████████████████████████████████
+    ██  ║                                                       ║  ██
+    ██  ║                ░▒▓ SBM - DB ▓▒░                       ║  ██
+    ██  ║                                                       ║  ██
+    ██  ║    ┌─────────────────────────────────────────────┐    ║  ██
+    ██  ║    │  > SBM Official DB (POSTGRES + FLYWAY)      │    ║  ██
+    ██  ║    │  > FINANCE, OPERATIONAL, MANAGER            │    ║  ██
+    ██  ║    │  > TRIGGERS, PROCEDURES                     │    ║  ██
+    ██  ║    │  > DJANGO, FLYWAY CONFIGS                   │    ║  ██
+    ██  ║    │  > STATUS: ACTIVE                           │    ║  ██
+    ██  ║    └─────────────────────────────────────────────┘    ║  ██
+    ██  ║                                                       ║  ██
+    ██  ║         ░▒▓ SBM-ADMIN ACCESS GRANTED ▓▒░              ║  ██
+    ██  ║                                                       ║  ██
+    ██  ╚═══════════════════════════════════════════════════════╝  ██
+    ██                                                             ██
+    ████████████████████████████████████████████████████████████████
+
+
+
+
 # Documentación Técnica - SBM Database Suite
 
 ## Stack Tecnológico
@@ -658,3 +702,33 @@ docker compose exec -T postgres psql -U sbm_user sbm_db < backup.sql
   - Ejecución automática de migraciones en secuencia
   - Tabla menu con columna franchise_only
   - Dependencias automáticas en Docker Compose
+
+## Conexión automática de contenedores externos a la red sbm-network
+
+Si tienes contenedores que no están definidos en el mismo archivo docker-compose.yml pero necesitas que se comuniquen con los servicios de la red sbm-network, sigue estos pasos:
+
+### Opción recomendada: Script post-up
+
+1. Crea un script llamado `up-and-connect.sh` con el siguiente contenido:
+
+```sh
+#!/bin/bash
+docker-compose up -d
+docker network connect sbm-network sbm-core || true
+docker network connect sbm-network sbm_manager || true
+# Agrega aquí cualquier otro contenedor externo
+```
+
+2. Hazlo ejecutable:
+```sh
+chmod +x up-and-connect.sh
+```
+
+3. Ejecútalo en vez de `docker-compose up`:
+```sh
+./up-and-connect.sh
+```
+
+Esto garantiza que, tras levantar los servicios, los contenedores externos se conecten automáticamente a la red y puedan comunicarse entre sí.
+
+> **Nota:** Si puedes definir todos los servicios en un solo compose, Compose los conectará automáticamente a la red. Si no, este script es la forma más práctica y robusta.
