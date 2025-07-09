@@ -1,3 +1,20 @@
+// START SBM configuration tables
+Table sbm_business.franchise {
+  id integer [pk, increment]
+  code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
+  franchise varchar(50) [not null]
+  description text [not null]
+  state integer [not null, ref: > sbm_business.franchise_state.id]
+}
+
+Table sbm_business.franchise_state {
+  id integer [pk, increment]
+  state varchar(50) [not null]
+  description text [not null]
+}
+
+// END SBM configuration tables
+
 // START complementary tables
 Table sbm_business.menu {
   id integer [pk, increment]

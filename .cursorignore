@@ -2,10 +2,11 @@
 # This file tells Cursor which files and directories to ignore
 
 # Environment files
-.env
-.env.local
-.env.development
-.env.production
+# .env
+# .env.local
+# .env.development
+# .env.production
+
 
 # Database files
 *.db
