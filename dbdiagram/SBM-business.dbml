@@ -13,6 +13,56 @@ Table sbm_business.franchise_state {
   description text [not null]
 }
 
+Table ditaly_pasta.franchise_configuration {
+  id integer [pk, increment]
+  code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
+  configuration varchar(50) [not null]
+  franchise char(36) [not null, ref: > sbm_business.franchise.code]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+}
+
+Table sbm_business.franchise_configuration_type {
+  id integer [pk, increment]
+  configuration_type  varchar(50) [not null]
+  description text [not null]  
+}
+
+Table ditaly_pasta.franchise_configuration_detail {
+  id integer [pk, increment]
+  code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
+  detail varchar(50) [not null]
+  description text [not null]
+  type integer [not null, ref: > sbm_business.franchise_configuration_type.id]
+  configuration char(36) [not null, ref: > ditaly_pasta.franchise_configuration.code]
+  index integer [not null, default: 1]
+  var varchar(50) [not null]
+  value decimal(10,2) [not null, default: 0]
+  formula char(36) [not null, ref: > sbm_business.variable_formula.code]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+
+  Indexes {
+    (id, type) [pk]
+  }
+}
+
 // END SBM configuration tables
 
 // START complementary tables
@@ -584,7 +634,7 @@ Table sbm_business.fiscal_directive {
 Table ditaly_pasta.price_fiscal_configuration {
   id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
   fiscal_configuration varchar(50) [not null, unique]
-  fiscal_formula char(36) [not null, ref: > sbm_business.fiscal_formula.id]
+  variable_formula char(36) [not null, ref: > sbm_business.variable_formula.code]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
@@ -612,10 +662,12 @@ Table ditaly_pasta.fiscal_configuration_detail {
 
 
 
-Table sbm_business.fiscal_formula {
-  id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
+Table sbm_business.variable_formula {
+  id integer [pk, increment]
+  code char(36) [null, note: 'UUID() REQUIRES TRIGGER']
   formula varchar(50) [not null]
   formula_template text [not null]
+  formula_translate text [not null]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
@@ -706,21 +758,3 @@ Table accounting_fiscal_directive_link {
   entry integer [not null, ref: > accounting_entry.id]
 }
 // END accounting tables
-
-// accounting_account: Plan de cuentas contables (activo, pasivo, ingreso, gasto).
-
-// accounting_journal: Libros contables (ventas, compras, caja).
-
-// accounting_period: Periodos contables (anuales, mensuales).
-
-// accounting_transaction: Transacciones contables (agrupa asientos).
-
-// accounting_entry: Asientos contables (débito/crédito).
-
-// accounting_closure: Cierre de periodo contable.
-
-// accounting_tax_report: Reportes fiscales por periodo (IVA, retención).
-
-// accounting_invoice_link: Vínculo factura ↔ transacción.
-
-// accounting_fiscal_directive_link: Vínculo directiva fiscal ↔ asiento.
