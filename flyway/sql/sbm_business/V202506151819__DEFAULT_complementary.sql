@@ -172,45 +172,45 @@ VALUES ('CUENTA AHORRO', 'CUENTA DE AHORRO BANCARIA');
 -- REGION
 INSERT INTO sbm_business.region (region, description)
 VALUES (
-        'METROPOLITANA',
-        'REGION METROPOLITANA DE SANTIAGO'
+        'ARICA Y PARINACOTA',
+        'XV - REGION DE ARICA Y PARINACOTA'
     );
 INSERT INTO sbm_business.region (region, description)
-VALUES ('VALPARAISO', 'REGION DE VALPARAISO');
+VALUES ('TARAPACA', 'I - REGION DE TARAPACA');
+INSERT INTO sbm_business.region (region, description)
+VALUES ('ANTOFAGASTA', 'II - REGION DE ANTOFAGASTA');
+INSERT INTO sbm_business.region (region, description)
+VALUES ('ATACAMA', 'III - REGION DE ATACAMA');
+INSERT INTO sbm_business.region (region, description)
+VALUES ('COQUIMBO', 'IV - REGION DE COQUIMBO');
+INSERT INTO sbm_business.region (region, description)
+VALUES ('VALPARAISO', 'V - REGION DE VALPARAISO');
+INSERT INTO sbm_business.region (region, description)
+VALUES (
+        'METROPOLITANA',
+        'RM - REGION METROPOLITANA DE SANTIAGO'
+    );
 INSERT INTO sbm_business.region (region, description)
 VALUES (
         'OHIGGINS',
-        'REGION DEL LIBERTADOR BERNARDO OHIGGINS'
+        'VI - REGION DEL LIBERTADOR BERNARDO OHIGGINS'
     );
 INSERT INTO sbm_business.region (region, description)
-VALUES ('MAULE', 'REGION DEL MAULE');
+VALUES ('MAULE', 'VII - REGION DEL MAULE');
 INSERT INTO sbm_business.region (region, description)
-VALUES ('BIOBIO', 'REGION DEL BIOBIO');
+VALUES ('ÑUBLE', 'XVI - REGION DE ÑUBLE');
 INSERT INTO sbm_business.region (region, description)
-VALUES ('ARAUCANIA', 'REGION DE LA ARAUCANIA');
+VALUES ('BIOBIO', 'VIII - REGION DEL BIOBIO');
 INSERT INTO sbm_business.region (region, description)
-VALUES ('LOS LAGOS', 'REGION DE LOS LAGOS');
+VALUES ('ARAUCANIA', 'IX - REGION DE LA ARAUCANIA');
 INSERT INTO sbm_business.region (region, description)
-VALUES ('AYSEN', 'REGION DE AYSEN');
+VALUES ('LOS RIOS', 'XIV - REGION DE LOS RIOS');
 INSERT INTO sbm_business.region (region, description)
-VALUES ('MAGALLANES', 'REGION DE MAGALLANES');
+VALUES ('LOS LAGOS', 'X - REGION DE LOS LAGOS');
 INSERT INTO sbm_business.region (region, description)
-VALUES ('TARAPACA', 'REGION DE TARAPACA');
+VALUES ('AYSEN', 'XI - REGION DE AYSEN');
 INSERT INTO sbm_business.region (region, description)
-VALUES ('ANTOFAGASTA', 'REGION DE ANTOFAGASTA');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('ATACAMA', 'REGION DE ATACAMA');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('COQUIMBO', 'REGION DE COQUIMBO');
-INSERT INTO sbm_business.region (region, description)
-VALUES (
-        'ARICA Y PARINACOTA',
-        'REGION DE ARICA Y PARINACOTA'
-    );
-INSERT INTO sbm_business.region (region, description)
-VALUES ('LOS RIOS', 'REGION DE LOS RIOS');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('ÑUBLE', 'REGION DE ÑUBLE');
+VALUES ('MAGALLANES', 'XII - REGION DE MAGALLANES');
 -- DISTRICT (SOME EXAMPLES)
 INSERT INTO sbm_business.district (district, region, description)
 VALUES ('SANTIAGO', 1, 'COMUNA DE SANTIAGO');
