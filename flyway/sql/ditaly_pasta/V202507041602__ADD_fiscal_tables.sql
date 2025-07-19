@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.price_fiscal_configuration (
     confirmed_by CHAR(36) NULL,
     updated_by CHAR(36) NULL,
     deleted_by CHAR(36) NULL,
-    FOREIGN KEY (fiscal_formula) REFERENCES sbm_business.fiscal_formula(id),
+    FOREIGN KEY (fiscal_formula) REFERENCES sbm_business.variable_formula(code),
     FOREIGN KEY (created_by) REFERENCES sbm_business.user(code),
     FOREIGN KEY (confirmed_by) REFERENCES sbm_business.user(code),
     FOREIGN KEY (updated_by) REFERENCES sbm_business.user(code),

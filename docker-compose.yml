@@ -101,6 +101,37 @@ services:
       retries: 3
       start_period: 60s
 
+  flyway_analytics:
+    image: flyway/flyway:10
+    depends_on:
+      postgres:
+        condition: service_healthy
+      flyway_sbm_business:
+        condition: service_completed_successfully
+      flyway_ditaly_pasta:
+        condition: service_completed_successfully
+      flyway_cross:
+        condition: service_completed_successfully
+    command: -configFiles=/flyway/conf/flyway.conf migrate
+    volumes:
+      - ./flyway/sql/analytics:/flyway/sql
+      - ./flyway/sql/analytics/flyway.conf:/flyway/conf/flyway.conf
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST:-postgres}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_DB: ${POSTGRES_DB:-sbm_db}
+      POSTGRES_USER: ${POSTGRES_USER:-sbm_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sbm_password}
+    networks:
+      - sbm-network
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "flyway", "-configFiles=/flyway/conf/flyway.conf", "info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
 volumes:
   postgres_sbm_vol:
 

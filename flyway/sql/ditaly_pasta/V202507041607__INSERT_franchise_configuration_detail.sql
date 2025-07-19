@@ -1,4 +1,5 @@
 -- INSERT FRANCHISE CONFIGURATION DETAIL
+DELETE FROM ditaly_pasta.franchise_configuration_detail WHERE id IN (1, 2) AND type = 2;
 INSERT INTO ditaly_pasta.franchise_configuration_detail (
         id,
         code,
@@ -38,8 +39,8 @@ VALUES(
         NULL,
         '2025-07-13 13:58:28.732',
         NULL,
-        '1b4ec1e3-2b23-461f-83f7-3901f77c5ddc',
-        '1b4ec1e3-2b23-461f-83f7-3901f77c5ddc',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         NULL
     );
@@ -65,8 +66,8 @@ INSERT INTO ditaly_pasta.franchise_configuration_detail (
         updated_by,
         deleted_by
     )
-VALUES(
-        1,
+    VALUES(
+        2,
         'ce7ca4c3-09a6-4570-afa9-06593d6f6329',
         'PASTA-UTILIDAD',
         '% utilidad NETA esperado producto categoria PASTA',
@@ -82,8 +83,8 @@ VALUES(
         NULL,
         '2025-07-13 17:58:28.732',
         NULL,
-        '1b4ec1e3-2b23-461f-83f7-3901f77c5ddc',
-        '1b4ec1e3-2b23-461f-83f7-3901f77c5ddc',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
         NULL
     );

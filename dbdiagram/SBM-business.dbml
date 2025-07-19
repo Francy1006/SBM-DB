@@ -46,7 +46,6 @@ Table ditaly_pasta.franchise_configuration_detail {
   index integer [not null, default: 1]
   var varchar(50) [not null]
   value decimal(10,2) [not null, default: 0]
-  formula char(36) [not null, ref: > sbm_business.variable_formula.code]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
@@ -411,7 +410,7 @@ Table ditaly_pasta.product {
   price char(36) [not null, ref: > ditaly_pasta.price.code]
   provider integer [not null, ref: > ditaly_pasta.provider.id] 
   type integer [not null, ref: > sbm_business.item_type.id]
-  group integer [not null, ref: > sbm_business.item_group.id]
+  item_group integer [not null, ref: > sbm_business.item_group.id]
   category integer [not null, ref: > sbm_business.item_category.id]
   url varchar(255) [null]
   package integer [not null, ref: > sbm_business.package.id]
@@ -472,7 +471,7 @@ Table ditaly_pasta.service {
   price char(36) [not null, ref: > ditaly_pasta.price.code]
   provider integer [not null, ref: > ditaly_pasta.provider.id] 
   type integer [not null, ref: > sbm_business.item_type.id]
-  group integer [not null, ref: > sbm_business.item_group.id]
+  item_group integer [not null, ref: > sbm_business.item_group.id]
   category integer [not null, ref: > sbm_business.item_category.id]
   url varchar(255) [null]
   is_active boolean [not null, default: 1]
@@ -586,23 +585,17 @@ Table sbm_business.user_token {
 // START price & sales  tables 
 Table ditaly_pasta.price {
   id integer [pk, increment]
-  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
+  base_net_amount integer [not null, default: 0]
   net_amount integer [not null, default: 0]
   gross_amount integer [not null, default: 0]
   iva_amount integer [not null, default: 0]
   retention_amount integer [not null, default: 0]
-  price_fiscal_configuration char(36) [not null, ref: > ditaly_pasta.price_fiscal_configuration.id]
-  is_active boolean [not null, default: 1]
+  price_configuration char(36) [not null, ref: > ditaly_pasta.price_configuration.code]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
-  updated_at datetime [null]
-  confirmed_at datetime [null]
-  deleted_at datetime [null]
   created_by char(36) [not null, ref: > sbm_business.user.code]
-  confirmed_by char(36) [null, ref: > sbm_business.user.code]
-  updated_by char(36) [null, ref: > sbm_business.user.code]
-  deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 
 
@@ -613,7 +606,7 @@ Table sbm_business.fiscal_directive {
   obs text [null]
   fiscal_directive varchar(50) [not null, unique]
   type integer [not null, ref: > sbm_business.fiscal_directive_type.id]
-  percentage decimal(10,2) [not null, default: 0]
+  value decimal(10,2) [not null, default: 0]
   official_source_url varchar(255) [not null]
   is_deleted boolean [null]
   is_confirmed boolean [null]
@@ -631,9 +624,11 @@ Table sbm_business.fiscal_directive {
   end_year integer [null]
 }
 
-Table ditaly_pasta.price_fiscal_configuration {
-  id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
-  fiscal_configuration varchar(50) [not null, unique]
+Table ditaly_pasta.price_configuration {
+  id integer [pk, increment]
+  code char(36) [null, note: 'UUID() REQUIRES TRIGGER']
+  price_configuration varchar(50) [not null, unique]
+  franchise_configuration char(36) [not null, ref: > ditaly_pasta.franchise_configuration.code]
   variable_formula char(36) [not null, ref: > sbm_business.variable_formula.code]
   is_deleted boolean [null]
   is_confirmed boolean [null]
@@ -649,12 +644,11 @@ Table ditaly_pasta.price_fiscal_configuration {
 
 Table ditaly_pasta.fiscal_configuration_detail {
   id integer [pk, increment]
-  price_fiscal_configuration char(36) [not null, ref: > ditaly_pasta.price_fiscal_configuration.id]
-  price char(36) [not null, ref: > ditaly_pasta.price.code]
+  price_configuration char(36) [not null, ref: > ditaly_pasta.price_configuration.code]
   fiscal_directive char(36) [not null, ref: > sbm_business.fiscal_directive.code]
-  log text [not null, default: "init;"]
+  var varchar(50) [not null]
   Indexes {
-    (id, price, fiscal_directive) [pk]
+    (id, fiscal_directive) [pk]
   }
 }
 
