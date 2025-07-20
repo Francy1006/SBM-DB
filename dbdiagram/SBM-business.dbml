@@ -590,14 +590,24 @@ Table ditaly_pasta.price {
   net_amount integer [not null, default: 0]
   gross_amount integer [not null, default: 0]
   iva_amount integer [not null, default: 0]
+  aditional_tax_amount integer [not null, default: 0]
   retention_amount integer [not null, default: 0]
   price_configuration char(36) [not null, ref: > ditaly_pasta.price_configuration.code]
+  is_current boolean [null, default: 1]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   created_by char(36) [not null, ref: > sbm_business.user.code]
+  record_item_code char(36) [null]
+  price_record_type integer [null]
 }
 
+
+Table ditaly_pasta.price_type_record {
+  id integer [pk, increment]
+  type varchar(50) [not null]
+  description text [not null]
+}
 
 
 Table sbm_business.fiscal_directive {
