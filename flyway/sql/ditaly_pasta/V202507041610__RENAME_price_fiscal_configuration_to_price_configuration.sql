@@ -16,8 +16,13 @@ ALTER TABLE ditaly_pasta.price ADD CONSTRAINT fk_price_configuration FOREIGN KEY
 ALTER TABLE ditaly_pasta.fiscal_configuration_detail DROP CONSTRAINT IF EXISTS fk_fiscal_configuration_detail_price_fiscal_configuration;
 ALTER TABLE ditaly_pasta.fiscal_configuration_detail ADD CONSTRAINT fk_fiscal_configuration_detail_price_configuration FOREIGN KEY (price_configuration) REFERENCES ditaly_pasta.price_configuration(id);
 
--- 5. Renombrar columna fiscal_formula a variable_formula en price_configuration
-ALTER TABLE ditaly_pasta.price_configuration RENAME COLUMN fiscal_formula TO variable_formula;
+-- 5. Renombrar columna fiscal_formula a variable_formula en price_configuration (solo si existe)
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'ditaly_pasta' AND table_name = 'price_configuration' AND column_name = 'fiscal_formula') THEN
+        ALTER TABLE ditaly_pasta.price_configuration RENAME COLUMN fiscal_formula TO variable_formula;
+    END IF;
+END$$;
 
 -- 6. Eliminar columna formula de franchise_configuration_detail si existe
 DO $$
@@ -48,5 +53,4 @@ END$$;
 
 -- 9. Ajustar PK de fiscal_configuration_detail
 ALTER TABLE ditaly_pasta.fiscal_configuration_detail DROP CONSTRAINT IF EXISTS fiscal_configuration_detail_pkey;
-ALTER TABLE ditaly_pasta.fiscal_configuration_detail ADD PRIMARY KEY (id, fiscal_directive); 
-ALTER TABLE ditaly_pasta.price_configuration RENAME COLUMN fiscal_configuration TO price_configuration;
+ALTER TABLE ditaly_pasta.fiscal_configuration_detail ADD PRIMARY KEY (id, fiscal_directive);

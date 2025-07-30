@@ -4,7 +4,7 @@
 CREATE TABLE IF NOT EXISTS ditaly_pasta.price_fiscal_configuration (
     id char(36) PRIMARY KEY,
     fiscal_configuration varchar(50) UNIQUE NOT NULL,
-    fiscal_formula char(36) NOT NULL,
+    variable_formula char(36) NOT NULL,
     is_deleted boolean,
     is_confirmed boolean,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

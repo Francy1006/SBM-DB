@@ -122,12 +122,12 @@ FOREIGN KEY (deleted_by) REFERENCES sbm_business.user(code);
 ALTER TABLE ditaly_pasta.price 
 ADD CONSTRAINT fk_price_fiscal_configuration 
 FOREIGN KEY (price_fiscal_configuration) REFERENCES ditaly_pasta.price_fiscal_configuration(id);
--- Price Fiscal Configuration -> Fiscal Formula
+-- Price Fiscal Configuration -> Variable Formula
 ALTER TABLE ditaly_pasta.price_fiscal_configuration 
 DROP CONSTRAINT IF EXISTS fk_price_fiscal_configuration_formula;
 ALTER TABLE ditaly_pasta.price_fiscal_configuration 
 ADD CONSTRAINT fk_price_fiscal_configuration_formula 
-FOREIGN KEY (fiscal_formula) REFERENCES sbm_business.variable_formula(code);
+FOREIGN KEY (variable_formula) REFERENCES sbm_business.variable_formula(code);
 -- Fiscal Configuration Detail -> Price Fiscal Configuration
 ALTER TABLE ditaly_pasta.fiscal_configuration_detail 
 ADD CONSTRAINT fk_fiscal_configuration_detail_price_fiscal_configuration 

@@ -6,7 +6,7 @@
 CREATE TABLE IF NOT EXISTS ditaly_pasta.price_fiscal_configuration (
     id CHAR(36) PRIMARY KEY,
     fiscal_configuration VARCHAR(50) NOT NULL UNIQUE,
-    fiscal_formula CHAR(36) NOT NULL,
+    variable_formula CHAR(36) NOT NULL,
     is_deleted BOOLEAN NULL,
     is_confirmed BOOLEAN NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.price_fiscal_configuration (
     confirmed_by CHAR(36) NULL,
     updated_by CHAR(36) NULL,
     deleted_by CHAR(36) NULL,
-    FOREIGN KEY (fiscal_formula) REFERENCES sbm_business.variable_formula(code),
+    FOREIGN KEY (variable_formula) REFERENCES sbm_business.variable_formula(code),
     FOREIGN KEY (created_by) REFERENCES sbm_business.user(code),
     FOREIGN KEY (confirmed_by) REFERENCES sbm_business.user(code),
     FOREIGN KEY (updated_by) REFERENCES sbm_business.user(code),

@@ -69,8 +69,8 @@ INSERT INTO ditaly_pasta.franchise_configuration_detail (
     VALUES(
         2,
         'ce7ca4c3-09a6-4570-afa9-06593d6f6329',
-        'PASTA-UTILIDAD',
-        '% utilidad NETA esperado producto categoria PASTA',
+        'SALSA-UTILIDAD',
+        '% utilidad NETA esperado producto categoria SALSA',
         2,
         'e8a80b9f-38d5-4c3d-8add-bb28a2493e26',
         1,

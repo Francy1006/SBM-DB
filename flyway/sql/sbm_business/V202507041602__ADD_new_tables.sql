@@ -1,5 +1,5 @@
 -- Migration: V202507041602__ADD_new_tables.sql
--- Description: Add new tables for franchise, bank, fiscal_formula, and user_token
+-- Description: Add new tables for franchise, bank, and user_token
 
 -- START SBM configuration tables
 -- Add franchise_state table
@@ -33,27 +33,6 @@ CREATE TABLE IF NOT EXISTS sbm_business.bank (
 -- END complementary tables
 
 -- START documentation & security tables
--- Add fiscal_formula table
-CREATE TABLE IF NOT EXISTS sbm_business.fiscal_formula (
-    id CHAR(36) PRIMARY KEY,
-    formula VARCHAR(50) NOT NULL,
-    formula_template TEXT NOT NULL,
-    is_deleted BOOLEAN NULL,
-    is_confirmed BOOLEAN NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL,
-    confirmed_at TIMESTAMP NULL,
-    deleted_at TIMESTAMP NULL,
-    created_by CHAR(36) NOT NULL,
-    confirmed_by CHAR(36) NULL,
-    updated_by CHAR(36) NULL,
-    deleted_by CHAR(36) NULL,
-    FOREIGN KEY (created_by) REFERENCES sbm_business.user(code),
-    FOREIGN KEY (confirmed_by) REFERENCES sbm_business.user(code),
-    FOREIGN KEY (updated_by) REFERENCES sbm_business.user(code),
-    FOREIGN KEY (deleted_by) REFERENCES sbm_business.user(code)
-);
-
 -- END documentation & security tables
 
 -- START user tables

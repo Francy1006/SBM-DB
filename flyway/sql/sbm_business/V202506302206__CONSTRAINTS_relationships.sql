@@ -130,19 +130,6 @@ FOREIGN KEY (updated_by) REFERENCES sbm_business.user(code);
 ALTER TABLE sbm_business.package 
 ADD CONSTRAINT fk_package_deleted_by 
 FOREIGN KEY (deleted_by) REFERENCES sbm_business.user(code);
--- Fiscal Formula -> User
-ALTER TABLE sbm_business.fiscal_formula 
-ADD CONSTRAINT fk_fiscal_formula_created_by 
-FOREIGN KEY (created_by) REFERENCES sbm_business.user(code);
-ALTER TABLE sbm_business.fiscal_formula 
-ADD CONSTRAINT fk_fiscal_formula_confirmed_by 
-FOREIGN KEY (confirmed_by) REFERENCES sbm_business.user(code);
-ALTER TABLE sbm_business.fiscal_formula 
-ADD CONSTRAINT fk_fiscal_formula_updated_by 
-FOREIGN KEY (updated_by) REFERENCES sbm_business.user(code);
-ALTER TABLE sbm_business.fiscal_formula 
-ADD CONSTRAINT fk_fiscal_formula_deleted_by 
-FOREIGN KEY (deleted_by) REFERENCES sbm_business.user(code);
 -- Fiscal Directive -> User
 ALTER TABLE sbm_business.fiscal_directive 
 ADD CONSTRAINT fk_fiscal_directive_created_by 
