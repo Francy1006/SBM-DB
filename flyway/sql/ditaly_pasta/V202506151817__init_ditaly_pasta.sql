@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.catalog (
     OBS varchar(255),
     chef_recommendation boolean NOT NULL DEFAULT false,
     usage_instructions char(36) NOT NULL,
-    base_gross_price integer NOT NULL DEFAULT 0,
+    price char(36) NOT NULL,
     min_quantity_purchase integer NOT NULL DEFAULT 1,
     rations_quantity integer NOT NULL DEFAULT 1,
     cover_image varchar(2083),

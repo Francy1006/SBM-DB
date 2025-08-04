@@ -1,0 +1,1 @@
+ALTER TABLE ditaly_pasta.service ADD COLUMN price char(36) NOT NULL; 

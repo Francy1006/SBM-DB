@@ -276,7 +276,7 @@ Table sbm_business.role {
 }
 
 Table sbm_business.instruction {
-  id char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
+  code char(36) [pk, note: 'UUID() REQUIRES TRIGGER']
   instruction varchar(50) [not null]
   description text [not null]
   url_documentation varchar(2083) [null]
@@ -308,7 +308,7 @@ Table ditay_pasta.catalog {
   description text [not null]
   obs varchar(255)
   chef_recommendation boolean [not null, default: 0]
-  usage_instructions char(36) [not null, ref: > sbm_business.instruction.id]
+  usage_instructions char(36) [not null, ref: > sbm_business.instruction.code]
   price char(36) [not null, ref: > ditaly_pasta.price.code]
   min_quantity_purchase integer [not null, default: 1]
   rations_quantity integer [not null, default: 1]
@@ -361,8 +361,8 @@ Table sbm_business.package {
   weight decimal(10,2) [not null, default: 0]
   measure_unit integer [not null, ref: > sbm_business.measure_unit.id]
   quantity_unit integer [not null, default: 1]
-  storage_instructions char(36) [not null, ref: > sbm_business.instruction.id]
-  transport_instructions char(36) [not null, ref: > sbm_business.instruction.id]
+  storage_instructions char(36) [not null, ref: > sbm_business.instruction.code]
+  transport_instructions char(36) [not null, ref: > sbm_business.instruction.code]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
@@ -381,17 +381,8 @@ Table ditaly_pasta.item_configuration_detail {
   type integer [not null, ref: > sbm_business.item_type.id]
   configuration char(36) [not null, ref: > ditaly_pasta.item_configuration.code]
   id_item char(36) [not null]
-  is_deleted boolean [null]
-  is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
-  updated_at datetime [null]
-  confirmed_at datetime [null]
-  deleted_at datetime [null]
   created_by char(36) [not null, ref: > sbm_business.user.code]
-  confirmed_by char(36) [null, ref: > sbm_business.user.code]
-  updated_by char(36) [null, ref: > sbm_business.user.code]
-  deleted_by char(36) [null, ref: > sbm_business.user.code]
-
   Indexes {
     (code, type, id_item) [pk]
   }
@@ -599,11 +590,11 @@ Table ditaly_pasta.price {
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   created_by char(36) [not null, ref: > sbm_business.user.code]
   record_item_code char(36) [null]
-  price_record_type integer [null]
+  price_record_type integer [null, ref: > sbm_business.price_type.id]
 }
 
 
-Table ditaly_pasta.price_type_record {
+Table sbm_business.price_type {
   id integer [pk, increment]
   type varchar(50) [not null]
   description text [not null]

@@ -58,9 +58,9 @@ ADD CONSTRAINT fk_catalog_restriction
 FOREIGN KEY (restriction) REFERENCES sbm_business.restriction(id);
 
 -- Catalog -> Instruction
-ALTER TABLE ditaly_pasta.catalog 
-ADD CONSTRAINT fk_catalog_usage_instructions 
-FOREIGN KEY (usage_instructions) REFERENCES sbm_business.instruction(id);
+ALTER TABLE ditaly_pasta.catalog
+ADD CONSTRAINT fk_catalog_usage_instructions
+FOREIGN KEY (usage_instructions) REFERENCES sbm_business.instruction(code);
 
 -- Item Configuration -> Package
 ALTER TABLE ditaly_pasta.item_configuration 

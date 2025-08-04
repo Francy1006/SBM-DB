@@ -107,48 +107,68 @@ VALUES (
         '2025-06-16 16:19:23'
     );
 -- PACKAGE-TYPE
-INSERT INTO sbm_business.package_type (type, description)
-VALUES ('CAJA', 'ENVASE TIPO CAJA CARTON');
-INSERT INTO sbm_business.package_type (type, description)
-VALUES ('BANDEJA', 'BANDEJA PARA USO DESECHABLE');
-INSERT INTO sbm_business.package_type (type, description)
-VALUES ('CANASTO', 'CANASTO PLASTICO REUTILIZABLE');
-INSERT INTO sbm_business.package_type (type, description)
-VALUES ('BOLSA', 'BOLSA PLASTICA O PAPEL');
-INSERT INTO sbm_business.package_type (type, description)
-VALUES ('BOTELLA', 'BOTELLA PLASTICA O VIDRIO');
-INSERT INTO sbm_business.package_type (type, description)
-VALUES ('LATA', 'LATA METALICA');
-INSERT INTO sbm_business.package_type (type, description)
-VALUES ('TARRO', 'TARRO VIDRIO O PLASTICO');
-INSERT INTO sbm_business.package_type (type, description)
-VALUES ('SIN ENVASE', 'PRODUCTO SIN ENVASE');
+INSERT INTO sbm_business.package_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (1, 'CAJA', 'ENVASE TIPO CAJA CARTON');
+INSERT INTO sbm_business.package_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (2, 'BANDEJA', 'BANDEJA PARA USO DESECHABLE');
+INSERT INTO sbm_business.package_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (3, 'CANASTO', 'CANASTO PLASTICO REUTILIZABLE');
+INSERT INTO sbm_business.package_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (4, 'BOLSA', 'BOLSA PLASTICA O PAPEL');
+INSERT INTO sbm_business.package_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (5, 'BOTELLA', 'BOTELLA PLASTICA O VIDRIO');
+INSERT INTO sbm_business.package_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (6, 'LATA', 'LATA METALICA');
+INSERT INTO sbm_business.package_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (7, 'TARRO', 'TARRO VIDRIO O PLASTICO');
+INSERT INTO sbm_business.package_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (8, 'SIN ENVASE', 'PRODUCTO SIN ENVASE');
 -- TRANSPORT-TYPE
-INSERT INTO sbm_business.transport_type (type, description)
-VALUES ('REFRIGERADO', 'TRANSPORTE REFRIGERADO');
-INSERT INTO sbm_business.transport_type (type, description)
-VALUES ('CONGELADO', 'TRANSPORTE CONGELADO');
-INSERT INTO sbm_business.transport_type (type, description)
-VALUES ('SECO', 'TRANSPORTE SECO');
-INSERT INTO sbm_business.transport_type (type, description)
-VALUES ('FRAGIL', 'TRANSPORTE FRAGIL');
+INSERT INTO sbm_business.transport_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (1, 'REFRIGERADO', 'TRANSPORTE REFRIGERADO');
+INSERT INTO sbm_business.transport_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (2, 'CONGELADO', 'TRANSPORTE CONGELADO');
+INSERT INTO sbm_business.transport_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (3, 'SECO', 'TRANSPORTE SECO');
+INSERT INTO sbm_business.transport_type (id, type, description)
+OVERRIDING SYSTEM VALUE
+VALUES (4, 'FRAGIL', 'TRANSPORTE FRAGIL');
 -- MEASURE-UNIT
-INSERT INTO sbm_business.measure_unit (measure_unit, description)
-VALUES ('KG', 'KILOGRAMOS');
-INSERT INTO sbm_business.measure_unit (measure_unit, description)
-VALUES ('G', 'GRAMOS');
-INSERT INTO sbm_business.measure_unit (measure_unit, description)
-VALUES ('L', 'LITROS');
-INSERT INTO sbm_business.measure_unit (measure_unit, description)
-VALUES ('ML', 'MILILITROS');
-INSERT INTO sbm_business.measure_unit (measure_unit, description)
-VALUES ('UN', 'UNIDADES');
-INSERT INTO sbm_business.measure_unit (measure_unit, description)
-VALUES ('PZ', 'PIEZAS');
-INSERT INTO sbm_business.measure_unit (measure_unit, description)
-VALUES ('M', 'METROS');
-INSERT INTO sbm_business.measure_unit (measure_unit, description)
-VALUES ('CM', 'CENTIMETROS');
+INSERT INTO sbm_business.measure_unit (id, measure_unit, description)
+OVERRIDING SYSTEM VALUE
+VALUES (1, 'KG', 'KILOGRAMOS');
+INSERT INTO sbm_business.measure_unit (id, measure_unit, description)
+OVERRIDING SYSTEM VALUE
+VALUES (2, 'G', 'GRAMOS');
+INSERT INTO sbm_business.measure_unit (id, measure_unit, description)
+OVERRIDING SYSTEM VALUE
+VALUES (3, 'L', 'LITROS');
+INSERT INTO sbm_business.measure_unit (id, measure_unit, description)
+OVERRIDING SYSTEM VALUE
+VALUES (4, 'ML', 'MILILITROS');
+INSERT INTO sbm_business.measure_unit (id, measure_unit, description)
+OVERRIDING SYSTEM VALUE
+VALUES (5, 'UN', 'UNIDADES');
+INSERT INTO sbm_business.measure_unit (id, measure_unit, description)
+OVERRIDING SYSTEM VALUE
+VALUES (6, 'PZ', 'PIEZAS');
+INSERT INTO sbm_business.measure_unit (id, measure_unit, description)
+OVERRIDING SYSTEM VALUE
+VALUES (7, 'M', 'METROS');
+INSERT INTO sbm_business.measure_unit (id, measure_unit, description)
+OVERRIDING SYSTEM VALUE
+VALUES (8, 'CM', 'CENTIMETROS');
 -- PROVIDER-TYPE
 INSERT INTO sbm_business.provider_type (type, description)
 VALUES ('PRODUCTOR', 'PRODUCTOR DIRECTO');
@@ -170,47 +190,69 @@ VALUES ('CUENTA RUT', 'CUENTA RUT BANCARIA');
 INSERT INTO sbm_business.bank_account_type (type, description)
 VALUES ('CUENTA AHORRO', 'CUENTA DE AHORRO BANCARIA');
 -- REGION
-INSERT INTO sbm_business.region (region, description)
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
 VALUES (
+        1,
         'ARICA Y PARINACOTA',
         'XV - REGION DE ARICA Y PARINACOTA'
     );
-INSERT INTO sbm_business.region (region, description)
-VALUES ('TARAPACA', 'I - REGION DE TARAPACA');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('ANTOFAGASTA', 'II - REGION DE ANTOFAGASTA');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('ATACAMA', 'III - REGION DE ATACAMA');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('COQUIMBO', 'IV - REGION DE COQUIMBO');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('VALPARAISO', 'V - REGION DE VALPARAISO');
-INSERT INTO sbm_business.region (region, description)
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (2, 'TARAPACA', 'I - REGION DE TARAPACA');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (3, 'ANTOFAGASTA', 'II - REGION DE ANTOFAGASTA');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (4, 'ATACAMA', 'III - REGION DE ATACAMA');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (5, 'COQUIMBO', 'IV - REGION DE COQUIMBO');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (6, 'VALPARAISO', 'V - REGION DE VALPARAISO');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
 VALUES (
+        7,
         'METROPOLITANA',
         'RM - REGION METROPOLITANA DE SANTIAGO'
     );
-INSERT INTO sbm_business.region (region, description)
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
 VALUES (
+        8,
         'OHIGGINS',
         'VI - REGION DEL LIBERTADOR BERNARDO OHIGGINS'
     );
-INSERT INTO sbm_business.region (region, description)
-VALUES ('MAULE', 'VII - REGION DEL MAULE');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('ÑUBLE', 'XVI - REGION DE ÑUBLE');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('BIOBIO', 'VIII - REGION DEL BIOBIO');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('ARAUCANIA', 'IX - REGION DE LA ARAUCANIA');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('LOS RIOS', 'XIV - REGION DE LOS RIOS');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('LOS LAGOS', 'X - REGION DE LOS LAGOS');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('AYSEN', 'XI - REGION DE AYSEN');
-INSERT INTO sbm_business.region (region, description)
-VALUES ('MAGALLANES', 'XII - REGION DE MAGALLANES');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (9, 'MAULE', 'VII - REGION DEL MAULE');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (10, 'ÑUBLE', 'XVI - REGION DE ÑUBLE');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (11, 'BIOBIO', 'VIII - REGION DEL BIOBIO');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (12, 'ARAUCANIA', 'IX - REGION DE LA ARAUCANIA');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (13, 'LOS RIOS', 'XIV - REGION DE LOS RIOS');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (14, 'LOS LAGOS', 'X - REGION DE LOS LAGOS');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (15, 'AYSEN', 'XI - REGION DE AYSEN');
+INSERT INTO sbm_business.region (id, region, description)
+OVERRIDING SYSTEM VALUE
+VALUES (16, 'MAGALLANES', 'XII - REGION DE MAGALLANES');
+
+-- Resetear la secuencia de region después de las inserciones manuales
+SELECT setval('sbm_business.region_id_seq', (SELECT MAX(id) FROM sbm_business.region), true);
 -- DISTRICT (SOME EXAMPLES)
 INSERT INTO sbm_business.district (district, region, description)
 VALUES ('SANTIAGO', 1, 'COMUNA DE SANTIAGO');
@@ -335,3 +377,46 @@ INSERT INTO sbm_business.bank (bank, description)
 VALUES ('BANCO EDWARDS', 'BANCO EDWARDS');
 INSERT INTO sbm_business.bank (bank, description)
 VALUES ('BANCO BBVA', 'BANCO BBVA CHILE');
+-- PACKAGE
+INSERT INTO sbm_business.package (
+    description,
+    package_type,
+    transport_type,
+    size,
+    weight,
+    measure_unit,
+    quantity_unit,
+    storage_instructions,
+    transport_instructions,
+    is_deleted,
+    is_confirmed,
+    created_at,
+    updated_at,
+    confirmed_at,
+    deleted_at,
+    created_by,
+    confirmed_by,
+    updated_by,
+    deleted_by
+)
+VALUES (
+    'CAJA CARTON',
+    1,
+    1,
+    1.50,
+    1.50,
+    5,
+    10,
+    'fb903bca-4ae0-11f0-8273-0242ac1a0002',
+    'fb903bca-4ae0-11f0-8273-0242ac1a0002',
+    NULL,
+    true,
+    '2025-06-17 20:51:36',
+    NULL,
+    '2025-06-17 20:51:36',
+    NULL,
+    '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+    '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+    NULL,
+    NULL
+);

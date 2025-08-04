@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS sbm_business.role (
 );
 
 CREATE TABLE IF NOT EXISTS sbm_business.instruction (
-    id char(36) PRIMARY KEY,
+    code char(36) PRIMARY KEY,
     instruction varchar(50) NOT NULL,
     description text NOT NULL,
     url_documentation varchar(2083),

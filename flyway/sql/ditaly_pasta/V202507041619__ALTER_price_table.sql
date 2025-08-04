@@ -1,7 +1,6 @@
 -- DROP y CREATE TABLE para ditaly_pasta.price según el modelo actualizado
 
 DROP TABLE IF EXISTS ditaly_pasta.price CASCADE;
-DROP TABLE IF EXISTS ditaly_pasta.price_type_record CASCADE;
 
 CREATE TABLE ditaly_pasta.price (
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -19,12 +18,6 @@ CREATE TABLE ditaly_pasta.price (
   created_at timestamp DEFAULT CURRENT_TIMESTAMP,
   created_by char(36) NOT NULL REFERENCES sbm_business.user(code),
   record_item_code char(36)  NULL,
-  price_record_type integer NULL
-);
-
-CREATE TABLE ditaly_pasta.price_type_record (
-  id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  type varchar(50) NOT NULL,
-  description TEXT NOT NULL
+  price_record_type integer NULL REFERENCES sbm_business.price_type(id)
 );
 

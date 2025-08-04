@@ -1,48 +1,4 @@
--- PACKAGE
-INSERT INTO
-    sbm_business.package (
-        description,
-        package_type,
-        transport_type,
-        size,
-        weight,
-        measure_unit,
-        quantity_unit,
-        storage_instructions,
-        transport_instructions,
-        is_deleted,
-        is_confirmed,
-        created_at,
-        updated_at,
-        confirmed_at,
-        deleted_at,
-        created_by,
-        confirmed_by,
-        updated_by,
-        deleted_by
-    )
-VALUES
-(
-        'CAJA CARTON',
-        1,
-        1,
-        1.50,
-        1.50,
-        5,
-        10,
-        'fb903bca-4ae0-11f0-8273-0242ac1a0002',
-        'fb903bca-4ae0-11f0-8273-0242ac1a0002',
-        NULL,
-        true,
-        '2025-06-17 20:51:36',
-        NULL,
-        '2025-06-17 20:51:36',
-        NULL,
-        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        NULL,
-        NULL
-    );
+
 -- ITEM-CONFIGURATION
 INSERT INTO
     ditaly_pasta.item_configuration (
@@ -96,7 +52,7 @@ INSERT INTO
         OBS,
         chef_recommendation,
         usage_instructions,
-        base_gross_price,
+        price,
         min_quantity_purchase,
         rations_quantity,
         cover_image,
@@ -131,7 +87,7 @@ VALUES
         'SALSA POMODORO 1 KG',
         false,
         'fb903bca-4ae0-11f0-8273-0242ac1a0002',
-        11952,
+        '246e04ea-7b6f-4277-ac65-4930205d3679',
         1,
         10,
         'https://res.cloudinary.com/dv95ttplw/image/upload/v1750558286/cld-sample-4.jpg',

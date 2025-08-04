@@ -66,7 +66,7 @@ VALUES
 -- INSTRUCTION
 INSERT INTO
     sbm_business.instruction (
-        id,
+        code,
         instruction,
         description,
         url_documentation,

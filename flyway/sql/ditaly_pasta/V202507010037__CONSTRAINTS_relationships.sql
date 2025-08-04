@@ -17,15 +17,6 @@ FOREIGN KEY (deleted_by) REFERENCES sbm_business.user(code);
 ALTER TABLE ditaly_pasta.item_configuration_detail 
 ADD CONSTRAINT fk_item_configuration_detail_created_by 
 FOREIGN KEY (created_by) REFERENCES sbm_business.user(code);
-ALTER TABLE ditaly_pasta.item_configuration_detail 
-ADD CONSTRAINT fk_item_configuration_detail_confirmed_by 
-FOREIGN KEY (confirmed_by) REFERENCES sbm_business.user(code);
-ALTER TABLE ditaly_pasta.item_configuration_detail 
-ADD CONSTRAINT fk_item_configuration_detail_updated_by 
-FOREIGN KEY (updated_by) REFERENCES sbm_business.user(code);
-ALTER TABLE ditaly_pasta.item_configuration_detail 
-ADD CONSTRAINT fk_item_configuration_detail_deleted_by 
-FOREIGN KEY (deleted_by) REFERENCES sbm_business.user(code);
 -- Product -> User
 ALTER TABLE ditaly_pasta.product 
 ADD CONSTRAINT fk_product_created_by 
@@ -91,6 +82,22 @@ FOREIGN KEY (updated_by) REFERENCES sbm_business.user(code);
 ALTER TABLE ditaly_pasta.catalog 
 ADD CONSTRAINT fk_catalog_deleted_by 
 FOREIGN KEY (deleted_by) REFERENCES sbm_business.user(code);
+-- Catalog -> Price (comentado hasta que se inserten los datos de price)
+-- ALTER TABLE ditaly_pasta.catalog 
+-- ADD CONSTRAINT fk_catalog_price 
+-- FOREIGN KEY (price) REFERENCES ditaly_pasta.price(code);
+-- Product -> Price (comentado hasta que se inserten los datos de price)
+-- ALTER TABLE ditaly_pasta.product 
+-- ADD CONSTRAINT fk_product_price 
+-- FOREIGN KEY (price) REFERENCES ditaly_pasta.price(code);
+-- Material -> Price (comentado hasta que se inserten los datos de price)
+-- ALTER TABLE ditaly_pasta.material 
+-- ADD CONSTRAINT fk_material_price 
+-- FOREIGN KEY (price) REFERENCES ditaly_pasta.price(code);
+-- Service -> Price (comentado hasta que se inserten los datos de price)
+-- ALTER TABLE ditaly_pasta.service 
+-- ADD CONSTRAINT fk_service_price 
+-- FOREIGN KEY (price) REFERENCES ditaly_pasta.price(code);
 -- Price -> User
 ALTER TABLE ditaly_pasta.price 
 ADD CONSTRAINT fk_price_created_by 

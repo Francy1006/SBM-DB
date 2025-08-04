@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS sbm_business.role (
 
 -- INSTRUCTION
 CREATE TABLE IF NOT EXISTS sbm_business.instruction (
-    id char(36) PRIMARY KEY,
+    code char(36) PRIMARY KEY,
     instruction varchar(50) NOT NULL,
     description text NOT NULL,
     url_documentation varchar(2083),
@@ -191,8 +191,8 @@ CREATE TRIGGER trigger_role_before_insert
 CREATE OR REPLACE FUNCTION instruction_before_insert()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.id IS NULL THEN
-        NEW.id := gen_random_uuid()::text;
+    IF NEW.code IS NULL THEN
+        NEW.code := gen_random_uuid()::text;
     END IF;
     RETURN NEW;
 END;

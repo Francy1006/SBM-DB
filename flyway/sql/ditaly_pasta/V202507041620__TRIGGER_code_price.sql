@@ -105,23 +105,6 @@ VALUES(
         NULL,
         NULL
     );
-INSERT INTO ditaly_pasta.price_type_record (id, "type", description)
-OVERRIDING SYSTEM VALUE
-VALUES(1, 'PRODUCT', 'PRODUCT ITEMS');
-INSERT INTO ditaly_pasta.price_type_record (id, "type", description)
-OVERRIDING SYSTEM VALUE
-VALUES(2, 'MATERIAL', 'MATERIAL ITEMS');
-INSERT INTO ditaly_pasta.price_type_record (id, "type", description)
-OVERRIDING SYSTEM VALUE
-VALUES(3, 'SERVICE', 'SERVICE ITEMS');
-INSERT INTO ditaly_pasta.price_type_record (id, "type", description)
-OVERRIDING SYSTEM VALUE
-VALUES(4, 'CATALOG', 'CATALOG ITEMS');
-INSERT INTO ditaly_pasta.price_type_record (id, "type", description)
-OVERRIDING SYSTEM VALUE
-VALUES(5, 'TICKET', 'TICKET ITEMS');
-
 -- Actualizar las secuencias después de las inserciones manuales
 SELECT setval('ditaly_pasta.product_id_seq', (SELECT MAX(id) FROM ditaly_pasta.product), true);
 SELECT setval('ditaly_pasta.price_id_seq', (SELECT MAX(id) FROM ditaly_pasta.price), true);
-SELECT setval('ditaly_pasta.price_type_record_id_seq', (SELECT MAX(id) FROM ditaly_pasta.price_type_record), true);
