@@ -631,6 +631,7 @@ Table ditaly_pasta.price_configuration {
   price_configuration varchar(50) [not null, unique]
   franchise_configuration char(36) [not null, ref: > ditaly_pasta.franchise_configuration.code]
   variable_formula char(36) [not null, ref: > sbm_business.variable_formula.code]
+  price_type integer [not null, ref: > sbm_business.price_type.id]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
