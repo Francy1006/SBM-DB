@@ -18,70 +18,87 @@ VALUES (
         'Carta de servicios externos'
     );
 -- ITEM-GROUP
-INSERT INTO sbm_business.item_group (group_name, description, catalog_render)
-VALUES ('GRANEL', 'ENVASE CON CONTENIDO A GRANEL', true);
-INSERT INTO sbm_business.item_group (group_name, description, catalog_render)
-VALUES ('UNIDAD', 'UNIDAD', false);
-INSERT INTO sbm_business.item_group (group_name, description, catalog_render)
-VALUES ('BANDEJA', 'BANDEJA', false);
-INSERT INTO sbm_business.item_group (group_name, description, catalog_render)
-VALUES (
-        'TIENDA',
-        'PRESENTACION PARA VENTA DIRECTA COMENSAL',
-        false
-    );
-INSERT INTO sbm_business.item_group (group_name, description, catalog_render)
-VALUES ('SERVICIO', 'SERVICIO INTERNO O EXTERNO', false);
+INSERT INTO sbm_business.item_group (id, group_name, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (1, 'GRANEL', 'ENVASE CON CONTENIDO A GRANEL', true);
+
+INSERT INTO sbm_business.item_group (id, group_name, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (2, 'UNIDAD', 'UNIDAD', false);
+
+INSERT INTO sbm_business.item_group (id, group_name, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (3, 'BANDEJA', 'BANDEJA', false);
+
+INSERT INTO sbm_business.item_group (id, group_name, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (4, 'TIENDA', 'PRESENTACION PARA VENTA DIRECTA COMENSAL', false);
+
+INSERT INTO sbm_business.item_group (id, group_name, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (5, 'SERVICIO', 'SERVICIO INTERNO O EXTERNO', false);
+
 -- ITEM-CATEGORY
-INSERT INTO sbm_business.item_category (category, description, catalog_render)
-VALUES ('PASTA', 'PRODUCTO PASTA LISA O RELLENA', true);
-INSERT INTO sbm_business.item_category (category, description, catalog_render)
-VALUES ('SALSA', 'PRODUCTO SALSA PARA PASTA', true);
-INSERT INTO sbm_business.item_category (category, description, catalog_render)
-VALUES (
-        'BEBESTIBLE',
-        'PRODUCTO BEBIDA O AGUA FRIA',
-        false
-    );
-INSERT INTO sbm_business.item_category (category, description, catalog_render)
-VALUES (
-        'DESECHABLE',
-        'PRODUCTO DESECHABLE DE ENVASES O VASOS',
-        false
-    );
-INSERT INTO sbm_business.item_category (category, description, catalog_render)
-VALUES ('PASTELERIA', 'PRODUCTO PASTELERIA', false);
-INSERT INTO sbm_business.item_category (category, description, catalog_render)
-VALUES ('SANDWICH', 'PRODUCTO SANDWICH', false);
-INSERT INTO sbm_business.item_category (category, description, catalog_render)
-VALUES (
-        'CONDIMIENTO',
-        'PRODUCTO DE CONDIMENTO PARA ALIMENTOS',
-        false
-    );
+INSERT INTO sbm_business.item_category (id, category, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (1, 'PASTA', 'PRODUCTO CRUDO PASTA LISA O RELLENA', true);
+
+INSERT INTO sbm_business.item_category (id, category, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (2, 'SALSA', 'PRODUCTO CRUDO SALSA PARA PASTA', true);
+
+INSERT INTO sbm_business.item_category (id, category, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (3, 'BEBESTIBLE', 'PRODUCTO BEBIDA O AGUA FRIA', false);
+
+INSERT INTO sbm_business.item_category (id, category, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (4, 'DESECHABLE', 'PRODUCTO DESECHABLE DE ENVASES O VASOS', false);
+
+INSERT INTO sbm_business.item_category (id, category, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (5, 'PASTELERIA', 'PRODUCTO PASTELERIA', false);
+
+INSERT INTO sbm_business.item_category (id, category, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (6, 'SANDWICH', 'PRODUCTO SANDWICH', false);
+
+INSERT INTO sbm_business.item_category (id, category, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (7, 'CONDIMIENTO', 'PRODUCTO DE CONDIMENTO PARA ALIMENTOS', false);
+
+INSERT INTO sbm_business.item_category (id, category, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (8, 'FETUCCINE', 'PLATO BASE PASTA FETUCCINE', false);
+
+INSERT INTO sbm_business.item_category (id, category, description, catalog_render)
+OVERRIDING SYSTEM VALUE
+VALUES (9, 'RAVIOLI', 'PLATO BASE PASTA RAVIOLI', false);
+
 -- ITEM-TYPE
-INSERT INTO sbm_business.item_type (id, type, description)
-VALUES (
-        1,
-        'PRODUCTO CONGELADO',
-        'PRODUCTO QUE REQUIERE CONGELAMIENTO (-18C)'
-    );
-INSERT INTO sbm_business.item_type (id, type, description)
-VALUES (
-        2,
-        'PRODUCTO REFRIGERADO',
-        'PRODUCTO QUE REQUIERE REFRIGERACION'
-    );
-INSERT INTO sbm_business.item_type (id, type, description)
+INSERT INTO sbm_business.item_type (id, "type", description)
+OVERRIDING SYSTEM VALUE
+VALUES (1, 'PRODUCTO CONGELADO', 'PRODUCTO QUE REQUIERE CONGELAMIENTO (-18C)');
+
+INSERT INTO sbm_business.item_type (id, "type", description)
+OVERRIDING SYSTEM VALUE
+VALUES (2, 'PRODUCTO REFRIGERADO', 'PRODUCTO QUE REQUIERE REFRIGERACION');
+
+INSERT INTO sbm_business.item_type (id, "type", description)
+OVERRIDING SYSTEM VALUE
 VALUES (3, 'MATERIAL', 'PRODUCTO NO-ALIMENTICIO');
-INSERT INTO sbm_business.item_type (id, type, description)
-VALUES (
-        4,
-        'PRODUCTO ALMACEN',
-        'PRODUCTO SIMPLE QUE NO REQUIERE REFRIGERACION'
-    );
-INSERT INTO sbm_business.item_type (id, type, description)
+
+INSERT INTO sbm_business.item_type (id, "type", description)
+OVERRIDING SYSTEM VALUE
+VALUES (4, 'PRODUCTO ALMACEN', 'PRODUCTO SIMPLE QUE NO REQUIERE REFRIGERACION');
+
+INSERT INTO sbm_business.item_type (id, "type", description)
+OVERRIDING SYSTEM VALUE
 VALUES (5, 'SERVICIO', 'SERVICIO INTERNO O EXTERNO');
+
+INSERT INTO sbm_business.item_type (id, "type", description)
+OVERRIDING SYSTEM VALUE
+VALUES (6, 'PRODUCTO COCIDO', 'PRODUCTO COCIDO PARA COMENSAL');
 -- USER-TYPE
 INSERT INTO sbm_business.user_type (id, type, description, created_at)
 VALUES (1, 'ADMIN', 'SYSADMIN', '2025-06-16 16:19:23');

@@ -93,6 +93,12 @@ Table sbm_business.item_type {
   description text [not null]
 }
 
+Table sbm_business.item_filter_classification {
+  id integer [pk, increment]
+  classification varchar(50) [not null]
+  description text [not null]
+}
+
 Table sbm_business.package_type {
   id integer [pk, increment]
   type varchar(50) [not null]
@@ -535,6 +541,42 @@ Table sbm_business.bank {
 // END product tables
 
 
+// START ticket tables
+Table ditaly_pasta.ticket {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  sku varchar(50) [not null]
+  description text [not null]
+  cover_image varchar(2083) [null]
+  secondary_image varchar(2083) [null]
+  complementary_image varchar(2083) [null]
+  image_gallery varchar(2083) [null]
+  obs text [not null]
+  package_unit integer [not null]
+  min_package_purchase integer [not null, default: 1]
+  price char(36) [not null, ref: > ditaly_pasta.price.code]
+  type integer [not null, ref: > sbm_business.item_type.id]
+  item_group integer [not null, ref: > sbm_business.item_group.id]
+  category integer [not null, ref: > sbm_business.item_category.id]
+  filter_classification integer [not null, ref: > sbm_business.item_filter_classification.id]
+  url varchar(255) [null]
+  package integer [not null, ref: > sbm_business.package.id]
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+// END ticket tables
+
 
 // START user tables
 Table sbm_business.user {
@@ -754,3 +796,151 @@ Table accounting_fiscal_directive_link {
   entry integer [not null, ref: > accounting_entry.id]
 }
 // END accounting tables
+
+
+// START branches tables
+
+Table sbm_business.branch_types {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  type varchar(50) [not null, unique]
+  description text [null]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table ditaly_pasta.branches {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  branch varchar(100) [not null]
+  tag varchar(3) [not null]
+  description text [not null]
+  cover_image varchar(2083) [null]
+  secondary_image varchar(2083) [null]
+  complementary_image varchar(2083) [null]
+  type char(36) [not null, ref: > sbm_business.branch_types.code]
+  district integer [not null, ref: > sbm_business.district.id]
+  region integer [not null, ref: > sbm_business.region.id]
+  address text [not null]
+  maps_location jsonb [null]
+  phone bigint [null]
+  mail varchar(255) [null]
+  opening_hours varchar(255) [null]
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  confirmed_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table ditaly_pasta.platform {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  platform varchar(100) [not null, unique]
+  description text [null]
+  website varchar(255) [null]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table ditaly_pasta.platform_detail {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  branch char(36) [not null, ref: > ditaly_pasta.branches.code]
+  platform char(36) [not null, ref: > ditaly_pasta.platform.code]
+  param_key varchar(100) [not null]
+  param_value text [null]
+  description text [null]
+  is_required boolean [not null, default: 0]
+  is_encrypted boolean [not null, default: 0]
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table ditaly_pasta.company_agreements {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  company varchar(150) [not null]
+  description text [null]
+  is_active boolean [not null, default: true]
+  is_deleted boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table ditaly_pasta.agreements {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  company char(36) [not null, ref: > ditaly_pasta.company_agreements.code]
+  name varchar(150) [not null]
+  description text [null]
+  discount decimal(5,2) [not null]
+  start_date date [not null]
+  end_date date [null]
+  is_active boolean [not null, default: true]
+  is_deleted boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+Table ditaly_pasta.agreement_detail {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  company char(36) [not null, ref: > ditaly_pasta.company_agreements.code]
+  agreement char(36) [not null, ref: > ditaly_pasta.agreements.code]
+  branch char(36) [not null, ref: > ditaly_pasta.branches.code]
+  ticket char(36) [null, ref: > ditaly_pasta.ticket.code]
+  benefit_applied boolean [not null, default: false]
+  is_active boolean [not null, default: true]
+  is_deleted boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+
+// END branches tables
+

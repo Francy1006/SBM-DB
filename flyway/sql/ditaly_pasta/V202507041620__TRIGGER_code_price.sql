@@ -68,43 +68,6 @@ VALUES(
         1,
         '246e04ea-7b6f-4277-ac65-4930205d3679'
     );
-INSERT INTO ditaly_pasta.price (
-        id,
-        code,
-        base_net_amount,
-        net_amount,
-        gross_amount,
-        iva_amount,
-        aditional_tax_amount,
-        retention_amount,
-        price_configuration,
-        is_current,
-        is_deleted,
-        is_confirmed,
-        created_at,
-        created_by,
-        record_item_code,
-        price_record_type
-    )
-OVERRIDING SYSTEM VALUE
-VALUES(
-        1,
-        '246e04ea-7b6f-4277-ac65-4930205d3679',
-        5660,
-        0,
-        0,
-        0,
-        0,
-        0,
-        'cd746343-baf4-4359-b2e6-9bd829631e30',
-        true,
-        NULL,
-        true,
-        '2025-07-20 16:44:18.208',
-        '1b4ec1e3-2b23-461f-83f7-3901f77c5ddc',
-        NULL,
-        NULL
-    );
 -- Actualizar las secuencias después de las inserciones manuales
 SELECT setval('ditaly_pasta.product_id_seq', (SELECT MAX(id) FROM ditaly_pasta.product), true);
-SELECT setval('ditaly_pasta.price_id_seq', (SELECT MAX(id) FROM ditaly_pasta.price), true);
+-- Los datos de price se insertan en una migración posterior
