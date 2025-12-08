@@ -1,69 +1,67 @@
-version: "3.9"
-
 services:
   postgres:
-    image: postgres:16
-    restart: always
-    env_file:
-      - .env
+    image: "postgres:16"
+    restart: "always"
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - "${POSTGRES_PORT}:${POSTGRES_INTERNAL_PORT}"
     volumes:
-      - postgres_sbm_vol:/var/lib/postgresql/data
+      - "postgres_sbm_vol:/var/lib/postgresql/data"
     networks:
-      - sbm-network
+      - "sbm-network"
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 10s
-      timeout: 5s
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} -p ${POSTGRES_INTERNAL_PORT}"]
+      interval: "10s"
+      timeout: "5s"
       retries: 5
 
   flyway_sbm_business:
-    image: flyway/flyway:10
+    image: "flyway/flyway:10"
     depends_on:
       postgres:
         condition: service_healthy
-    command: -configFiles=/flyway/conf/flyway.conf migrate
+    command: "-configFiles=/flyway/conf/flyway.conf migrate"
     volumes:
-      - ./flyway/sql/sbm_business:/flyway/sql
-      - ./flyway/sql/sbm_business/flyway.conf:/flyway/conf/flyway.conf
-    env_file:
-      - .env
+      - "./flyway/sql/sbm_business:/flyway/sql"
+      - "./flyway/sql/sbm_business/flyway.conf:/flyway/conf/flyway.conf"
+    environment:
+      POSTGRES_HOST: "${POSTGRES_HOST}"
+      POSTGRES_PORT: "${POSTGRES_INTERNAL_PORT}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      FLYWAY_SCHEMAS: "${FLYWAY_SBM_BUSINESS_SCHEMAS}"
     networks:
-      - sbm-network
-    restart: on-failure
-    healthcheck:
-      test: ["CMD", "flyway", "-configFiles=/flyway/conf/flyway.conf", "info"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
+      - "sbm-network"
+    restart: "on-failure"
 
   flyway_ditaly_pasta:
-    image: flyway/flyway:10
+    image: "flyway/flyway:10"
     depends_on:
       postgres:
         condition: service_healthy
       flyway_sbm_business:
         condition: service_completed_successfully
-    command: -configFiles=/flyway/conf/flyway.conf migrate
+    command: "-configFiles=/flyway/conf/flyway.conf migrate"
     volumes:
-      - ./flyway/sql/ditaly_pasta:/flyway/sql
-      - ./flyway/sql/ditaly_pasta/flyway.conf:/flyway/conf/flyway.conf
-    env_file:
-      - .env
+      - "./flyway/sql/ditaly_pasta:/flyway/sql"
+      - "./flyway/sql/ditaly_pasta/flyway.conf:/flyway/conf/flyway.conf"
+    environment:
+      POSTGRES_HOST: "${POSTGRES_HOST}"
+      POSTGRES_PORT: "${POSTGRES_INTERNAL_PORT}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      FLYWAY_SCHEMAS: "${FLYWAY_DITALY_PASTA_SCHEMAS}"
     networks:
-      - sbm-network
-    restart: on-failure
-    healthcheck:
-      test: ["CMD", "flyway", "-configFiles=/flyway/conf/flyway.conf", "info"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
+      - "sbm-network"
+    restart: "on-failure"
 
   flyway_cross:
-    image: flyway/flyway:10
+    image: "flyway/flyway:10"
     depends_on:
       postgres:
         condition: service_healthy
@@ -71,24 +69,23 @@ services:
         condition: service_completed_successfully
       flyway_ditaly_pasta:
         condition: service_completed_successfully
-    command: -configFiles=/flyway/conf/flyway.conf migrate
+    command: "-configFiles=/flyway/conf/flyway.conf migrate"
     volumes:
-      - ./flyway/sql/cross:/flyway/sql
-      - ./flyway/sql/cross/flyway.conf:/flyway/conf/flyway.conf
-    env_file:
-      - .env
+      - "./flyway/sql/cross:/flyway/sql"
+      - "./flyway/sql/cross/flyway.conf:/flyway/conf/flyway.conf"
+    environment:
+      POSTGRES_HOST: "${POSTGRES_HOST}"
+      POSTGRES_INTERNAL_PORT: "${POSTGRES_INTERNAL_PORT}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      FLYWAY_SCHEMAS: "${FLYWAY_CROSS_SCHEMAS}"
     networks:
-      - sbm-network
-    restart: on-failure
-    healthcheck:
-      test: ["CMD", "flyway", "-configFiles=/flyway/conf/flyway.conf", "info"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
+      - "sbm-network"
+    restart: "on-failure"
 
   flyway_analytics:
-    image: flyway/flyway:10
+    image: "flyway/flyway:10"
     depends_on:
       postgres:
         condition: service_healthy
@@ -98,24 +95,23 @@ services:
         condition: service_completed_successfully
       flyway_cross:
         condition: service_completed_successfully
-    command: -configFiles=/flyway/conf/flyway.conf migrate
+    command: "-configFiles=/flyway/conf/flyway.conf migrate"
     volumes:
-      - ./flyway/sql/analytics:/flyway/sql
-      - ./flyway/sql/analytics/flyway.conf:/flyway/conf/flyway.conf
-    env_file:
-      - .env
+      - "./flyway/sql/analytics:/flyway/sql"
+      - "./flyway/sql/analytics/flyway.conf:/flyway/conf/flyway.conf"
+    environment:
+      POSTGRES_HOST: "${POSTGRES_HOST}"
+      POSTGRES_PORT: "${POSTGRES_INTERNAL_PORT}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      FLYWAY_SCHEMAS: "${FLYWAY_ANALYTICS_SCHEMAS}"
     networks:
-      - sbm-network
-    restart: on-failure
-    healthcheck:
-      test: ["CMD", "flyway", "-configFiles=/flyway/conf/flyway.conf", "info"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
+      - "sbm-network"
+    restart: "on-failure"
 
 volumes:
-  postgres_sbm_vol:
+  postgres_sbm_vol: {}
 
 networks:
   sbm-network:
