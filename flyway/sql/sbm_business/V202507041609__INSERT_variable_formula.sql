@@ -20,7 +20,17 @@ VALUES(
         1,
         'ee4eabde-242b-4252-9a81-8266ad9b9336',
         'NORMAL_IVA',
-        '|net_amount=${base_net_amount}; iva_amount=${base_net_amount}*${iva}; gross_amount=${base_net_amount}*(1+${iva})|',
+        'Venta Neta:currency_int=${base_net_amount};
+IVA Venta:currency_int=${base_net_amount}*${iva};
+Venta Bruta:currency_int=${base_net_amount}*(1+${iva});
+Total Neto Productos:currency_int=${total_neto_productos};
+Total Neto Materiales:currency_int=${total_neto_materiales};
+Total Neto Servicios:currency_int=${total_neto_servicios};
+Costo Neto:currency_int=${costo_neto};
+IVA Costo:currency_int=${iva_costo};
+Utilidad Neta CLP:currency_int=${base_net_amount}-${costo_neto};
+Margen Neto %:percentage=(${base_net_amount}-${costo_neto})/${base_net_amount};
+IVA Diferencia:currency_int=(${base_net_amount}*${iva})-${iva_costo};',
         'PRECIO NETO * (1 + IVA) = PRECIO BRUTO',
         NULL,
         true,

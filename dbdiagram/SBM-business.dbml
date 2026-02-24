@@ -93,7 +93,7 @@ Table sbm_business.item_type {
   description text [not null]
 }
 
-Table sbm_business.item_filter_classification {
+Table sbm_business.item_classification {
   id integer [pk, increment]
   classification varchar(50) [not null]
   description text [not null]
@@ -387,8 +387,10 @@ Table ditaly_pasta.item_configuration_detail {
   type integer [not null, ref: > sbm_business.item_type.id]
   configuration char(36) [not null, ref: > ditaly_pasta.item_configuration.code]
   id_item char(36) [not null]
+  quantity integer [not null, default: 1]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   created_by char(36) [not null, ref: > sbm_business.user.code]
+
   Indexes {
     (code, type, id_item) [pk]
   }
@@ -558,7 +560,6 @@ Table ditaly_pasta.ticket {
   type integer [not null, ref: > sbm_business.item_type.id]
   item_group integer [not null, ref: > sbm_business.item_group.id]
   category integer [not null, ref: > sbm_business.item_category.id]
-  filter_classification integer [not null, ref: > sbm_business.item_filter_classification.id]
   url varchar(255) [null]
   package integer [not null, ref: > sbm_business.package.id]
   is_active boolean [not null, default: 1]
@@ -943,4 +944,479 @@ Table ditaly_pasta.agreement_detail {
 
 
 // END branches tables
+
+// START order tables
+
+Table sbm_business.status {
+  id integer [pk, increment]
+  code varchar(50) [not null, unique]
+  name varchar(50) [not null]
+  description text [null]
+  module varchar(50) [null]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+
+Table sbm_business.order_type {
+  id integer [pk, increment]
+  type varchar(50) [not null]
+  description text [not null]
+  category varchar(20) [not null]
+}
+
+
+Table sbm_business.order {
+  id integer [pk, increment]
+  code char(36) [not null, unique]
+  name varchar(100) [not null]
+  franchise_code char(36) [not null, ref: > sbm_business.franchise.code]
+  parent_order_id integer [null, ref: > sbm_business.order.id]
+  order_type_id integer [not null, ref: > sbm_business.order_type.id]
+  status_id integer [not null, ref: > sbm_business.status.id]
+  description text [null]
+  is_delayed boolean [not null, default: 0]
+  is_partial boolean [not null, default: 0]
+  is_canceled boolean [not null, default: 0]
+  is_non_conforming boolean [not null, default: 0]
+  requires_cold_chain boolean [not null, default: 1]
+  expected_dispatch_date datetime [null]
+  expected_delivery_date datetime [null]
+  actual_dispatch_date datetime [null]
+  actual_delivery_date datetime [null]
+  delivery_route varchar(50) [null]
+  delivery_window varchar(50) [null]
+  delivery_comments text [null]
+  total_net_amount decimal(14,2) [null]
+  total_discount decimal(14,2) [null]
+  total_surcharge decimal(14,2) [null]
+  operation_date datetime [not null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  confirmed_at datetime [null]
+  closed_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  is_deleted boolean [not null, default: 0]
+}
+
+
+Table sbm_business.fiscal_document_type {
+  id integer [pk, increment]
+  type varchar(50) [not null]
+  description text [not null]
+}
+
+
+Table sbm_business.fiscal_documentation {
+  id integer [pk, increment]
+  code char(36) [not null, unique]
+  document_type integer [not null, ref: > sbm_business.fiscal_document_type.id]
+  document_number varchar(50) [null]
+  url varchar(2083) [not null]
+  issued_at datetime [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+
+Table sbm_business.order_fiscal_documentation {
+  id integer [pk, increment]
+  order_id integer [not null, ref: > sbm_business.order.id]
+  fiscal_documentation_id integer [not null, ref: > sbm_business.fiscal_documentation.id]
+  description varchar(255) [null]
+  is_primary boolean [not null, default: 0]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+
+
+Table sbm_business.order_detail {
+  id integer [pk, increment]
+  order_id integer [not null, ref: > sbm_business.order.id]
+  order_type_id integer [not null, ref: > sbm_business.order_type.id]
+  catalog char(36) [null, ref: > ditay_pasta.catalog.code]
+  description varchar(255) [not null]
+  quantity integer [not null, default: 1]
+  percent decimal(6,4) [null]
+  net_amount decimal(14,2) [null]
+  fiscal_documentation integer [not null, ref: > sbm_business.fiscal_documentation.id]
+  obs text [null]
+  url_evidence varchar(2083) [null]
+  operation_date datetime [not null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+
+
+
+Table sbm_business.order_restriction {
+  id integer [pk, increment]
+  restriction char(36) [not null, ref: > sbm_business.restriction.id]
+  applies_to varchar(20) [not null]
+  description_postfix varchar(100) [not null]
+  notification_label varchar(255) [not null]
+  variable_formula char(36) [not null, ref: > sbm_business.variable_formula.code]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+
+// END order tables
+
+// START stakeholder table
+Table ditaly_pasta.stakeholder {
+id integer [pk, increment]
+user char(36) [not null, unique, ref: > sbm_business.user.code]
+is_active boolean [not null, default: 1]
+created_at datetime [default: `CURRENT_TIMESTAMP`]
+created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+// END stakeholder table
+
+// START marketing & campaign tables
+Table ditaly_pasta.marketing_campaign {
+  id integer [pk, increment]
+  code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
+  campaign varchar(100) [not null]
+  description text [null]
+  start_date datetime [not null]
+  end_date datetime [not null]
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.campaign_detail {
+  id integer [pk, increment]
+  campaign char(36) [not null, ref: > ditaly_pasta.marketing_campaign.code]
+  platform integer [not null, ref: > ditaly_pasta.marketing_platform.id]
+  start_date datetime [not null]
+  end_date datetime [not null]
+  description text [null]
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+  is_confirmed boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.campaign_profile {
+  id integer [pk, increment]
+  detail integer [not null, ref: > ditaly_pasta.campaign_detail.id]
+  profile_name varchar(100) [not null]
+  platform_account varchar(100) [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.campaign_movement_type {
+  id integer [pk, increment]
+  type varchar(50) [not null]
+  description text [null]
+  icon varchar(50) [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.campaign_movement {
+  id integer [pk, increment] // PK
+  code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER'] // Código UUID
+  detail integer [not null, ref: > ditaly_pasta.campaign_detail.id] // Campaña / plataforma
+  movement_type integer [not null, ref: > ditaly_pasta.campaign_movement_type.id] // Tipo de movimiento
+  title varchar(255) [null] // Título interno
+  post_text text [null] // Texto publicable (emojis)
+  hashtags text [null] // Hashtags en texto plano
+  url varchar(255) [null] // Link asociado
+  description text [null] // Contexto interno
+  notes text [null] // Notas para acciones no publicables
+  jira_task varchar(50) [null] // ID Jira
+  google_calendar_event_id varchar(50) [null] // ID Google Calendar
+  average_kpi decimal(12,2) [null] // KPI promedio
+  start_date datetime [not null] // Inicio
+  end_date datetime [not null] // Fin
+  is_active boolean [not null, default: 1] // Activo
+  is_deleted boolean [null] // Eliminado lógico
+  is_confirmed boolean [null] // Confirmado
+  created_at datetime [default: `CURRENT_TIMESTAMP`] // Creación
+  updated_at datetime [null] // Actualización
+  created_by char(36) [not null, ref: > sbm_business.user.code] // Usuario creador
+  updated_by char(36) [null, ref: > sbm_business.user.code] // Usuario editor
+}
+
+
+Table ditaly_pasta.campaign_metric_type {
+  id integer [pk, increment]
+  metric varchar(50) [not null]
+  description text [null]
+  platform integer [not null, ref: > ditaly_pasta.marketing_platform.id]
+  code varchar(50) [not null, unique]
+  icon varchar(50) [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.campaign_metric {
+  id integer [pk, increment]
+  detail integer [not null, ref: > ditaly_pasta.campaign_detail.id]
+  type integer [not null, ref: > ditaly_pasta.campaign_metric_type.id]
+  projected_value decimal(12,2) [not null, default: 0]
+  actual_value decimal(12,2) [null]
+  performance_pct decimal(5,2) [null]
+  description text [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.campaign_movement_metric_impact {
+  id integer [pk, increment]
+  movement integer [not null, ref: > ditaly_pasta.campaign_movement.id]
+  metric integer [not null, ref: > ditaly_pasta.campaign_metric.id]
+  projected_change decimal(12,2) [not null, default: 0]
+  actual_change decimal(12,2) [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.campaign_metric_variable {
+  id integer [pk, increment]
+  platform integer [not null, ref: > ditaly_pasta.marketing_platform.id]
+  metric_type integer [not null, ref: > ditaly_pasta.campaign_metric_type.id]
+  is_required boolean [not null, default: 1]
+  default_projection decimal(12,2) [null]
+  metric_order integer [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+
+Table ditaly_pasta.marketing_platform {
+  id integer [pk, increment]
+  platform varchar(50) [not null, unique]
+  description text [null]
+  icon varchar(50) [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.campaign_stakeholder {
+  id integer [pk, increment]
+  campaign char(36) [not null, ref: > ditaly_pasta.marketing_campaign.code]
+  stakeholder integer [not null, ref: > ditaly_pasta.stakeholder.id]
+  role varchar(100) [null]
+  notify boolean [not null, default: 0]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+
+Indexes {
+    (campaign, stakeholder) [unique]
+  }
+}
+
+
+// END marketing & campaign
+
+
+// START content tables
+
+Table ditaly_pasta.content {
+  id integer [pk, increment]
+  code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
+  title varchar(150) [not null]
+  description text [null]
+  content_type varchar(50) [not null]
+  production_type varchar(50) [not null]
+  session_reference varchar(100) [null]
+  assets_count integer [not null, default: 0]
+  average_kpi_pct decimal(5,2) [null]
+  total_cost decimal(14,2) [null]
+  status integer [not null, ref: > sbm_business.status.id]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.campaign_content {
+  id integer [pk, increment]
+  campaign char(36) [not null, ref: > ditaly_pasta.marketing_campaign.code]
+  content char(36) [not null, ref: > ditaly_pasta.content.code]
+  role varchar(50) [null]
+  notes text [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.content_asset_category {
+  id integer [pk, increment]
+  code varchar(50) [not null, unique]
+  name varchar(100) [not null]
+  description text [null]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.content_asset {
+  id integer [pk, increment]
+  code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
+  content char(36) [not null, ref: > ditaly_pasta.content.code]
+  event char(36) [not null, ref: > ditaly_pasta.event.code]
+  name varchar(255) [null]
+  asset_type varchar(50) [not null]
+  asset_category integer [not null, ref: > ditaly_pasta.content_asset_category.id]
+  orientation varchar(20) [null]
+  file_url varchar(2083) [not null]
+  cover_image varchar(2083) [null]
+  prompt text [null]
+  negative_prompt text [null]
+  description text [null]
+  duration_seconds integer [null]
+  format varchar(50) [null]
+  size_mb decimal(10,2) [null]
+  kpi_pct decimal(5,2) [null]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.content_asset_platform {
+  id integer [pk, increment]
+  asset char(36) [not null, ref: > ditaly_pasta.content_asset.code]
+  platform integer [not null, ref: > ditaly_pasta.marketing_platform.id]
+  publish_date datetime [null]
+  platform_format varchar(50) [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.content_template {
+  id integer [pk, increment]
+  code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
+  name varchar(255) [not null]
+  type varchar(50) [not null]
+  file_url varchar(2083) [null]
+  external_url varchar(2083) [null]
+  description text [null]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.content_cost {
+  id integer [pk, increment]
+  content char(36) [not null, ref: > ditaly_pasta.content.code]
+  cost_type varchar(50) [not null]
+  provider integer [null, ref: > ditaly_pasta.provider.id]
+  amount decimal(14,2) [not null]
+  description text [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.content_stakeholder {
+  id integer [pk, increment]
+  content char(36) [not null, ref: > ditaly_pasta.content.code]
+  stakeholder integer [not null, ref: > ditaly_pasta.stakeholder.id]
+  role varchar(100) [null]
+  notify boolean [not null, default: 0]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.content_target {
+  id integer [pk, increment]
+  content char(36) [not null, ref: > ditaly_pasta.content.code]
+  target_type varchar(20) [not null]
+  target_code char(36) [not null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+// END content tables
+
+
+
+
+// START event tables
+
+Table ditaly_pasta.event_type {
+  id integer [pk, increment]
+  code varchar(50) [not null, unique] // SESSION, PAYMENT, CONTRACT, DELIVERY, DEV_UPDATE, MARKETING, etc.
+  name varchar(100) [not null]
+  description text [null]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.event {
+  id integer [pk, increment]
+  code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
+  event_type integer [not null, ref: > ditaly_pasta.event_type.id]
+
+  title varchar(150) [not null]
+  description text [null]
+
+  start_at datetime [null]
+  end_at datetime [null]
+  all_day boolean [not null, default: 0]
+
+  internal_status varchar(50) [not null] // planned, in_progress, done, cancelled, error
+  last_change_source varchar(50) [not null] // system, jira, calendar, manual
+
+  jira_issue_key varchar(50) [null]
+  jira_last_sync_at datetime [null]
+  jira_last_sync_direction varchar(20) [null] // to_jira, from_jira
+
+  calendar_event_id varchar(100) [null]
+  calendar_last_sync_at datetime [null]
+  calendar_last_sync_direction varchar(20) [null] // to_calendar, from_calendar
+
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.event_content {
+  id integer [pk, increment]
+  event char(36) [not null, ref: > ditaly_pasta.event.code]
+  content char(36) [not null, ref: > ditaly_pasta.content.code]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+Table ditaly_pasta.event_campaign {
+  id integer [pk, increment]
+  event char(36) [not null, ref: > ditaly_pasta.event.code]
+  campaign char(36) [not null, ref: > ditaly_pasta.marketing_campaign.code]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+}
+
+// END event tables
+
+
+
+
+
 
