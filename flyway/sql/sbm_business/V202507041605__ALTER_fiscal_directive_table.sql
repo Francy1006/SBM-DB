@@ -73,7 +73,7 @@ VALUES(
         1,
         '3dba4813-0cc6-4437-904f-ce092830820c',
         'Impuesto al Valor Agregado general 19%',
-        'IVA_GENERAL_2025',
+        'IVA',
         1,
         0.19,
         'https://www.sii.cl/pagina/juridica/tasa_impuesto/tasa_impuesto.htm',

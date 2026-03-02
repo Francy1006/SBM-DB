@@ -5,6 +5,7 @@ INSERT INTO sbm_business.variable_formula (
         formula,
         formula_template,
         formula_translate,
+        formula_type,
         is_deleted,
         is_confirmed,
         created_at,
@@ -32,6 +33,7 @@ Utilidad Neta CLP:currency_int=${base_net_amount}-${costo_neto};
 Margen Neto %:percentage=(${base_net_amount}-${costo_neto})/${base_net_amount};
 IVA Diferencia:currency_int=(${base_net_amount}*${iva})-${iva_costo};',
         'PRECIO NETO * (1 + IVA) = PRECIO BRUTO',
+        1,
         NULL,
         true,
         '2025-07-13 12:37:16.304',

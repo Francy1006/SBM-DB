@@ -1,6 +1,6 @@
 -- Cambia todas las columnas datetime a timestamptz usando zona horaria 'America/Santiago'
 
--- ditay_pasta.catalog
+-- ditaly_pasta.catalog
  ALTER TABLE ditaly_pasta.catalog
 ALTER COLUMN created_at
 TYPE timestamptz

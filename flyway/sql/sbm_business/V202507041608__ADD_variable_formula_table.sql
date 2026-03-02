@@ -1,3 +1,15 @@
+CREATE TABLE IF NOT EXISTS sbm_business.formula_type (
+    id SERIAL PRIMARY KEY,
+    type VARCHAR(50) NOT NULL UNIQUE,
+    description TEXT NOT NULL
+);
+
+INSERT INTO sbm_business.formula_type (type, description)
+VALUES 
+('PRICE', 'Fórmula utilizada para cálculo de precios'),
+('CONFIGURATION', 'Fórmula utilizada en configuración de ítems');
+
+
 -- ADD VARIABLE FORMULA TABLE
 CREATE TABLE IF NOT EXISTS sbm_business.variable_formula (
     id SERIAL PRIMARY KEY,
@@ -5,6 +17,7 @@ CREATE TABLE IF NOT EXISTS sbm_business.variable_formula (
     formula VARCHAR(50) NOT NULL,
     formula_template TEXT NOT NULL,
     formula_translate TEXT NOT NULL,
+    formula_type INTEGER NOT NULL REFERENCES sbm_business.formula_type(id),
     is_deleted BOOLEAN NULL,
     is_confirmed BOOLEAN NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

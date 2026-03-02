@@ -39,45 +39,6 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.catalog (
     version integer NOT NULL DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration (
-    id SERIAL PRIMARY KEY,
-    code char(36) UNIQUE NOT NULL,
-    configuration varchar(50) NOT NULL,
-    description text NOT NULL,
-    package integer NOT NULL,
-    is_deleted boolean,
-    is_confirmed boolean,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP,
-    confirmed_at TIMESTAMP,
-    deleted_at TIMESTAMP,
-    created_by char(36) NOT NULL,
-    confirmed_by char(36),
-    updated_by char(36),
-    deleted_by char(36),
-    LOG text NOT NULL,
-    version integer NOT NULL DEFAULT 1
-);
-
-CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration_detail (
-    id SERIAL PRIMARY KEY,
-    code char(36) NOT NULL,
-    detail varchar(50) NOT NULL,
-    type integer NOT NULL,
-    configuration char(36) NOT NULL,
-    id_item char(36) NOT NULL,
-    is_deleted boolean,
-    is_confirmed boolean,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP,
-    confirmed_at TIMESTAMP,
-    deleted_at TIMESTAMP,
-    created_by char(36) NOT NULL,
-    confirmed_by char(36),
-    updated_by char(36),
-    deleted_by char(36)
-);
-
 CREATE TABLE IF NOT EXISTS ditaly_pasta.product (
     id SERIAL PRIMARY KEY,
     code char(36) UNIQUE NOT NULL,

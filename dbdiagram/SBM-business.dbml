@@ -62,6 +62,13 @@ Table ditaly_pasta.franchise_configuration_detail {
   }
 }
 
+Table sbm_business.formula_type {
+  id integer [pk, increment]
+  type varchar(50) [not null, unique]
+  description text
+}
+
+
 // END SBM configuration tables
 
 // START complementary tables
@@ -301,7 +308,7 @@ Table sbm_business.instruction {
 // END documentation & security tables
 
 // START product tables
-Table ditay_pasta.catalog {
+Table ditaly_pasta.catalog {
   id int [pk, increment]
   code char(36) [null, unique, note: 'UUID() REQUIRES TRIGGER']
   sku varchar(50) [not null]
@@ -344,6 +351,7 @@ Table ditaly_pasta.item_configuration {
   configuration varchar(50) [not null]
   description text [not null]
   package integer [not null, ref: > sbm_business.package.id]
+  variable_formula char(36) [null, ref: > sbm_business.variable_formula.code]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
@@ -382,6 +390,7 @@ Table sbm_business.package {
 }
 
 Table ditaly_pasta.item_configuration_detail {
+  id integer [pk, increment]
   code char(36) [not null]
   detail varchar(50) [not null]
   type integer [not null, ref: > sbm_business.item_type.id]
@@ -707,6 +716,7 @@ Table sbm_business.variable_formula {
   formula varchar(50) [not null]
   formula_template text [not null]
   formula_translate text [not null]
+  formula_type integer [not null, ref: > sbm_business.formula_type.id]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
@@ -1036,7 +1046,7 @@ Table sbm_business.order_detail {
   id integer [pk, increment]
   order_id integer [not null, ref: > sbm_business.order.id]
   order_type_id integer [not null, ref: > sbm_business.order_type.id]
-  catalog char(36) [null, ref: > ditay_pasta.catalog.code]
+  catalog char(36) [null, ref: > ditaly_pasta.catalog.code]
   description varchar(255) [not null]
   quantity integer [not null, default: 1]
   percent decimal(6,4) [null]
@@ -1414,6 +1424,65 @@ Table ditaly_pasta.event_campaign {
 }
 
 // END event tables
+
+
+
+Table ditaly_pasta.client {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+  franchise char(36) [not null, ref: > sbm_business.franchise.code]
+  detection_date date [not null]
+  status integer [not null, ref: > sbm_business.status.id]
+  platform integer [not null, ref: > ditaly_pasta.platform.id]
+  exact_address varchar(255) [not null]
+  district integer [not null, ref: > sbm_business.district.id]
+  region integer [not null, ref: > sbm_business.region.id]
+  same_address_detected boolean [not null, default: 0]
+  estimated_type varchar(150) [null]
+  operation_schedule varchar(150) [null]
+  estimated_avg_ticket decimal(10,2) [null]
+  has_visible_physical_store boolean [not null, default: 0]
+  company_name varchar(255) [null]
+  company_rut varchar(20) [null]
+  owner_name varchar(255) [null]
+  owner_position varchar(150) [null]
+  linkedin_url varchar(255) [null]
+  direct_phone varchar(50) [null]
+  direct_email varchar(255) [null]
+  contacted boolean [not null, default: 0]
+  contact_date date [null]
+  progress text [null]
+  estimated_potential_volume decimal(14,2) [null]
+  priority varchar(20) [null]
+  observations text [null]
+  is_active boolean [not null, default: 1]
+  is_deleted boolean [null]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+  log text [not null, default: "init;"]
+  version integer [not null, default: 1]
+}
+
+
+Table ditaly_pasta.client_brand {
+  id integer [pk, increment]
+  code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
+
+  client char(36) [not null, ref: > ditaly_pasta.client.code]
+  brand_name varchar(150) [not null]
+
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+
+  Indexes {
+    (client, brand_name) [unique]
+  }
+}
 
 
 

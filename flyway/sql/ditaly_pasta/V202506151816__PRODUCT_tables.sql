@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration (
     configuration varchar(50) NOT NULL,
     description text NOT NULL,
     package integer NOT NULL,
+    variable_formula CHAR(36) NULL,
     is_deleted boolean,
     is_confirmed boolean,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -55,7 +56,8 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration (
     updated_by char(36),
     deleted_by char(36),
     log text NOT NULL,
-    version integer NOT NULL DEFAULT 1
+    version integer NOT NULL DEFAULT 1,
+    FOREIGN KEY (variable_formula) REFERENCES sbm_business.variable_formula(code)
 );
 -- PACKAGE
 CREATE TABLE IF NOT EXISTS sbm_business.package (
@@ -82,11 +84,13 @@ CREATE TABLE IF NOT EXISTS sbm_business.package (
 );
 -- ITEM CONFIGURATION DETAIL
 CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration_detail (
-    code char(36) NOT NULL,
+    id SERIAL PRIMARY KEY,
+    code char(36) UNIQUE NOT NULL,
     detail varchar(50) NOT NULL,
     type integer NOT NULL,
     configuration char(36) NOT NULL,
     id_item char(36) NOT NULL,
+    quantity integer NOT NULL DEFAULT 1,
     is_deleted boolean,
     is_confirmed boolean,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -96,8 +100,7 @@ CREATE TABLE IF NOT EXISTS ditaly_pasta.item_configuration_detail (
     created_by char(36) NOT NULL,
     confirmed_by char(36),
     updated_by char(36),
-    deleted_by char(36),
-    PRIMARY KEY (code, type, id_item)
+    deleted_by char(36)
 );
 -- PRODUCT
 -- MATERIAL
