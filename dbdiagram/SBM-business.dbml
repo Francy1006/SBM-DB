@@ -77,6 +77,8 @@ Table sbm_business.menu {
   menu varchar(50) [not null]
   description text [not null]
   franchise_only boolean [not null, default: 0]
+  background_color char(6) [null, note: "HEX HTML color sin # (ej: FFFFFF)"]
+  text_color char(6) [null, note: "HEX HTML color sin # (ej: 000000)"]
 }
 
 
