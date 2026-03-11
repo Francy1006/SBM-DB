@@ -1,0 +1,124 @@
+
+
+DELETE FROM ditaly_pasta.item_configuration_detail;
+DELETE FROM ditaly_pasta.catalog;
+DELETE FROM ditaly_pasta.product;
+DELETE FROM ditaly_pasta.material;
+DELETE FROM ditaly_pasta.service;
+DELETE FROM ditaly_pasta.item_configuration;
+DELETE FROM ditaly_pasta.price;
+DELETE FROM ditaly_pasta.fiscal_configuration_detail;
+DELETE FROM ditaly_pasta.price_configuration;
+DELETE FROM sbm_business.variable_formula;
+
+
+
+-- temporal | ELIMINAR
+ALTER TABLE sbm_business.variable_formula
+ADD COLUMN price_variables TEXT;
+
+
+
+INSERT INTO sbm_business.variable_formula
+(id, code, formula, formula_template, formula_translate, formula_type, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, price_variables)
+VALUES(1, 'ee4eabde-242b-4252-9a81-8266ad9b9336', 'CATALOG_STANDARD', 'Venta Neta:currency_int=${base_net_amount};
+IVA Venta:currency_int=${base_net_amount}*${iva};
+Venta Bruta:currency_int=${base_net_amount}*(1+${iva});
+Total Neto Productos:currency_int=${total_neto_productos};
+Total Neto Materiales:currency_int=${total_neto_materiales};
+Total Neto Servicios:currency_int=${total_neto_servicios};
+Costo Neto:currency_int=${costo_neto};
+IVA Costo:currency_int=${iva_costo};
+Utilidad Neta CLP:currency_int=${base_net_amount}-${costo_neto};
+Margen Neto %:percentage=(${base_net_amount}-${costo_neto})/${base_net_amount};
+IVA Diferencia:currency_int=(${base_net_amount}*${iva})-${iva_costo};', 'PRECIO NETO * (1 + IVA) = PRECIO BRUTO', 1, NULL, true, '2025-07-13 12:37:16.304', NULL, '2025-07-13 12:37:16.304', NULL, '5fbf2886-4ad0-11f0-8ce6-0242ac120002', '5fbf2886-4ad0-11f0-8ce6-0242ac120002', NULL, NULL, 'net_amount = base_net_amount;
+iva_amount = base_net_amount * iva;
+gross_amount = base_net_amount * (1 + iva);');
+INSERT INTO sbm_business.variable_formula
+(id, code, formula, formula_template, formula_translate, formula_type, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, price_variables)
+VALUES(2, '210bbae6-1e2b-4b09-93ee-f26d08cb6be1', 'PRODUCT_STANDARD', 'Costo Neto:currency_int=${base_net_amount};
+IVA Costo:currency_int=${base_net_amount}*${iva};
+Costo Bruto:currency_int=${base_net_amount}*(1+${iva});', 'PRECIO NETO * (1 + IVA) = PRECIO BRUTO', 1, NULL, true, '2025-07-13 12:37:16.304', NULL, '2025-07-13 12:37:16.304', NULL, '5fbf2886-4ad0-11f0-8ce6-0242ac120002', '5fbf2886-4ad0-11f0-8ce6-0242ac120002', NULL, NULL, 'net_amount = base_net_amount;
+iva_amount = base_net_amount * iva;
+gross_amount = base_net_amount * (1 + iva);');
+
+
+INSERT INTO ditaly_pasta.price_configuration
+(code, price_configuration, franchise_configuration, variable_formula, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, price_type)
+VALUES('cd746343-baf4-4359-b2e6-9bd829631e30', 'PRODUCT_NORMAL_IVA', 'e8a80b9f-38d5-4c3d-8add-bb28a2493e26', '210bbae6-1e2b-4b09-93ee-f26d08cb6be1', NULL, true, '2025-07-17 11:29:02.059', NULL, NULL, NULL, '1b4ec1e3-2b23-461f-83f7-3901f77c5ddc', '1b4ec1e3-2b23-461f-83f7-3901f77c5ddc', NULL, NULL, 1);
+INSERT INTO ditaly_pasta.price_configuration
+(code, price_configuration, franchise_configuration, variable_formula, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, price_type)
+VALUES('ffd4f457-5fff-42c5-a36d-07be4b6ad39a', 'CATALOG_NORMAL_IVA', 'e8a80b9f-38d5-4c3d-8add-bb28a2493e26', 'ee4eabde-242b-4252-9a81-8266ad9b9336', NULL, true, '2025-07-31 18:14:44.164', NULL, NULL, NULL, '1b4ec1e3-2b23-461f-83f7-3901f77c5ddc', '1b4ec1e3-2b23-461f-83f7-3901f77c5ddc', NULL, NULL, 4);
+
+
+INSERT INTO ditaly_pasta.fiscal_configuration_detail
+(price_configuration, fiscal_directive, var)
+VALUES('cd746343-baf4-4359-b2e6-9bd829631e30', '3dba4813-0cc6-4437-904f-ce092830820c', 'iva');
+INSERT INTO ditaly_pasta.fiscal_configuration_detail
+(price_configuration, fiscal_directive, var)
+VALUES('ffd4f457-5fff-42c5-a36d-07be4b6ad39a', '3dba4813-0cc6-4437-904f-ce092830820c', 'iva');
+
+
+
+
+INSERT INTO sbm_business.item_group
+(id, group_name, description, catalog_render)
+VALUES(6, 'PORCIONADO', 'ENVASE PORCIONADO', true);
+
+
+
+
+
+
+INSERT INTO ditaly_pasta.price
+(code, base_net_amount, net_amount, gross_amount, iva_amount, aditional_tax_amount, retention_amount, price_configuration, is_current, is_deleted, is_confirmed, created_at, created_by, record_item_code, price_record_type)
+VALUES('ed08b43d-2c37-4b5e-95f2-bfb4b2c4630e', 12540, 12540, 14922, 2382, 0, 0, 'cd746343-baf4-4359-b2e6-9bd829631e30', true, NULL, NULL, '2026-03-11 19:54:26.275', '5fbf2886-4ad0-11f0-8ce6-0242ac120002', '0b00ccaa-d7b6-4e7d-9f96-f92b4bb6e7cb', 1);
+INSERT INTO ditaly_pasta.price
+(code, base_net_amount, net_amount, gross_amount, iva_amount, aditional_tax_amount, retention_amount, price_configuration, is_current, is_deleted, is_confirmed, created_at, created_by, record_item_code, price_record_type)
+VALUES('a6313696-3a9d-44d0-9b03-cbd770b7fb74', 8640, 8640, 10281, 1641, 0, 0, 'cd746343-baf4-4359-b2e6-9bd829631e30', true, NULL, NULL, '2026-03-11 19:59:46.257', '5fbf2886-4ad0-11f0-8ce6-0242ac120002', '7f9c6053-7b3e-4a14-b86c-abb7e9386f6c', 1);
+INSERT INTO ditaly_pasta.price
+(code, base_net_amount, net_amount, gross_amount, iva_amount, aditional_tax_amount, retention_amount, price_configuration, is_current, is_deleted, is_confirmed, created_at, created_by, record_item_code, price_record_type)
+VALUES('a6336050-81ad-4d62-a6fe-4b84fb433f78', 9180, 9180, 10924, 1744, 0, 0, 'cd746343-baf4-4359-b2e6-9bd829631e30', true, NULL, NULL, '2026-03-11 20:01:57.701', '5fbf2886-4ad0-11f0-8ce6-0242ac120002', 'fb7fe272-3892-4315-94e8-ceaa130038aa', 1);
+INSERT INTO ditaly_pasta.price
+(code, base_net_amount, net_amount, gross_amount, iva_amount, aditional_tax_amount, retention_amount, price_configuration, is_current, is_deleted, is_confirmed, created_at, created_by, record_item_code, price_record_type)
+VALUES('f2b15509-d502-4a85-b59c-b000a515e22f', 5900, 5900, 7021, 1121, 0, 0, 'cd746343-baf4-4359-b2e6-9bd829631e30', true, NULL, NULL, '2026-03-11 19:55:32.851', '5fbf2886-4ad0-11f0-8ce6-0242ac120002', '8da801ec-2547-4eed-87bf-e200a32336d5', 1);
+INSERT INTO ditaly_pasta.price
+(code, base_net_amount, net_amount, gross_amount, iva_amount, aditional_tax_amount, retention_amount, price_configuration, is_current, is_deleted, is_confirmed, created_at, created_by, record_item_code, price_record_type)
+VALUES('7f4acea3-1fab-4d1d-928d-5b0ba5acde20', 8420, 8420, 10019, 1599, 0, 0, 'cd746343-baf4-4359-b2e6-9bd829631e30', true, NULL, NULL, '2026-03-11 20:00:54.388', '5fbf2886-4ad0-11f0-8ce6-0242ac120002', '8e0a9bb2-52bf-429b-8b96-fb8995f62836', 1);
+INSERT INTO ditaly_pasta.price
+(code, base_net_amount, net_amount, gross_amount, iva_amount, aditional_tax_amount, retention_amount, price_configuration, is_current, is_deleted, is_confirmed, created_at, created_by, record_item_code, price_record_type)
+VALUES('bf397d95-c18c-4620-88c9-af621f553951', 16980, 16980, 20206, 3226, 0, 0, 'cd746343-baf4-4359-b2e6-9bd829631e30', true, NULL, NULL, '2026-03-11 19:47:35.561', '5fbf2886-4ad0-11f0-8ce6-0242ac120002', '7d211027-f191-4049-8335-480158a28acf', 1);
+INSERT INTO ditaly_pasta.price
+(code, base_net_amount, net_amount, gross_amount, iva_amount, aditional_tax_amount, retention_amount, price_configuration, is_current, is_deleted, is_confirmed, created_at, created_by, record_item_code, price_record_type)
+VALUES('4f707910-d601-4144-9f1a-82b7ff1e9460', 16980, 16980, 20206, 3226, 0, 0, 'cd746343-baf4-4359-b2e6-9bd829631e30', true, NULL, NULL, '2026-03-11 19:49:22.891', '5fbf2886-4ad0-11f0-8ce6-0242ac120002', '36a8a56b-34a5-4db7-aa06-a9cb35b1455e', 1);
+INSERT INTO ditaly_pasta.price
+(code, base_net_amount, net_amount, gross_amount, iva_amount, aditional_tax_amount, retention_amount, price_configuration, is_current, is_deleted, is_confirmed, created_at, created_by, record_item_code, price_record_type)
+VALUES('204a8037-4da3-4dcc-994e-d134d8e037a1', 10500, 10500, 12495, 1995, 0, 0, 'cd746343-baf4-4359-b2e6-9bd829631e30', true, NULL, NULL, '2026-03-11 19:52:43.339', '5fbf2886-4ad0-11f0-8ce6-0242ac120002', 'ebad2a4c-777f-4d47-be90-a3d6b42a5153', 1);
+
+
+
+
+INSERT INTO ditaly_pasta.product
+(code, sku, description, obs, package_unit, min_package_purchase, gross_price, provider, "type", item_group, category, url, package, is_active, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, log, "version", price)
+VALUES('fb7fe272-3892-4315-94e8-ceaa130038aa', 'P-01-0008', 'SALSA BOLOGNESA 1 KG', 'SALSA BOLOGNESA 1 KG GRANEL', 1, 1, 0, 1, 1, 1, 2, NULL, 3, true, NULL, NULL, '2026-03-11 20:01:57.715', NULL, NULL, NULL, '5fbf2886-4ad0-11f0-8ce6-0242ac120002', NULL, NULL, NULL, 'init;', 1, 'a6336050-81ad-4d62-a6fe-4b84fb433f78');
+INSERT INTO ditaly_pasta.product
+(code, sku, description, obs, package_unit, min_package_purchase, gross_price, provider, "type", item_group, category, url, package, is_active, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, log, "version", price)
+VALUES('36a8a56b-34a5-4db7-aa06-a9cb35b1455e', 'P-01-0002', 'FETUCCINE ESPINACA 3 KG (20 PORCIONES)', 'FETUCCINE AL HUEVO 3 KG (20 PORCIONES X 150 GR)', 1, 1, 0, 1, 1, 6, 8, NULL, 1, true, NULL, NULL, '2026-03-11 19:49:22.903', NULL, NULL, NULL, '5fbf2886-4ad0-11f0-8ce6-0242ac120002', NULL, NULL, NULL, 'init;', 1, '4f707910-d601-4144-9f1a-82b7ff1e9460');
+INSERT INTO ditaly_pasta.product
+(code, sku, description, obs, package_unit, min_package_purchase, gross_price, provider, "type", item_group, category, url, package, is_active, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, log, "version", price)
+VALUES('7d211027-f191-4049-8335-480158a28acf', 'P-01-0001', 'FETUCCINE AL HUEVO 3 KG (20 PORCIONES)', 'FETUCCINE AL HUEVO 3 KG (20 PORCIONES X 150 GR)', 1, 1, 0, 1, 1, 6, 8, NULL, 1, true, NULL, NULL, '2026-03-11 19:47:35.672', NULL, NULL, NULL, '5fbf2886-4ad0-11f0-8ce6-0242ac120002', NULL, NULL, NULL, 'init;', 1, 'bf397d95-c18c-4620-88c9-af621f553951');
+INSERT INTO ditaly_pasta.product
+(code, sku, description, obs, package_unit, min_package_purchase, gross_price, provider, "type", item_group, category, url, package, is_active, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, log, "version", price)
+VALUES('ebad2a4c-777f-4d47-be90-a3d6b42a5153', 'P-01-0003', 'RAVIOLI RICOTTA ESPINACA 2 KG (10 PORCIONES)', 'RAVIOLI RICOTTA ESPINACA 2 KG (10 PORCIONES X 200 GR)', 1, 1, 0, 1, 1, 6, 9, NULL, 2, true, NULL, NULL, '2026-03-11 19:52:43.363', NULL, NULL, NULL, '5fbf2886-4ad0-11f0-8ce6-0242ac120002', NULL, NULL, NULL, 'init;', 1, '204a8037-4da3-4dcc-994e-d134d8e037a1');
+INSERT INTO ditaly_pasta.product
+(code, sku, description, obs, package_unit, min_package_purchase, gross_price, provider, "type", item_group, category, url, package, is_active, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, log, "version", price)
+VALUES('0b00ccaa-d7b6-4e7d-9f96-f92b4bb6e7cb', 'P-01-0004', 'RAVIOLI RICOTTA SALMÓN 2 KG (10 PORCIONES)', 'RAVIOLI RICOTTA SALMÓN 2 KG (10 PORCIONES X 200 GR)', 1, 1, 0, 1, 1, 6, 9, NULL, 2, true, NULL, NULL, '2026-03-11 19:54:26.286', NULL, NULL, NULL, '5fbf2886-4ad0-11f0-8ce6-0242ac120002', NULL, NULL, NULL, 'init;', 1, 'ed08b43d-2c37-4b5e-95f2-bfb4b2c4630e');
+INSERT INTO ditaly_pasta.product
+(code, sku, description, obs, package_unit, min_package_purchase, gross_price, provider, "type", item_group, category, url, package, is_active, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, log, "version", price)
+VALUES('8da801ec-2547-4eed-87bf-e200a32336d5', 'P-01-0005', 'SALSA POMODORO 1 KG', 'SALSA POMODORO 1 KG GRANEL', 1, 1, 0, 1, 1, 1, 2, NULL, 3, true, NULL, NULL, '2026-03-11 19:55:32.875', NULL, NULL, NULL, '5fbf2886-4ad0-11f0-8ce6-0242ac120002', NULL, NULL, NULL, 'init;', 1, 'f2b15509-d502-4a85-b59c-b000a515e22f');
+INSERT INTO ditaly_pasta.product
+(code, sku, description, obs, package_unit, min_package_purchase, gross_price, provider, "type", item_group, category, url, package, is_active, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, log, "version", price)
+VALUES('7f9c6053-7b3e-4a14-b86c-abb7e9386f6c', 'P-01-0006', 'SALSA 4 QUESOS 1 KG', 'SALSA 4 QUESOS 1 KG GRANEL', 1, 1, 0, 1, 1, 1, 2, NULL, 3, true, NULL, NULL, '2026-03-11 19:59:46.274', NULL, NULL, NULL, '5fbf2886-4ad0-11f0-8ce6-0242ac120002', NULL, NULL, NULL, 'init;', 1, 'a6313696-3a9d-44d0-9b03-cbd770b7fb74');
+INSERT INTO ditaly_pasta.product
+(code, sku, description, obs, package_unit, min_package_purchase, gross_price, provider, "type", item_group, category, url, package, is_active, is_deleted, is_confirmed, created_at, updated_at, confirmed_at, deleted_at, created_by, confirmed_by, updated_by, deleted_by, log, "version", price)
+VALUES('8e0a9bb2-52bf-429b-8b96-fb8995f62836', 'P-01-0007', 'SALSA CHAMPIÑONES 1 KG', 'SALSA CHAMPIÑONES 1 KG GRANEL', 1, 1, 0, 1, 1, 1, 2, NULL, 3, true, NULL, NULL, '2026-03-11 20:00:54.401', NULL, NULL, NULL, '5fbf2886-4ad0-11f0-8ce6-0242ac120002', NULL, NULL, NULL, 'init;', 1, '7f4acea3-1fab-4d1d-928d-5b0ba5acde20');

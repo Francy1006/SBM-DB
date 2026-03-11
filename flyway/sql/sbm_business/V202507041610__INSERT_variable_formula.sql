@@ -20,7 +20,7 @@ INSERT INTO sbm_business.variable_formula (
 VALUES(
         1,
         'ee4eabde-242b-4252-9a81-8266ad9b9336',
-        'NORMAL_IVA',
+        'CATALOG_STANDARD',
         'Venta Neta:currency_int=${base_net_amount};
 IVA Venta:currency_int=${base_net_amount}*${iva};
 Venta Bruta:currency_int=${base_net_amount}*(1+${iva});
