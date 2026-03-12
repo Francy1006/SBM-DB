@@ -103,6 +103,46 @@ Costo Bruto:currency_int=${base_net_amount}*(1+${iva});',
 iva_amount = base_net_amount * iva;
 gross_amount = base_net_amount * (1 + iva);'
     );
+INSERT INTO sbm_business.variable_formula (
+        code,
+        formula,
+        formula_template,
+        formula_translate,
+        formula_type,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by,
+        price_variables
+    )
+VALUES(
+        '50d1c86e-78ba-4ca8-83e1-690480092b4e',
+        'MATERIAL_STANDARD',
+        'Costo Neto:currency_int=${base_net_amount};
+IVA Costo:currency_int=${base_net_amount}*${iva};
+Costo Bruto:currency_int=${base_net_amount}*(1+${iva});',
+        'PRECIO NETO * (1 + IVA) = PRECIO BRUTO',
+        1,
+        NULL,
+        true,
+        '2025-07-13 12:37:16.304',
+        NULL,
+        '2025-07-13 12:37:16.304',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL,
+        'net_amount = base_net_amount;
+iva_amount = base_net_amount * iva;
+gross_amount = base_net_amount * (1 + iva);'
+    );
 INSERT INTO ditaly_pasta.price_configuration (
         code,
         price_configuration,
@@ -171,6 +211,40 @@ VALUES(
         NULL,
         4
     );
+INSERT INTO ditaly_pasta.price_configuration (
+        code,
+        price_configuration,
+        franchise_configuration,
+        variable_formula,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by,
+        price_type
+    )
+VALUES(
+        'e89311ca-d61e-4ead-b6cd-787c8b98f335',
+        'MATERIAL_NORMAL_IVA',
+        'e8a80b9f-38d5-4c3d-8add-bb28a2493e26',
+        '50d1c86e-78ba-4ca8-83e1-690480092b4e',
+        NULL,
+        true,
+        '2025-07-31 18:14:44.164',
+        NULL,
+        NULL,
+        NULL,
+        '1b4ec1e3-2b23-461f-83f7-3901f77c5ddc',
+        '1b4ec1e3-2b23-461f-83f7-3901f77c5ddc',
+        NULL,
+        NULL,
+        2
+    );
 INSERT INTO ditaly_pasta.fiscal_configuration_detail (price_configuration, fiscal_directive, var)
 VALUES(
         'cd746343-baf4-4359-b2e6-9bd829631e30',
@@ -183,16 +257,14 @@ VALUES(
         '3dba4813-0cc6-4437-904f-ce092830820c',
         'iva'
     );
+INSERT INTO ditaly_pasta.fiscal_configuration_detail (price_configuration, fiscal_directive, var)
+VALUES(
+        'e89311ca-d61e-4ead-b6cd-787c8b98f335',
+        '3dba4813-0cc6-4437-904f-ce092830820c',
+        'iva'
+    );
 INSERT INTO sbm_business.item_group (id, group_name, description, catalog_render)
 VALUES(6, 'PORCIONADO', 'ENVASE PORCIONADO', true);
-
-
-UPDATE ditaly_pasta.provider
-SET code = 'PVP-001'
-WHERE provider = 'VERONA - PASIONES ITALIANAS';
-
-
-
 INSERT INTO ditaly_pasta.provider (
         code,
         provider,
@@ -236,7 +308,7 @@ INSERT INTO ditaly_pasta.provider (
         "version"
     )
 VALUES(
-        'PVP-002                             ',
+        'PVP-002',
         'DOMENICA',
         1,
         3,
@@ -267,6 +339,174 @@ VALUES(
         NULL,
         NULL,
         '2026-03-11 20:42:26.517',
+        NULL,
+        NULL,
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL,
+        NULL,
+        'init;',
+        1
+    );
+INSERT INTO ditaly_pasta.provider (
+        code,
+        provider,
+        "type",
+        rating,
+        obs_provider,
+        contact_name,
+        contact_mail,
+        contact_phone,
+        contact_phone2,
+        website_url,
+        obs_contact,
+        company_name,
+        company_rut,
+        company_activity,
+        legal_representative,
+        billing_address,
+        billing_mail,
+        billing_phone,
+        company_bank,
+        bank_account_type,
+        bank_account_number,
+        bank_account_mail,
+        dispatch_address,
+        dispatch_maps_location,
+        obs_dispatch,
+        dispatch_district,
+        dispatch_region,
+        is_active,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by,
+        log,
+        "version"
+    )
+VALUES(
+        'PVP-003',
+        'COINPAL',
+        3,
+        4,
+        'desechables vaso pasta',
+        'ULDA',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        true,
+        NULL,
+        true,
+        '2026-03-12 04:39:40.177',
+        NULL,
+        NULL,
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        'init;',
+        1
+    );
+INSERT INTO ditaly_pasta.provider (
+        code,
+        provider,
+        "type",
+        rating,
+        obs_provider,
+        contact_name,
+        contact_mail,
+        contact_phone,
+        contact_phone2,
+        website_url,
+        obs_contact,
+        company_name,
+        company_rut,
+        company_activity,
+        legal_representative,
+        billing_address,
+        billing_mail,
+        billing_phone,
+        company_bank,
+        bank_account_type,
+        bank_account_number,
+        bank_account_mail,
+        dispatch_address,
+        dispatch_maps_location,
+        obs_dispatch,
+        dispatch_district,
+        dispatch_region,
+        is_active,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by,
+        log,
+        "version"
+    )
+VALUES(
+        'PVP-004',
+        'ENVASES ROSHI',
+        2,
+        5,
+        'PROVEEDOR MINORISTA',
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        NULL,
+        true,
+        NULL,
+        true,
+        '2026-03-12 01:43:50.969',
         NULL,
         NULL,
         NULL,
@@ -580,7 +820,7 @@ INSERT INTO ditaly_pasta.product (
     )
 VALUES(
         'fb7fe272-3892-4315-94e8-ceaa130038aa',
-        'P-01-0008',
+        'P-001-0008',
         'SALSA BOLOGNESA 1 KG',
         'SALSA BOLOGNESA 1 KG GRANEL',
         1,
@@ -638,7 +878,7 @@ INSERT INTO ditaly_pasta.product (
     )
 VALUES(
         '36a8a56b-34a5-4db7-aa06-a9cb35b1455e',
-        'P-01-0002',
+        'P-001-0002',
         'FETUCCINE ESPINACA 3 KG (20 PORCIONES)',
         'FETUCCINE AL HUEVO 3 KG (20 PORCIONES X 150 GR)',
         1,
@@ -696,7 +936,7 @@ INSERT INTO ditaly_pasta.product (
     )
 VALUES(
         '7d211027-f191-4049-8335-480158a28acf',
-        'P-01-0001',
+        'P-001-0001',
         'FETUCCINE AL HUEVO 3 KG (20 PORCIONES)',
         'FETUCCINE AL HUEVO 3 KG (20 PORCIONES X 150 GR)',
         1,
@@ -754,7 +994,7 @@ INSERT INTO ditaly_pasta.product (
     )
 VALUES(
         'ebad2a4c-777f-4d47-be90-a3d6b42a5153',
-        'P-01-0003',
+        'P-001-0003',
         'RAVIOLI RICOTTA ESPINACA 2 KG (10 PORCIONES)',
         'RAVIOLI RICOTTA ESPINACA 2 KG (10 PORCIONES X 200 GR)',
         1,
@@ -812,7 +1052,7 @@ INSERT INTO ditaly_pasta.product (
     )
 VALUES(
         '0b00ccaa-d7b6-4e7d-9f96-f92b4bb6e7cb',
-        'P-01-0004',
+        'P-001-0004',
         'RAVIOLI RICOTTA SALMÓN 2 KG (10 PORCIONES)',
         'RAVIOLI RICOTTA SALMÓN 2 KG (10 PORCIONES X 200 GR)',
         1,
@@ -870,7 +1110,7 @@ INSERT INTO ditaly_pasta.product (
     )
 VALUES(
         '8da801ec-2547-4eed-87bf-e200a32336d5',
-        'P-01-0005',
+        'P-001-0005',
         'SALSA POMODORO 1 KG',
         'SALSA POMODORO 1 KG GRANEL',
         1,
@@ -928,7 +1168,7 @@ INSERT INTO ditaly_pasta.product (
     )
 VALUES(
         '7f9c6053-7b3e-4a14-b86c-abb7e9386f6c',
-        'P-01-0006',
+        'P-001-0006',
         'SALSA 4 QUESOS 1 KG',
         'SALSA 4 QUESOS 1 KG GRANEL',
         1,
@@ -986,7 +1226,7 @@ INSERT INTO ditaly_pasta.product (
     )
 VALUES(
         '8e0a9bb2-52bf-429b-8b96-fb8995f62836',
-        'P-01-0007',
+        'P-001-0007',
         'SALSA CHAMPIÑONES 1 KG',
         'SALSA CHAMPIÑONES 1 KG GRANEL',
         1,
