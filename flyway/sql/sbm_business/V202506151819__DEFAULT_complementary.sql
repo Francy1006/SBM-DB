@@ -386,9 +386,7 @@ INSERT INTO sbm_business.bank (bank, description)
 VALUES ('BANCO EDWARDS', 'BANCO EDWARDS');
 INSERT INTO sbm_business.bank (bank, description)
 VALUES ('BANCO BBVA', 'BANCO BBVA CHILE');
--- PACKAGE
 INSERT INTO sbm_business.package (
-        id,
         description,
         package_type,
         transport_type,
@@ -410,13 +408,12 @@ INSERT INTO sbm_business.package (
         deleted_by
     )
 VALUES(
-        1,
         'CAJA FETUCCINE',
-        1,
-        1,
-        3.00,
-        3.00,
         4,
+        2,
+        3.00,
+        3.00,
+        5,
         20,
         'fb903bca-4ae0-11f0-8273-0242ac1a0002',
         'fb903bca-4ae0-11f0-8273-0242ac1a0002',
@@ -432,7 +429,6 @@ VALUES(
         NULL
     );
 INSERT INTO sbm_business.package (
-        id,
         description,
         package_type,
         transport_type,
@@ -454,13 +450,12 @@ INSERT INTO sbm_business.package (
         deleted_by
     )
 VALUES(
-        2,
         'CAJA RAVIOLI',
-        1,
-        1,
-        2.00,
-        2.00,
         4,
+        2,
+        2.00,
+        2.00,
+        5,
         10,
         'fb903bca-4ae0-11f0-8273-0242ac1a0002',
         'fb903bca-4ae0-11f0-8273-0242ac1a0002',
@@ -476,7 +471,6 @@ VALUES(
         NULL
     );
 INSERT INTO sbm_business.package (
-        id,
         description,
         package_type,
         transport_type,
@@ -498,14 +492,139 @@ INSERT INTO sbm_business.package (
         deleted_by
     )
 VALUES(
-        3,
         'KILO SALSA GRANEL',
-        1,
-        1,
-        1.00,
-        1.00,
         4,
+        2,
+        1.00,
+        1.00,
+        5,
         1,
+        'fb903bca-4ae0-11f0-8273-0242ac1a0002',
+        'fb903bca-4ae0-11f0-8273-0242ac1a0002',
+        NULL,
+        true,
+        '2025-06-17 20:51:36.000',
+        NULL,
+        '2025-06-17 20:51:36.000',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL
+    );
+INSERT INTO sbm_business.package (
+        description,
+        package_type,
+        transport_type,
+        "size",
+        weight,
+        measure_unit,
+        quantity_unit,
+        storage_instructions,
+        transport_instructions,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by
+    )
+VALUES(
+        'CAJA VASOS POLIPAPEL',
+        1,
+        3,
+        10.00,
+        2.00,
+        5,
+        528,
+        'fb903bca-4ae0-11f0-8273-0242ac1a0002',
+        'fb903bca-4ae0-11f0-8273-0242ac1a0002',
+        NULL,
+        true,
+        '2025-06-17 20:51:36.000',
+        NULL,
+        '2025-06-17 20:51:36.000',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL
+    );
+INSERT INTO sbm_business.package (
+        description,
+        package_type,
+        transport_type,
+        "size",
+        weight,
+        measure_unit,
+        quantity_unit,
+        storage_instructions,
+        transport_instructions,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by
+    )
+VALUES(
+        'CAJA TAPAS PET',
+        1,
+        3,
+        8.00,
+        1.00,
+        5,
+        528,
+        'fb903bca-4ae0-11f0-8273-0242ac1a0002',
+        'fb903bca-4ae0-11f0-8273-0242ac1a0002',
+        NULL,
+        true,
+        '2025-06-17 20:51:36.000',
+        NULL,
+        '2025-06-17 20:51:36.000',
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
+        NULL,
+        NULL
+    );
+INSERT INTO sbm_business.package (
+        description,
+        package_type,
+        transport_type,
+        "size",
+        weight,
+        measure_unit,
+        quantity_unit,
+        storage_instructions,
+        transport_instructions,
+        is_deleted,
+        is_confirmed,
+        created_at,
+        updated_at,
+        confirmed_at,
+        deleted_at,
+        created_by,
+        confirmed_by,
+        updated_by,
+        deleted_by
+    )
+VALUES(
+        'ROLLO ETIQUETAS',
+        4,
+        3,
+        1.00,
+        0.40,
+        5,
+        600,
         'fb903bca-4ae0-11f0-8273-0242ac1a0002',
         'fb903bca-4ae0-11f0-8273-0242ac1a0002',
         NULL,
