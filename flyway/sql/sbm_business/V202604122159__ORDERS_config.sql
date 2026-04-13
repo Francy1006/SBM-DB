@@ -1,0 +1,327 @@
+-- V1__create_order_module_config.sql
+
+-- ============================================
+-- CREATE order_config_type
+-- ============================================
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM information_schema.tables
+        WHERE table_schema = 'sbm_business'
+          AND table_name = 'order_config_type'
+    ) THEN
+        CREATE TABLE sbm_business.order_config_type (
+            id SERIAL PRIMARY KEY,
+            type VARCHAR(50) NOT NULL UNIQUE,
+            description TEXT NOT NULL
+        );
+    END IF;
+END$$;
+
+-- ============================================
+-- SEED order_config_type
+-- ============================================
+INSERT INTO sbm_business.order_config_type (type, description)
+VALUES ('PRODUCT', 'PRODUCT ORDER DETAIL GROUP')
+ON CONFLICT (type) DO NOTHING;
+
+INSERT INTO sbm_business.order_config_type (type, description)
+VALUES ('MATERIAL', 'MATERIAL ORDER DETAIL GROUP')
+ON CONFLICT (type) DO NOTHING;
+
+INSERT INTO sbm_business.order_config_type (type, description)
+VALUES ('SERVICE', 'SERVICE ORDER DETAIL GROUP')
+ON CONFLICT (type) DO NOTHING;
+
+INSERT INTO sbm_business.order_config_type (type, description)
+VALUES ('CATALOG', 'CATALOG ORDER DETAIL GROUP')
+ON CONFLICT (type) DO NOTHING;
+
+INSERT INTO sbm_business.order_config_type (type, description)
+VALUES ('TICKET', 'TICKET ORDER DETAIL GROUP')
+ON CONFLICT (type) DO NOTHING;
+
+-- ajustar secuencia si aplica
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM information_schema.columns
+        WHERE table_schema = 'sbm_business'
+          AND table_name = 'order_config_type'
+          AND column_name = 'id'
+    ) THEN
+        PERFORM setval(
+            pg_get_serial_sequence('sbm_business.order_config_type', 'id'),
+            COALESCE((SELECT MAX(id) FROM sbm_business.order_config_type), 1),
+            true
+        );
+    END IF;
+END$$;
+
+-- ============================================
+-- CREATE order_module_config
+-- Configuración transversal del módulo Orders
+-- ============================================
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM information_schema.tables
+        WHERE table_schema = 'sbm_business'
+          AND table_name = 'order_module_config'
+    ) THEN
+        CREATE TABLE sbm_business.order_module_config (
+            id SERIAL PRIMARY KEY,
+            order_config_type INTEGER NOT NULL,
+            variable_formula CHAR(36) NOT NULL,
+            is_active BOOLEAN NOT NULL DEFAULT TRUE,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NULL
+        );
+    END IF;
+END$$;
+
+-- ============================================
+-- DROP FK old order_config -> order (si existe modelo anterior)
+-- ============================================
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM information_schema.table_constraints
+        WHERE constraint_schema = 'sbm_business'
+          AND table_name = 'order_config'
+          AND constraint_name = 'fk_order_config_order'
+    ) THEN
+        ALTER TABLE sbm_business.order_config
+        DROP CONSTRAINT fk_order_config_order;
+    END IF;
+END$$;
+
+-- ============================================
+-- DROP UNIQUE old per order/group (si existe modelo anterior)
+-- ============================================
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM information_schema.table_constraints
+        WHERE constraint_schema = 'sbm_business'
+          AND table_name = 'order_config'
+          AND constraint_name = 'uq_order_config_order_group'
+    ) THEN
+        ALTER TABLE sbm_business.order_config
+        DROP CONSTRAINT uq_order_config_order_group;
+    END IF;
+END$$;
+
+-- ============================================
+-- DROP old index order_id (si existe)
+-- ============================================
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM pg_indexes
+        WHERE schemaname = 'sbm_business'
+          AND tablename = 'order_config'
+          AND indexname = 'idx_order_config_order'
+    ) THEN
+        DROP INDEX sbm_business.idx_order_config_order;
+    END IF;
+END$$;
+
+-- ============================================
+-- DROP old column order_id (si existe modelo anterior)
+-- ============================================
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM information_schema.columns
+        WHERE table_schema = 'sbm_business'
+          AND table_name = 'order_config'
+          AND column_name = 'order_id'
+    ) THEN
+        ALTER TABLE sbm_business.order_config
+        DROP COLUMN order_id;
+    END IF;
+END$$;
+
+-- ============================================
+-- RENAME old order_config -> order_module_config
+-- ============================================
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM information_schema.tables
+        WHERE table_schema = 'sbm_business'
+          AND table_name = 'order_config'
+    )
+    AND NOT EXISTS (
+        SELECT 1
+        FROM information_schema.tables
+        WHERE table_schema = 'sbm_business'
+          AND table_name = 'order_module_config'
+    ) THEN
+        ALTER TABLE sbm_business.order_config
+        RENAME TO order_module_config;
+    END IF;
+END$$;
+
+-- ============================================
+-- RENAME old constraint fk_order_config_order_config_type
+-- ============================================
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM information_schema.table_constraints
+        WHERE constraint_schema = 'sbm_business'
+          AND table_name = 'order_module_config'
+          AND constraint_name = 'fk_order_config_order_config_type'
+    ) THEN
+        ALTER TABLE sbm_business.order_module_config
+        RENAME CONSTRAINT fk_order_config_order_config_type
+        TO fk_order_module_config_order_config_type;
+    END IF;
+END$$;
+
+-- ============================================
+-- RENAME old constraint fk_order_config_variable_formula
+-- ============================================
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM information_schema.table_constraints
+        WHERE constraint_schema = 'sbm_business'
+          AND table_name = 'order_module_config'
+          AND constraint_name = 'fk_order_config_variable_formula'
+    ) THEN
+        ALTER TABLE sbm_business.order_module_config
+        RENAME CONSTRAINT fk_order_config_variable_formula
+        TO fk_order_module_config_variable_formula;
+    END IF;
+END$$;
+
+-- ============================================
+-- RENAME old unique constraint uq_order_config_type
+-- ============================================
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM information_schema.table_constraints
+        WHERE constraint_schema = 'sbm_business'
+          AND table_name = 'order_module_config'
+          AND constraint_name = 'uq_order_config_type'
+    ) THEN
+        ALTER TABLE sbm_business.order_module_config
+        RENAME CONSTRAINT uq_order_config_type
+        TO uq_order_module_config_type;
+    END IF;
+END$$;
+
+-- ============================================
+-- FK order_module_config -> order_config_type
+-- ============================================
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM information_schema.table_constraints
+        WHERE constraint_schema = 'sbm_business'
+          AND table_name = 'order_module_config'
+          AND constraint_name = 'fk_order_module_config_order_config_type'
+    ) THEN
+        ALTER TABLE sbm_business.order_module_config
+        ADD CONSTRAINT fk_order_module_config_order_config_type
+        FOREIGN KEY (order_config_type)
+        REFERENCES sbm_business.order_config_type(id);
+    END IF;
+END$$;
+
+-- ============================================
+-- FK order_module_config -> variable_formula
+-- ============================================
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM information_schema.table_constraints
+        WHERE constraint_schema = 'sbm_business'
+          AND table_name = 'order_module_config'
+          AND constraint_name = 'fk_order_module_config_variable_formula'
+    ) THEN
+        ALTER TABLE sbm_business.order_module_config
+        ADD CONSTRAINT fk_order_module_config_variable_formula
+        FOREIGN KEY (variable_formula)
+        REFERENCES sbm_business.variable_formula(code);
+    END IF;
+END$$;
+
+-- ============================================
+-- UNIQUE logical config per group
+-- 1 configuración global por tipo
+-- ============================================
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM information_schema.table_constraints
+        WHERE constraint_schema = 'sbm_business'
+          AND table_name = 'order_module_config'
+          AND constraint_name = 'uq_order_module_config_type'
+    ) THEN
+        ALTER TABLE sbm_business.order_module_config
+        ADD CONSTRAINT uq_order_module_config_type
+        UNIQUE (order_config_type);
+    END IF;
+END$$;
+
+-- ============================================
+-- DROP old index order_config_type (si existe con nombre anterior)
+-- ============================================
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM pg_indexes
+        WHERE schemaname = 'sbm_business'
+          AND tablename = 'order_module_config'
+          AND indexname = 'idx_order_config_order_config_type'
+    ) THEN
+        ALTER INDEX sbm_business.idx_order_config_order_config_type
+        RENAME TO idx_order_module_config_order_config_type;
+    END IF;
+END$$;
+
+-- ============================================
+-- DROP old index variable_formula (si existe con nombre anterior)
+-- ============================================
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM pg_indexes
+        WHERE schemaname = 'sbm_business'
+          AND tablename = 'order_module_config'
+          AND indexname = 'idx_order_config_variable_formula'
+    ) THEN
+        ALTER INDEX sbm_business.idx_order_config_variable_formula
+        RENAME TO idx_order_module_config_variable_formula;
+    END IF;
+END$$;
+
+-- ============================================
+-- INDEXES
+-- ============================================
+CREATE INDEX IF NOT EXISTS idx_order_module_config_order_config_type
+ON sbm_business.order_module_config(order_config_type);
+
+CREATE INDEX IF NOT EXISTS idx_order_module_config_variable_formula
+ON sbm_business.order_module_config(variable_formula);

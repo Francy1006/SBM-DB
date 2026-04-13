@@ -43,6 +43,7 @@ Table ditaly_pasta.franchise_configuration_detail {
   description text [not null]
   type integer [not null, ref: > sbm_business.franchise_configuration_type.id]
   configuration char(36) [not null, ref: > ditaly_pasta.franchise_configuration.code]
+  variable_formula char(36) [null, ref: > sbm_business.variable_formula.code]
   index integer [not null, default: 1]
   var varchar(50) [not null]
   value decimal(10,2) [not null, default: 0]
@@ -700,11 +701,20 @@ Table ditaly_pasta.price_configuration {
 
 Table ditaly_pasta.fiscal_configuration_detail {
   id integer [pk, increment]
-  price_configuration char(36) [not null, ref: > ditaly_pasta.price_configuration.code]
+  module_id integer [not null, ref: > sbm_business.module.id]
+  module_config_id varchar(50) [not null]
   fiscal_directive char(36) [not null, ref: > sbm_business.fiscal_directive.code]
   var varchar(50) [not null]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+
   Indexes {
-    (id, fiscal_directive) [pk]
+    (module_id, module_config_id, var) [unique]
   }
 }
 
@@ -988,13 +998,11 @@ Table sbm_business.order {
   order_type_id integer [not null, ref: > sbm_business.order_type.id]
   status_id integer [not null, ref: > sbm_business.status.id]
   description text [null]
-  is_delayed boolean [not null, default: 0]
   is_partial boolean [not null, default: 0]
   is_canceled boolean [not null, default: 0]
   is_non_conforming boolean [not null, default: 0]
   requires_cold_chain boolean [not null, default: 1]
   requires_fiscal_documentation boolean [not null, default: 0]
-  has_fiscal_documentation boolean [not null, default: 0]
   fiscal_documentation_error boolean [not null, default: 0]
   is_processed boolean [not null, default: 0]
   is_closed boolean [not null, default: 0]
@@ -1020,6 +1028,41 @@ Table sbm_business.order {
   version integer [not null, default: 1]
 }
 
+Table sbm_business.order_config_type {
+  id integer [pk, increment]
+  type varchar(50) [not null, unique]
+  description text [not null]
+}
+
+Table sbm_business.module {
+  id integer [pk, increment]
+  code varchar(50) [not null, unique]
+  description varchar(100) [null]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+}
+
+Table sbm_business.module_order_config {
+  id integer [pk, increment]
+  order_config_type integer [not null, ref: > sbm_business.order_config_type.id]
+  variable_formula char(36) [not null, ref: > sbm_business.variable_formula.code]
+  is_active boolean [not null, default: 1]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  deleted_at datetime [null]
+  created_by char(36) [null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  deleted_by char(36) [null, ref: > sbm_business.user.code]
+
+  Indexes {
+    (order_config_type) [unique]
+  }
+}
 
 Table sbm_business.fiscal_document_type {
   id integer [pk, increment]
@@ -1071,7 +1114,6 @@ Table sbm_business.order_detail {
   is_non_conforming boolean [not null, default: 0]
   requires_cold_chain boolean [not null, default: 0]
   requires_fiscal_documentation boolean [not null, default: 0]
-  has_fiscal_documentation boolean [not null, default: 0]
   fiscal_documentation_error boolean [not null, default: 0]
   is_processed boolean [not null, default: 0]
   is_closed boolean [not null, default: 0]
@@ -1087,9 +1129,6 @@ Table sbm_business.order_detail {
   deleted_at datetime [null]
   created_by char(36) [not null, ref: > sbm_business.user.code]
 }
-
-
-
 
 Table sbm_business.order_restriction {
   id integer [pk, increment]

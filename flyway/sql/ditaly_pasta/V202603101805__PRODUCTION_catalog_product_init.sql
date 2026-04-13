@@ -7,10 +7,14 @@ DELETE FROM ditaly_pasta.item_configuration;
 DELETE FROM ditaly_pasta.price;
 DELETE FROM ditaly_pasta.fiscal_configuration_detail;
 DELETE FROM ditaly_pasta.price_configuration;
-DELETE FROM sbm_business.variable_formula;
--- temporal | ELIMINAR
-ALTER TABLE sbm_business.variable_formula
-ADD COLUMN price_variables TEXT;
+
+DELETE FROM sbm_business.variable_formula
+WHERE formula IN (
+    'CATALOG_STANDARD',
+    'PRODUCT_STANDARD',
+    'MATERIAL_STANDARD'
+);
+
 INSERT INTO sbm_business.variable_formula (
         id,
         code,
@@ -27,8 +31,7 @@ INSERT INTO sbm_business.variable_formula (
         created_by,
         confirmed_by,
         updated_by,
-        deleted_by,
-        price_variables
+        deleted_by
     )
 VALUES(
         1,
@@ -56,11 +59,9 @@ IVA Diferencia:currency_int=(${base_net_amount}*${iva})-${iva_costo};',
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
-        NULL,
-        'net_amount = base_net_amount;
-iva_amount = base_net_amount * iva;
-gross_amount = base_net_amount * (1 + iva);'
+        NULL
     );
+
 INSERT INTO sbm_business.variable_formula (
         id,
         code,
@@ -77,8 +78,7 @@ INSERT INTO sbm_business.variable_formula (
         created_by,
         confirmed_by,
         updated_by,
-        deleted_by,
-        price_variables
+        deleted_by
     )
 VALUES(
         2,
@@ -98,11 +98,9 @@ Costo Bruto:currency_int=${base_net_amount}*(1+${iva});',
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
-        NULL,
-        'net_amount = base_net_amount;
-iva_amount = base_net_amount * iva;
-gross_amount = base_net_amount * (1 + iva);'
+        NULL
     );
+
 INSERT INTO sbm_business.variable_formula (
         code,
         formula,
@@ -118,8 +116,7 @@ INSERT INTO sbm_business.variable_formula (
         created_by,
         confirmed_by,
         updated_by,
-        deleted_by,
-        price_variables
+        deleted_by
     )
 VALUES(
         '50d1c86e-78ba-4ca8-83e1-690480092b4e',
@@ -138,11 +135,9 @@ Costo Bruto:currency_int=${base_net_amount}*(1+${iva});',
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
         NULL,
-        NULL,
-        'net_amount = base_net_amount;
-iva_amount = base_net_amount * iva;
-gross_amount = base_net_amount * (1 + iva);'
+        NULL
     );
+
 INSERT INTO ditaly_pasta.price_configuration (
         code,
         price_configuration,
@@ -177,6 +172,7 @@ VALUES(
         NULL,
         1
     );
+
 INSERT INTO ditaly_pasta.price_configuration (
         code,
         price_configuration,
@@ -211,6 +207,7 @@ VALUES(
         NULL,
         4
     );
+
 INSERT INTO ditaly_pasta.price_configuration (
         code,
         price_configuration,
@@ -245,26 +242,31 @@ VALUES(
         NULL,
         2
     );
+
 INSERT INTO ditaly_pasta.fiscal_configuration_detail (price_configuration, fiscal_directive, var)
 VALUES(
         'cd746343-baf4-4359-b2e6-9bd829631e30',
         '3dba4813-0cc6-4437-904f-ce092830820c',
         'iva'
     );
+
 INSERT INTO ditaly_pasta.fiscal_configuration_detail (price_configuration, fiscal_directive, var)
 VALUES(
         'ffd4f457-5fff-42c5-a36d-07be4b6ad39a',
         '3dba4813-0cc6-4437-904f-ce092830820c',
         'iva'
     );
+
 INSERT INTO ditaly_pasta.fiscal_configuration_detail (price_configuration, fiscal_directive, var)
 VALUES(
         'e89311ca-d61e-4ead-b6cd-787c8b98f335',
         '3dba4813-0cc6-4437-904f-ce092830820c',
         'iva'
     );
+
 INSERT INTO sbm_business.item_group (id, group_name, description, catalog_render)
 VALUES(6, 'PORCIONADO', 'ENVASE PORCIONADO', true);
+
 INSERT INTO ditaly_pasta.provider (
         code,
         provider,
@@ -349,6 +351,7 @@ VALUES(
         'init;',
         1
     );
+
 INSERT INTO ditaly_pasta.provider (
         code,
         provider,
@@ -433,6 +436,7 @@ VALUES(
         'init;',
         1
     );
+
 INSERT INTO ditaly_pasta.provider (
         code,
         provider,
@@ -517,6 +521,7 @@ VALUES(
         'init;',
         1
     );
+
 INSERT INTO ditaly_pasta.price (
         code,
         base_net_amount,
@@ -551,6 +556,7 @@ VALUES(
         '0b00ccaa-d7b6-4e7d-9f96-f92b4bb6e7cb',
         1
     );
+
 INSERT INTO ditaly_pasta.price (
         code,
         base_net_amount,
@@ -585,6 +591,7 @@ VALUES(
         '7f9c6053-7b3e-4a14-b86c-abb7e9386f6c',
         1
     );
+
 INSERT INTO ditaly_pasta.provider (
         code,
         provider,
@@ -669,6 +676,7 @@ VALUES(
         'init;',
         1
     );
+
 INSERT INTO ditaly_pasta.price (
         code,
         base_net_amount,
@@ -703,6 +711,7 @@ VALUES(
         'fb7fe272-3892-4315-94e8-ceaa130038aa',
         1
     );
+
 INSERT INTO ditaly_pasta.price (
         code,
         base_net_amount,
@@ -737,6 +746,7 @@ VALUES(
         '8da801ec-2547-4eed-87bf-e200a32336d5',
         1
     );
+
 INSERT INTO ditaly_pasta.price (
         code,
         base_net_amount,
@@ -771,6 +781,7 @@ VALUES(
         '8e0a9bb2-52bf-429b-8b96-fb8995f62836',
         1
     );
+
 INSERT INTO ditaly_pasta.price (
         code,
         base_net_amount,
@@ -805,6 +816,7 @@ VALUES(
         '7d211027-f191-4049-8335-480158a28acf',
         1
     );
+
 INSERT INTO ditaly_pasta.price (
         code,
         base_net_amount,
@@ -839,6 +851,7 @@ VALUES(
         '36a8a56b-34a5-4db7-aa06-a9cb35b1455e',
         1
     );
+
 INSERT INTO ditaly_pasta.price (
         code,
         base_net_amount,
@@ -873,6 +886,7 @@ VALUES(
         'ebad2a4c-777f-4d47-be90-a3d6b42a5153',
         1
     );
+
 INSERT INTO ditaly_pasta.product (
         code,
         sku,
@@ -931,6 +945,7 @@ VALUES(
         1,
         'a6336050-81ad-4d62-a6fe-4b84fb433f78'
     );
+
 INSERT INTO ditaly_pasta.product (
         code,
         sku,
@@ -989,6 +1004,7 @@ VALUES(
         1,
         '4f707910-d601-4144-9f1a-82b7ff1e9460'
     );
+
 INSERT INTO ditaly_pasta.product (
         code,
         sku,
@@ -1047,6 +1063,7 @@ VALUES(
         1,
         'bf397d95-c18c-4620-88c9-af621f553951'
     );
+
 INSERT INTO ditaly_pasta.product (
         code,
         sku,
@@ -1105,6 +1122,7 @@ VALUES(
         1,
         '204a8037-4da3-4dcc-994e-d134d8e037a1'
     );
+
 INSERT INTO ditaly_pasta.product (
         code,
         sku,
@@ -1163,6 +1181,7 @@ VALUES(
         1,
         'ed08b43d-2c37-4b5e-95f2-bfb4b2c4630e'
     );
+
 INSERT INTO ditaly_pasta.product (
         code,
         sku,
@@ -1221,6 +1240,7 @@ VALUES(
         1,
         'f2b15509-d502-4a85-b59c-b000a515e22f'
     );
+
 INSERT INTO ditaly_pasta.product (
         code,
         sku,
@@ -1279,6 +1299,7 @@ VALUES(
         1,
         'a6313696-3a9d-44d0-9b03-cbd770b7fb74'
     );
+
 INSERT INTO ditaly_pasta.product (
         code,
         sku,
