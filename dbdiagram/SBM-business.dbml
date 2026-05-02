@@ -656,6 +656,55 @@ Table sbm_business.price_type {
 }
 
 
+Table sbm_business.calculation_concept {
+  id integer [pk, increment]
+  code uuid [not null, unique, default: `gen_random_uuid()`]
+  field_name varchar(50) [not null, unique] // net_amount, gross_amount, iva_amount, etc
+  description text [null]
+  data_type int [not null, ref: > sbm_business.data_type.id]
+  is_active boolean [not null, default: true]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+}
+
+
+Table sbm_business.module_calculation_detail {
+  id integer [pk, increment]
+  module int [not null, ref: > sbm_business.module.id]
+  calculation_concept char(36) [not null, ref: > sbm_business.calculation_concept.code]
+  format_type varchar(50) [not null, default: 'currency_int']
+  is_required boolean [not null, default: true]
+  is_active boolean [not null, default: true]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+
+  Indexes {
+    (module, calculation_concept) [unique]
+  }
+}
+
+Table ditaly_pasta.price_configuration_detail {
+  id integer [pk, increment]
+  code uuid [not null, unique, default: `gen_random_uuid()`]
+  price_configuration uuid [not null, ref: > ditaly_pasta.price_configuration.code]
+  price_concept uuid [not null, ref: > sbm_business.calculation_concept.code]
+  label varchar(100) [not null]
+  format_type varchar(50) [not null, default: 'currency_int']
+  is_required boolean [not null, default: true]
+  is_active boolean [not null, default: true]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  updated_at datetime [null]
+  created_by char(36) [not null, ref: > sbm_business.user.code]
+  updated_by char(36) [null, ref: > sbm_business.user.code]
+  Indexes {
+    (price_configuration, price_concept) [unique]
+  }
+}
+
 Table sbm_business.fiscal_directive {
   id integer [pk, increment]
   code char(36) [not null, unique, note: 'UUID() REQUIRES TRIGGER']
@@ -705,6 +754,7 @@ Table ditaly_pasta.fiscal_configuration_detail {
   module_config_id varchar(50) [not null]
   fiscal_directive char(36) [not null, ref: > sbm_business.fiscal_directive.code]
   var varchar(50) [not null]
+  data_type int [not null, ref: > sbm_business.data_type.id]
   is_active boolean [not null, default: 1]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   updated_at datetime [null]
@@ -719,7 +769,11 @@ Table ditaly_pasta.fiscal_configuration_detail {
 }
 
 
-
+Table sbm_business.data_type {
+  id integer [pk, increment]
+  data_type varchar(50) [not null, unique]
+  description varchar(255) [null]
+}
 
 
 Table sbm_business.variable_formula {
