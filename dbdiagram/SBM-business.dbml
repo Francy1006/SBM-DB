@@ -645,16 +645,8 @@ Table ditaly_pasta.price {
   created_at datetime [default: `CURRENT_TIMESTAMP`]
   created_by char(36) [not null, ref: > sbm_business.user.code]
   record_item_code char(36) [null]
-  price_record_type integer [null, ref: > sbm_business.price_type.id]
+  price_record_type integer [null, ref: > sbm_business.record_type.id]
 }
-
-
-Table sbm_business.price_type {
-  id integer [pk, increment]
-  type varchar(50) [not null]
-  description text [not null]
-}
-
 
 Table sbm_business.calculation_concept {
   id integer [pk, increment]
@@ -670,11 +662,10 @@ Table sbm_business.calculation_concept {
 }
 
 
-Table sbm_business.module_calculation_detail {
+Table ditaly_pasta.module_calculation_detail {
   id integer [pk, increment]
-  module int [not null, ref: > sbm_business.module.id]
+  calculation_config int [not null, ref: > ditaly_pasta.module_calculation_config.id]
   calculation_concept char(36) [not null, ref: > sbm_business.calculation_concept.code]
-  format_type varchar(50) [not null, default: 'currency_int']
   is_required boolean [not null, default: true]
   is_active boolean [not null, default: true]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
@@ -683,7 +674,7 @@ Table sbm_business.module_calculation_detail {
   updated_by char(36) [null, ref: > sbm_business.user.code]
 
   Indexes {
-    (module, calculation_concept) [unique]
+    (calculation_config, calculation_concept) [unique]
   }
 }
 
@@ -692,8 +683,6 @@ Table ditaly_pasta.price_configuration_detail {
   code uuid [not null, unique, default: `gen_random_uuid()`]
   price_configuration uuid [not null, ref: > ditaly_pasta.price_configuration.code]
   price_concept uuid [not null, ref: > sbm_business.calculation_concept.code]
-  label varchar(100) [not null]
-  format_type varchar(50) [not null, default: 'currency_int']
   is_required boolean [not null, default: true]
   is_active boolean [not null, default: true]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
@@ -735,7 +724,7 @@ Table ditaly_pasta.price_configuration {
   price_configuration varchar(50) [not null, unique]
   franchise_configuration char(36) [not null, ref: > ditaly_pasta.franchise_configuration.code]
   variable_formula char(36) [not null, ref: > sbm_business.variable_formula.code]
-  price_type integer [not null, ref: > sbm_business.price_type.id]
+  record_type integer [not null, ref: > sbm_business.record_type.id]
   is_deleted boolean [null]
   is_confirmed boolean [null]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
@@ -750,7 +739,7 @@ Table ditaly_pasta.price_configuration {
 
 Table ditaly_pasta.fiscal_configuration_detail {
   id integer [pk, increment]
-  module_id integer [not null, ref: > sbm_business.module.id]
+  module integer [not null, ref: > sbm_business.module.id]
   module_config_id varchar(50) [not null]
   fiscal_directive char(36) [not null, ref: > sbm_business.fiscal_directive.code]
   var varchar(50) [not null]
@@ -764,7 +753,7 @@ Table ditaly_pasta.fiscal_configuration_detail {
   deleted_by char(36) [null, ref: > sbm_business.user.code]
 
   Indexes {
-    (module_id, module_config_id, var) [unique]
+    (module, module_config_id, var) [unique]
   }
 }
 
@@ -1082,7 +1071,7 @@ Table sbm_business.order {
   version integer [not null, default: 1]
 }
 
-Table sbm_business.order_config_type {
+Table sbm_business.record_type {
   id integer [pk, increment]
   type varchar(50) [not null, unique]
   description text [not null]
@@ -1101,9 +1090,10 @@ Table sbm_business.module {
   deleted_by char(36) [null, ref: > sbm_business.user.code]
 }
 
-Table sbm_business.module_order_config {
+Table ditaly_pasta.module_calculation_config {
   id integer [pk, increment]
-  order_config_type integer [not null, ref: > sbm_business.order_config_type.id]
+  module integer [not null, ref: > sbm_business.module.id]
+  record_type integer [not null, ref: > sbm_business.record_type.id]
   variable_formula char(36) [not null, ref: > sbm_business.variable_formula.code]
   is_active boolean [not null, default: 1]
   created_at datetime [default: `CURRENT_TIMESTAMP`]
@@ -1114,7 +1104,7 @@ Table sbm_business.module_order_config {
   deleted_by char(36) [null, ref: > sbm_business.user.code]
 
   Indexes {
-    (order_config_type) [unique]
+    (module, record_type) [unique]
   }
 }
 
@@ -1153,7 +1143,7 @@ Table sbm_business.order_detail {
   id integer [pk, increment]
   order_id integer [not null, ref: > sbm_business.order.id]
   order_type_id integer [not null, ref: > sbm_business.order_type.id]
-  item_type integer [not null, ref: > sbm_business.item_type.id]
+  record_type integer [not null, ref: > sbm_business.record_type.id]
   id_item varchar(50) [not null]
   description varchar(255) [not null]
   quantity integer [not null, default: 1]

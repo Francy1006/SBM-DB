@@ -18,6 +18,6 @@ CREATE TABLE ditaly_pasta.price (
   created_at timestamp DEFAULT CURRENT_TIMESTAMP,
   created_by char(36) NOT NULL REFERENCES sbm_business.user(code),
   record_item_code char(36)  NULL,
-  price_record_type integer NULL REFERENCES sbm_business.price_type(id)
+  price_record_type integer NULL REFERENCES sbm_business.record_type(id)
 );
 

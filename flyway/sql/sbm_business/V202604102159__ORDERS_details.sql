@@ -405,7 +405,7 @@ CREATE TABLE sbm_business.order_detail (
   id SERIAL PRIMARY KEY,
   order_id integer NOT NULL,
   order_type_id integer NOT NULL,
-  item_type integer NOT NULL,
+  record_type integer NOT NULL,
   id_item varchar(50) NOT NULL,
   description varchar(255) NOT NULL,
   quantity integer NOT NULL DEFAULT 1,
@@ -485,18 +485,18 @@ BEGIN
     SELECT 1
     FROM information_schema.tables
     WHERE table_schema = 'sbm_business'
-      AND table_name = 'item_type'
+      AND table_name = 'record_type'
   ) AND NOT EXISTS (
     SELECT 1
     FROM information_schema.table_constraints
     WHERE constraint_schema = 'sbm_business'
       AND table_name = 'order_detail'
-      AND constraint_name = 'fk_order_detail_item_type'
+      AND constraint_name = 'fk_order_detail_record_type'
   ) THEN
     ALTER TABLE sbm_business.order_detail
-      ADD CONSTRAINT fk_order_detail_item_type
-      FOREIGN KEY (item_type)
-      REFERENCES sbm_business.item_type(id);
+      ADD CONSTRAINT fk_order_detail_record_type
+      FOREIGN KEY (record_type)
+      REFERENCES sbm_business.record_type(id);
   END IF;
 END $$;
 
@@ -548,8 +548,8 @@ CREATE INDEX IF NOT EXISTS idx_order_detail_order_id
 CREATE INDEX IF NOT EXISTS idx_order_detail_order_type_id
   ON sbm_business.order_detail(order_type_id);
 
-CREATE INDEX IF NOT EXISTS idx_order_detail_item_type
-  ON sbm_business.order_detail(item_type);
+CREATE INDEX IF NOT EXISTS idx_order_detail_record_type
+  ON sbm_business.order_detail(record_type);
 
 CREATE INDEX IF NOT EXISTS idx_order_detail_id_item
   ON sbm_business.order_detail(id_item);

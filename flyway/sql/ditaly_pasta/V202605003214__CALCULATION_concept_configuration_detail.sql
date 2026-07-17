@@ -1,40 +1,12 @@
--- extension para generar uuid
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 -- =========================
--- TABLE: calculation_concept
+-- TABLE: price_configuration_detail (FIX UUID)
 -- =========================
-CREATE TABLE sbm_business.calculation_concept (
+CREATE TABLE IF NOT EXISTS ditaly_pasta.price_configuration_detail (
     id SERIAL PRIMARY KEY,
-    code CHAR(36) NOT NULL UNIQUE,
-    field_name VARCHAR(50) NOT NULL,
-    description TEXT,
-    data_type VARCHAR(20) NOT NULL DEFAULT 'decimal',
-    is_active BOOLEAN NOT NULL DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL,
-    created_by CHAR(36) NOT NULL,
-    updated_by CHAR(36) NULL,
-    CONSTRAINT fk_calculation_concept_created_by FOREIGN KEY (created_by) REFERENCES sbm_business."user"(code),
-    CONSTRAINT fk_calculation_concept_updated_by FOREIGN KEY (updated_by) REFERENCES sbm_business."user"(code)
-);
--- trigger para generar UUID como texto
-CREATE OR REPLACE FUNCTION sbm_business.fn_calculation_concept_uuid() RETURNS trigger AS $$ BEGIN IF NEW.code IS NULL THEN NEW.code := gen_random_uuid()::text;
-END IF;
-RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-CREATE TRIGGER trg_calculation_concept_uuid BEFORE
-INSERT ON sbm_business.calculation_concept FOR EACH ROW EXECUTE FUNCTION sbm_business.fn_calculation_concept_uuid();
--- =========================
--- TABLE: price_configuration_detail
--- =========================
-CREATE TABLE ditaly_pasta.price_configuration_detail (
-    id SERIAL PRIMARY KEY,
-    code CHAR(36) NOT NULL UNIQUE,
+    code UUID NOT NULL DEFAULT gen_random_uuid() UNIQUE,
     price_configuration CHAR(36) NOT NULL,
-    calculation_concept CHAR(36) NOT NULL,
-    label VARCHAR(100) NOT NULL,
-    format_type VARCHAR(50) NOT NULL DEFAULT 'currency_int',
+    calculation_concept UUID NOT NULL,
     is_required BOOLEAN NOT NULL DEFAULT TRUE,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -47,14 +19,9 @@ CREATE TABLE ditaly_pasta.price_configuration_detail (
     CONSTRAINT fk_pcd_updated_by FOREIGN KEY (updated_by) REFERENCES sbm_business."user"(code),
     CONSTRAINT uq_price_config_concept UNIQUE (price_configuration, calculation_concept)
 );
--- trigger uuid texto
-CREATE OR REPLACE FUNCTION ditaly_pasta.fn_pcd_uuid() RETURNS trigger AS $$ BEGIN IF NEW.code IS NULL THEN NEW.code := gen_random_uuid()::text;
-END IF;
-RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-CREATE TRIGGER trg_pcd_uuid BEFORE
-INSERT ON ditaly_pasta.price_configuration_detail FOR EACH ROW EXECUTE FUNCTION ditaly_pasta.fn_pcd_uuid();
+-- =========================
+-- DATA FIX (usar UUID real, no TEXT)
+-- =========================
 INSERT INTO sbm_business.calculation_concept (
         id,
         code,
@@ -69,113 +36,93 @@ INSERT INTO sbm_business.calculation_concept (
     )
 VALUES (
         8,
-        '11b4efec-afe8-465c-8599-2b0b0742e127',
+        '11b4efec-afe8-465c-8599-2b0b0742e127'::uuid,
         'net_amount',
         'Precio neto final',
-        'decimal',
+        6,
         true,
-        '2026-04-17 16:14:43.365',
-        null,
-        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        null
+        NOW(),
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002'::uuid,
+        NULL
     ),
     (
         9,
-        '5b227a97-da11-4d7c-8b4d-08e3f3be0ba9',
+        '5b227a97-da11-4d7c-8b4d-08e3f3be0ba9'::uuid,
         'gross_amount',
         'Precio bruto final',
-        'decimal',
+        6,
         true,
-        '2026-04-17 16:14:43.365',
-        null,
-        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        null
+        NOW(),
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002'::uuid,
+        NULL
     ),
     (
         10,
-        '9f64a11f-05da-4dad-a501-26773492df48',
+        '9f64a11f-05da-4dad-a501-26773492df48'::uuid,
         'iva_amount',
         'Monto IVA',
-        'decimal',
+        6,
         true,
-        '2026-04-17 16:14:43.365',
-        null,
-        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        null
+        NOW(),
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002'::uuid,
+        NULL
     ),
     (
         11,
-        '20c03de3-69a6-4cdb-ad93-9c79621d45a2',
+        '20c03de3-69a6-4cdb-ad93-9c79621d45a2'::uuid,
         'aditional_tax_amount',
         'Impuesto adicional',
-        'decimal',
+        6,
         true,
-        '2026-04-17 16:14:43.365',
-        null,
-        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        null
+        NOW(),
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002'::uuid,
+        NULL
     ),
     (
         12,
-        'a1fe734c-50d7-476f-aec7-273dea527f1c',
+        'a1fe734c-50d7-476f-aec7-273dea527f1c'::uuid,
         'retention_amount',
         'Monto retención',
-        'decimal',
+        6,
         true,
-        '2026-04-17 16:14:43.365',
-        null,
-        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        null
-    );
+        NOW(),
+        NULL,
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002'::uuid,
+        NULL
+    ) ON CONFLICT (id) DO NOTHING;
 INSERT INTO ditaly_pasta.price_configuration_detail (
         code,
         price_configuration,
         calculation_concept,
-        "label",
-        format_type,
         is_required,
         is_active,
-        created_at,
-        updated_at,
-        created_by,
-        updated_by
+        created_by
     )
 VALUES (
-        '2c5f0ab6-dc0e-4542-9879-5a3cfc17128f',
-        'cd746343-baf4-4359-b2e6-9bd829631e30',
-        '9f64a11f-05da-4dad-a501-26773492df48',
-        'IVA COMPRA',
-        '5',
+        '2c5f0ab6-dc0e-4542-9879-5a3cfc17128f'::uuid,
+        'cd746343-baf4-4359-b2e6-9bd829631e30'::uuid,
+        '9f64a11f-05da-4dad-a501-26773492df48'::uuid,
         true,
         true,
-        '2026-04-24 23:05:07.122',
-        NULL,
-        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        NULL
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002'::uuid
     ),
     (
-        '68b9870c-f332-4500-a23a-df0c530a2b0c',
-        'cd746343-baf4-4359-b2e6-9bd829631e30',
-        '5b227a97-da11-4d7c-8b4d-08e3f3be0ba9',
-        'BRUTO COSTO',
-        '5',
+        '68b9870c-f332-4500-a23a-df0c530a2b0c'::uuid,
+        'cd746343-baf4-4359-b2e6-9bd829631e30'::uuid,
+        '5b227a97-da11-4d7c-8b4d-08e3f3be0ba9'::uuid,
         true,
         true,
-        '2026-04-24 23:05:07.122',
-        NULL,
-        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        NULL
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002'::uuid
     ),
     (
-        '7f1d3ef1-47bc-4229-a689-8f0e53aa0416',
-        'cd746343-baf4-4359-b2e6-9bd829631e30',
-        '11b4efec-afe8-465c-8599-2b0b0742e127',
-        'NETO COSTO',
-        '5',
+        '7f1d3ef1-47bc-4229-a689-8f0e53aa0416'::uuid,
+        'cd746343-baf4-4359-b2e6-9bd829631e30'::uuid,
+        '11b4efec-afe8-465c-8599-2b0b0742e127'::uuid,
         true,
         true,
-        '2026-04-24 23:05:07.122',
-        NULL,
-        '5fbf2886-4ad0-11f0-8ce6-0242ac120002',
-        NULL
-    );
+        '5fbf2886-4ad0-11f0-8ce6-0242ac120002'::uuid
+    ) ON CONFLICT (code) DO NOTHING;

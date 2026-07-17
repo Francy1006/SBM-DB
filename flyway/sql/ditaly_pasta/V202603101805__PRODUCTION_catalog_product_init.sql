@@ -153,7 +153,7 @@ INSERT INTO ditaly_pasta.price_configuration (
         confirmed_by,
         updated_by,
         deleted_by,
-        price_type
+        record_type
     )
 VALUES(
         'cd746343-baf4-4359-b2e6-9bd829631e30',
@@ -188,7 +188,7 @@ INSERT INTO ditaly_pasta.price_configuration (
         confirmed_by,
         updated_by,
         deleted_by,
-        price_type
+        record_type
     )
 VALUES(
         'ffd4f457-5fff-42c5-a36d-07be4b6ad39a',
@@ -223,7 +223,7 @@ INSERT INTO ditaly_pasta.price_configuration (
         confirmed_by,
         updated_by,
         deleted_by,
-        price_type
+        record_type
     )
 VALUES(
         'e89311ca-d61e-4ead-b6cd-787c8b98f335',
