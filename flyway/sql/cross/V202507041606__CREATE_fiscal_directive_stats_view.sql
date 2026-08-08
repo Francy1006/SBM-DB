@@ -14,9 +14,9 @@ SELECT
     COUNT(CASE WHEN fd.is_confirmed = true THEN 1 END) AS confirmed_directives,
     COUNT(CASE WHEN fd.is_deleted = true THEN 1 END) AS deleted_directives,
     COUNT(CASE WHEN fd.is_confirmed IS NULL THEN 1 END) AS pending_directives,
-    AVG(fd.percentage) AS avg_percentage,
-    MIN(fd.percentage) AS min_percentage,
-    MAX(fd.percentage) AS max_percentage,
+    AVG(fd.value) AS avg_percentage,
+    MIN(fd.value) AS min_percentage,
+    MAX(fd.value) AS max_percentage,
     COUNT(CASE WHEN fd.year = EXTRACT(YEAR FROM CURRENT_DATE) THEN 1 END) AS current_year_directives,
     COUNT(CASE WHEN fd.month IS NOT NULL THEN 1 END) AS directives_with_month,
     COUNT(CASE WHEN fd.end_month IS NOT NULL THEN 1 END) AS directives_with_end_month,
@@ -40,9 +40,9 @@ SELECT
     COUNT(CASE WHEN is_confirmed IS NULL THEN 1 END) AS pending_directives,
     COUNT(DISTINCT type) AS unique_types,
     COUNT(DISTINCT year) AS unique_years,
-    AVG(percentage) AS avg_percentage,
-    MIN(percentage) AS min_percentage,
-    MAX(percentage) AS max_percentage
+    AVG(value) AS avg_percentage,
+    MIN(value) AS min_percentage,
+    MAX(value) AS max_percentage
 FROM sbm_business.fiscal_directive
 
 UNION ALL
@@ -55,9 +55,9 @@ SELECT
     COUNT(CASE WHEN is_confirmed IS NULL THEN 1 END) AS pending_directives,
     COUNT(DISTINCT type) AS unique_types,
     COUNT(DISTINCT year) AS unique_years,
-    AVG(percentage) AS avg_percentage,
-    MIN(percentage) AS min_percentage,
-    MAX(percentage) AS max_percentage
+    AVG(value) AS avg_percentage,
+    MIN(value) AS min_percentage,
+    MAX(value) AS max_percentage
 FROM sbm_business.fiscal_directive
 WHERE is_deleted IS NULL OR is_deleted = false;
 
@@ -70,9 +70,9 @@ SELECT
     COUNT(CASE WHEN is_deleted = true THEN 1 END) AS deleted_directives,
     COUNT(CASE WHEN is_confirmed IS NULL THEN 1 END) AS pending_directives,
     COUNT(DISTINCT type) AS unique_types,
-    AVG(percentage) AS avg_percentage,
-    MIN(percentage) AS min_percentage,
-    MAX(percentage) AS max_percentage
+    AVG(value) AS avg_percentage,
+    MIN(value) AS min_percentage,
+    MAX(value) AS max_percentage
 FROM sbm_business.fiscal_directive
 GROUP BY year
 ORDER BY year DESC;
