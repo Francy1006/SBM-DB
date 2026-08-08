@@ -1,3 +1,5 @@
 mysql_sbm_vol/
 .env.dev
 .env.prod
+
+.sonar/
