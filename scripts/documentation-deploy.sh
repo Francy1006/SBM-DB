@@ -3,7 +3,6 @@ set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 ENV_FILE="${PROJECT_ROOT}/.env.dev"
-EXPECTED_CANONICAL_PROJECT_PATH="/suite/sbm/SBM-DB"
 
 [[ -f "${ENV_FILE}" ]] || {
   echo "ERROR: No existe ${ENV_FILE}"
@@ -187,7 +186,6 @@ fi
 
 PAYLOAD="$(
   PROJECT_NAME="${PROJECT_NAME}" \
-  PROJECT_ROOT="${EXPECTED_CANONICAL_PROJECT_PATH}" \
   CHANGE_SUMMARY="${CHANGE_SUMMARY}" \
   CHANGED_FILES="${CHANGED_FILES}" \
   GIT_DIFF="${GIT_DIFF}" \
@@ -212,11 +210,6 @@ documentation_targets = [
 print(json.dumps({
     "project_name": os.environ["PROJECT_NAME"],
     "workflow": "documentation-deploy",
-    "project_root": os.environ["PROJECT_ROOT"],
-    "documentation_root": "/suite/context/documentation",
-    "format_context_path": "/suite/context/documentation/FORMAT_CONTEXT.md",
-    "system_prompt_path": "/suite/context/documentation/SYS_PROMPT.md",
-    "output_directory": "/suite/context/documentation/output",
     "change_summary": os.environ["CHANGE_SUMMARY"],
     "changed_files": changed_files,
     "git_diff": os.environ["GIT_DIFF"],
@@ -262,5 +255,5 @@ print(f"Paquete: {zip_path}")
 PY
 
 echo
-echo "Generado en: ${OUTPUT_DIR}"
-echo "Respuesta: ${RESPONSE_FILE}"
+echo "Generado en: ../../context/documentation/output"
+echo "Respuesta: ../../context/documentation/output/documentation-export-response.json"

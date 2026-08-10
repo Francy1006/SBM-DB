@@ -18,12 +18,13 @@ Provide a versioned, auditable and reproducible PostgreSQL schema for shared SBM
 
 | ID | Objective | Status | Priority | Target date | Branch | Documentation |
 |---|---|---|---:|---|---|---|
-| SBM-DB-001 | habilitación de sbm-db | active | 5 | 2026-08-07 | `FEATURE-enables-sbm-db` | `context/documentation/pages/🤖 AI Architect Roadmap/🏢 SBM-Suite 3a50bde8acd580d0a068d6abc3542603.md` |
+| SBM-DB-001 | habilitación de sbm-db | active | 5 | 2026-08-07 | FEATURE-enables-sbm-db | `context/documentation/pages/🤖 AI Architect Roadmap/🏢 SBM-Suite 3a50bde8acd580d0a068d6abc3542603.md` |
 
 ## 4. Pending objectives
 
 | ID | Objective | Status | Priority | Target date | Branch | Documentation |
 |---|---|---|---:|---|---|---|
+| SBM-DB-002 | Actualizar SBM-DB al contrato lifecycle actual de Context, incluyendo objectives[], execution_mode, preservación literal de objetivos y paths relativos. | pending | 5 | N/A | FEATURE-updates-context-lifecycle | N/A |
 
 ## 5. Scope and ownership
 

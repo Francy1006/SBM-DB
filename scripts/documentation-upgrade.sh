@@ -144,8 +144,8 @@ if not isinstance(updated_files, list) or not updated_files:
 backup_directory = payload.get("backup_directory")
 if not isinstance(backup_directory, str) or not backup_directory:
     raise SystemExit("ERROR: La respuesta no contiene backup_directory")
-if not backup_directory.startswith("/suite/context/backup/"):
-    raise SystemExit("ERROR: backup_directory no pertenece a /suite/context/backup")
+if not backup_directory.startswith("context/backup/"):
+    raise SystemExit("ERROR: backup_directory debe ser relativo a context/backup/")
 
 print("Archivos actualizados:")
 for path in updated_files:
