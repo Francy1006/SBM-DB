@@ -135,7 +135,7 @@ Secret values must never be committed or packaged into context/documentation exp
 | `cross` | `flyway/sql/cross/` | Cross-schema/accounting changes |
 | `analytics` | `flyway/sql/analytics/` | Analytics/reporting objects |
 | DBML | `dbdiagram/SBM-business.dbml` | Canonical intended physical design |
-| Lifecycle | `scripts/` | Context, documentation, database QA and Sonar workflows |
+| Lifecycle | `scripts/` | Global Context/Documentation launchers plus database QA and Sonar workflows |
 
 ## 10. Data model ownership
 
@@ -189,7 +189,7 @@ Database access is controlled through PostgreSQL credentials and environment-man
 | SBM-API | SBM-API → PostgreSQL | Platform persistence | active |
 | Flyway | migrations → PostgreSQL | Physical schema evolution | active |
 | SonarQube Community Build | scripts/YAML/secrets → SonarQube | Supported static analysis | active |
-| sbm-ai-assistant | lifecycle scripts → assistant | Context/documentation lifecycle | active |
+| sbm-ai-assistant | global lifecycle scripts → assistant | Context/Documentation lifecycle | active |
 
 Canonical assistant registry mapping:
 
@@ -204,7 +204,8 @@ sbm-db → /suite/sbm/SBM-DB
 - `db-validate.sh` validates Docker Compose and all four Flyway flows.
 - `qa-check.sh` combines Flyway/PostgreSQL validation with SonarQube Community Build.
 - `sonar-scan.sh` waits for the server-side SonarQube Quality Gate.
-- Context and documentation lifecycle scripts use suite-global input/output/backup locations.
+- Context and Documentation lifecycle scripts are minimal launchers for the canonical implementations in `SBM-SUITE/context/scripts/`.
+- Project Tree generation is owned only by `SBM-SUITE/context/project-tree.sh`.
 - Analytics Flyway discovery is aligned with its Compose mount through `filesystem:/flyway/sql`.
 - Fiscal directive analytics uses `fd.value` while preserving the existing view aliases `avg_percentage`, `min_percentage` and `max_percentage`.
 
@@ -277,7 +278,7 @@ Migration discipline:
 - Ordered migration flows established in Docker Compose.
 - Flyway validation confirmed across all four flows.
 - SonarQube Community Build integration established with server-side Quality Gate validation.
-- Repository-local context, documentation and QA lifecycle scripts established.
+- Repository-local Context/Documentation launchers and database QA scripts established.
 - `sbm-db` registered in the assistant Project Registry.
 
 ## 20. Pending work
@@ -292,7 +293,7 @@ Migration discipline:
 - Treat Flyway history as auditable state.
 - Keep application ORMs unmanaged for physical schema ownership.
 - Require explicit validation before `repair`, destructive SQL or schema cleanup.
-- Use suite-global context/documentation input, output and backup directories.
+- Delegate Context and Documentation lifecycle behavior to `SBM-SUITE/context/scripts/`.
 - Never package `.env*` values.
 - Treat PostgreSQL/Flyway execution as authoritative database QA evidence.
 - Keep project and global contexts synchronized through the lifecycle workflow.

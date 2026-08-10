@@ -1,10 +1,10 @@
 # DEPLOY_CONTEXT.md
 
-> **Last updated:** 2026-08-08
+> **Last updated:** 2026-08-10
 >
 > **Purpose:** Canonical deployment and governed lifecycle context for SBM-DB.
 >
-> **Accuracy note:** This file defines repository-local deployment/lifecycle behavior. It does not claim a production deployment or replace PostgreSQL backup/recovery procedures.
+> **Accuracy note:** This file defines repository-local database deployment behavior and how SBM-DB delegates the suite-global Context and Documentation lifecycle. It does not claim a production deployment or replace PostgreSQL backup/recovery procedures.
 
 ## 1. Scope and ownership
 
@@ -48,13 +48,10 @@ Local environment file:
 .env.dev
 ```
 
-Lifecycle configuration:
-
-```text
-DOPPLER_PROJECT=sbm-db
-AI_ASSISTANT_URL
-SBM_SUITE_ROOT
-```
+The lifecycle wrappers do not read local lifecycle configuration. They resolve
+`SBM_SUITE_ROOT` from the repository location; the deploy wrappers pass the
+`sbm-db` project identity required by their global interfaces. The global scripts
+own assistant configuration and all lifecycle validation.
 
 Sonar configuration:
 
@@ -86,16 +83,36 @@ SBM-SUITE/context/backup/<timestamp>_<project>/
 
 Database backups are a separate operational responsibility.
 
-## 4. Context deploy workflow
+## 4. Global lifecycle delegation
+
+The only canonical lifecycle implementations are:
 
 ```text
-./scripts/context-deploy.sh <lifecycle_phase> <objective_id> [user_prompt]
-→ GET /contexts/contract
-→ validate canonical `sbm-db` registration
-→ generate global project-tree.txt
-→ collect Git and QA evidence excluding environment secrets
-→ POST /contexts/export
-→ generate suite-global context package
+SBM-SUITE/context/scripts/context-deploy.sh
+SBM-SUITE/context/scripts/context-upgrade.sh
+SBM-SUITE/context/scripts/documentation-deploy.sh
+SBM-SUITE/context/scripts/documentation-upgrade.sh
+```
+
+The four scripts under `SBM-DB/scripts/` are minimal launchers. They resolve the
+suite root, verify the corresponding global script is executable and replace the
+local process with it. SBM-DB does not implement Project Registry, lifecycle,
+Git evidence, QA, HTTP, payload, ZIP, Context or Documentation reconciliation.
+
+The canonical Project Tree implementation is:
+
+```text
+SBM-SUITE/context/project-tree.sh
+```
+
+SBM-DB has no local `project-tree.sh`; the global workflows invoke the canonical
+implementation.
+
+## 5. Context deploy workflow
+
+```text
+./scripts/context-deploy.sh <lifecycle_phase> '<objectives-json-array>' [user_prompt]
+→ exec SBM-SUITE/context/scripts/context-deploy.sh sbm-db ...
 ```
 
 Supported phases:
@@ -106,7 +123,10 @@ implementation-progress
 implementation-closure
 ```
 
-## 5. Manual review stage
+All validation, evidence collection, Project Tree generation and package creation
+belong to the global script. The wrapper does not translate legacy contracts.
+
+## 6. Manual review stage
 
 The generated context package and `SYS_PROMPT.md` are reviewed by the LLM/user workflow before any context mutation.
 
@@ -124,7 +144,7 @@ For closure:
 - validate database/migration claims against executed evidence;
 - do not infer deployment or migration success.
 
-## 6. Context upgrade workflow
+## 7. Context upgrade workflow
 
 Place the reviewed archive at:
 
@@ -136,6 +156,7 @@ Run:
 
 ```bash
 ./scripts/context-upgrade.sh
+→ exec SBM-SUITE/context/scripts/context-upgrade.sh
 ```
 
 Validate response:
@@ -144,9 +165,26 @@ Validate response:
 ../../context/output/context-upgrade-response.json
 ```
 
-The backend validates `FORMAT_CONTEXT.md`, manifest authorization, target mappings and lifecycle invariants before applying patches.
+The global workflow obtains the project from the archive manifest. It validates
+`FORMAT_CONTEXT.md`, manifest authorization, target mappings and lifecycle
+invariants before applying patches.
 
-## 7. Atomicity and cleanup
+## 8. Documentation workflows
+
+```bash
+./scripts/documentation-deploy.sh
+→ exec SBM-SUITE/context/scripts/documentation-deploy.sh sbm-db
+
+./scripts/documentation-upgrade.sh
+→ exec SBM-SUITE/context/scripts/documentation-upgrade.sh
+```
+
+Documentation deployment is suite-global and `sbm-db` is only the originating
+project. The global implementation performs multi-project reconciliation; the
+local wrapper neither filters SBM-DB targets nor reconciles documentation.
+Documentation upgrade obtains the project from its archive manifest.
+
+## 9. Atomicity and cleanup
 
 Context/documentation lifecycle updates must be applied atomically by the backend workflow.
 
@@ -160,7 +198,7 @@ Input packages are cleaned only after successful validated application according
 
 No environment-secret file may be copied into lifecycle evidence or backup metadata.
 
-## 8. Rollback
+## 10. Rollback
 
 Context/documentation rollback uses the corresponding suite backup generated before the atomic replacement.
 
@@ -171,21 +209,19 @@ Database rollback is separate:
 - restore PostgreSQL data only through an explicit database backup/recovery procedure;
 - context backups do not replace PostgreSQL backups.
 
-## 9. Validation performed
+## 11. Validation performed
 
-Repository lifecycle scripts validate, as applicable:
+The suite-global lifecycle scripts validate, as applicable:
 
-- `.env.dev` existence;
-- `DOPPLER_PROJECT=sbm-db`;
 - backend canonical project registration;
-- exact runtime/repository mapping;
+- canonical repository mapping;
 - required ZIP manifest and response fields;
 - environment-file exclusion from evidence;
 - required QA evidence for implementation closure;
 - Docker Compose/Flyway validation through `db-validate.sh`;
 - SonarScanner and server-side Quality Gate through `qa-check.sh`.
 
-## 10. Current limitations
+## 12. Current limitations
 
 - SonarQube Community Build is not the primary SQL/Flyway quality gate.
 - Database backup/recovery is outside the context/documentation lifecycle.
