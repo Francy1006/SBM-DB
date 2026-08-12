@@ -135,7 +135,7 @@ Secret values must never be committed or packaged into context/documentation exp
 | `cross` | `flyway/sql/cross/` | Cross-schema/accounting changes |
 | `analytics` | `flyway/sql/analytics/` | Analytics/reporting objects |
 | DBML | `dbdiagram/SBM-business.dbml` | Canonical intended physical design |
-| Lifecycle | `scripts/` | Global Context/Documentation launchers plus database QA and Sonar workflows |
+| Project operations | `scripts/` | Database QA and Sonar workflows |
 
 ## 10. Data model ownership
 
@@ -204,8 +204,8 @@ sbm-db → /suite/sbm/SBM-DB
 - `db-validate.sh` validates Docker Compose and all four Flyway flows.
 - `qa-check.sh` combines Flyway/PostgreSQL validation with SonarQube Community Build.
 - `sonar-scan.sh` waits for the server-side SonarQube Quality Gate.
-- Context and Documentation lifecycle scripts are minimal launchers for the canonical implementations in `SBM-SUITE/context/scripts/`.
-- Project Tree generation is owned only by `SBM-SUITE/context/project-tree.sh`.
+- Context and Documentation workflows are owned and executed exclusively from `SBM-SUITE/context`.
+- Project Tree generation is owned only by `SBM-SUITE/context/scripts/project-tree.sh`; SBM-DB has no local implementation or consumer.
 - Analytics Flyway discovery is aligned with its Compose mount through `filesystem:/flyway/sql`.
 - Fiscal directive analytics uses `fd.value` while preserving the existing view aliases `avg_percentage`, `min_percentage` and `max_percentage`.
 
@@ -278,7 +278,7 @@ Migration discipline:
 - Ordered migration flows established in Docker Compose.
 - Flyway validation confirmed across all four flows.
 - SonarQube Community Build integration established with server-side Quality Gate validation.
-- Repository-local Context/Documentation launchers and database QA scripts established.
+- Local Context/Documentation responsibility removed; database QA scripts remain project-owned.
 - `sbm-db` registered in the assistant Project Registry.
 
 ## 20. Pending work

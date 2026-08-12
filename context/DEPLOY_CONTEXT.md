@@ -48,10 +48,9 @@ Local environment file:
 .env.dev
 ```
 
-The lifecycle wrappers do not read local lifecycle configuration. They resolve
-`SBM_SUITE_ROOT` from the repository location; the deploy wrappers pass the
-`sbm-db` project identity required by their global interfaces. The global scripts
-own assistant configuration and all lifecycle validation.
+SBM-DB has no local Context or Documentation configuration or scripts. Their
+configuration, execution and validation belong exclusively to
+`SBM-SUITE/context`.
 
 Sonar configuration:
 
@@ -83,7 +82,7 @@ SBM-SUITE/context/backup/<timestamp>_<project>/
 
 Database backups are a separate operational responsibility.
 
-## 4. Global lifecycle delegation
+## 4. Global lifecycle ownership
 
 The only canonical lifecycle implementations are:
 
@@ -94,25 +93,24 @@ SBM-SUITE/context/scripts/documentation-deploy.sh
 SBM-SUITE/context/scripts/documentation-upgrade.sh
 ```
 
-The four scripts under `SBM-DB/scripts/` are minimal launchers. They resolve the
-suite root, verify the corresponding global script is executable and replace the
-local process with it. SBM-DB does not implement Project Registry, lifecycle,
-Git evidence, QA, HTTP, payload, ZIP, Context or Documentation reconciliation.
+SBM-DB contains neither wrappers nor implementations for these workflows. It does
+not implement Project Registry, lifecycle, Git evidence, QA, HTTP, payload, ZIP,
+Context or Documentation reconciliation.
 
 The canonical Project Tree implementation is:
 
 ```text
-SBM-SUITE/context/project-tree.sh
+SBM-SUITE/context/scripts/project-tree.sh
 ```
 
-SBM-DB has no local `project-tree.sh`; the global workflows invoke the canonical
-implementation.
+SBM-DB has no local `project-tree.sh` and no local Project Tree consumer.
 
 ## 5. Context deploy workflow
 
-```text
-./scripts/context-deploy.sh <lifecycle_phase> '<objectives-json-array>' [user_prompt]
-→ exec SBM-SUITE/context/scripts/context-deploy.sh sbm-db ...
+From the `SBM-SUITE/context` root:
+
+```bash
+./scripts/context-deploy.sh sbm-db <lifecycle_phase> '<objectives-json-array>' [user_prompt]
 ```
 
 Supported phases:
@@ -124,7 +122,7 @@ implementation-closure
 ```
 
 All validation, evidence collection, Project Tree generation and package creation
-belong to the global script. The wrapper does not translate legacy contracts.
+belong to the global script.
 
 ## 6. Manual review stage
 
@@ -152,11 +150,10 @@ Place the reviewed archive at:
 ../../context/input/context-upgrade.zip
 ```
 
-Run:
+Run from the `SBM-SUITE/context` root:
 
 ```bash
 ./scripts/context-upgrade.sh
-→ exec SBM-SUITE/context/scripts/context-upgrade.sh
 ```
 
 Validate response:
@@ -171,18 +168,18 @@ invariants before applying patches.
 
 ## 8. Documentation workflows
 
+Run from the `SBM-SUITE/context` root:
+
 ```bash
 ./scripts/documentation-deploy.sh
-→ exec SBM-SUITE/context/scripts/documentation-deploy.sh sbm-db
 
 ./scripts/documentation-upgrade.sh
-→ exec SBM-SUITE/context/scripts/documentation-upgrade.sh
 ```
 
-Documentation deployment is suite-global and `sbm-db` is only the originating
-project. The global implementation performs multi-project reconciliation; the
-local wrapper neither filters SBM-DB targets nor reconciles documentation.
-Documentation upgrade obtains the project from its archive manifest.
+Documentation deploy and upgrade are suite-global and accept no project
+argument. The global implementation performs multi-project reconciliation;
+SBM-DB neither selects nor filters targets and does not reconcile documentation
+locally.
 
 ## 9. Atomicity and cleanup
 
