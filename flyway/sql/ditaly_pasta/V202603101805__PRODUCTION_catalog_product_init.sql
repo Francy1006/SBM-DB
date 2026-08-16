@@ -101,6 +101,12 @@ Costo Bruto:currency_int=${base_net_amount}*(1+${iva});',
         NULL
     );
 
+SELECT setval(
+    'sbm_business.variable_formula_id_seq',
+    (SELECT MAX(id) FROM sbm_business.variable_formula),
+    true
+);
+
 INSERT INTO sbm_business.variable_formula (
         code,
         formula,
@@ -266,6 +272,12 @@ VALUES(
 
 INSERT INTO sbm_business.item_group (id, group_name, description, catalog_render)
 VALUES(6, 'PORCIONADO', 'ENVASE PORCIONADO', true);
+
+SELECT setval(
+    'ditaly_pasta.provider_id_seq',
+    (SELECT MAX(id) FROM ditaly_pasta.provider),
+    true
+);
 
 INSERT INTO ditaly_pasta.provider (
         code,
