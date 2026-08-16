@@ -17,7 +17,7 @@ SONAR_STATUS=0
 
 echo "1/2 Validando Docker/Flyway..."
 set +e
-"${SCRIPT_DIR}/db-validate.sh" 2>&1 | tee "${DB_LOG}"
+"${SCRIPT_DIR}/qa-test.sh" 2>&1 | tee "${DB_LOG}"
 DB_STATUS="${PIPESTATUS[0]}"
 set -e
 
