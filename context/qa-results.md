@@ -1,6 +1,6 @@
 # QA Results
 
-> **Generated at:** 2026-08-16T22:32:46Z
+> **Generated at:** 2026-08-18T17:34:57Z
 >
 > **Project:** SBM-DB
 >
@@ -22,7 +22,7 @@ A more recent version of Flyway is available. Find out more about Flyway 13.3.0 
 Flyway OSS Edition 10.22.0 by Redgate
 
 See release notes here: https://rd.gt/416ObMi
-Database: jdbc:postgresql://sbm-db-qa-3904-postgres:5432/sbm_db (PostgreSQL 16.9)
+Database: jdbc:postgresql://sbm-db-qa-82788-postgres:5432/sbm_db (PostgreSQL 16.9)
 Creating schema "sbm_business" ...
 Creating Schema History table "sbm_business"."flyway_schema_history" ...
 Current version of schema "sbm_business": null
@@ -146,13 +146,13 @@ Migrating schema "sbm_business" to version "202604122159 - ORDERS config"
 Migrating schema "sbm_business" to version "202604122259 - ORDERS formula"
 Migrating schema "sbm_business" to version "202604122319 - ORDERS module config"
 Migrating schema "sbm_business" to version "202605122319 - CALCULATION data type"
-Successfully applied 32 migrations to schema "sbm_business", now at version v202605122319 (execution time 00:00.234s)
+Successfully applied 32 migrations to schema "sbm_business", now at version v202605122319 (execution time 00:00.195s)
 A more recent version of Flyway is available. Find out more about Flyway 13.3.0 at https://rd.gt/3rXiSlV
 
 Flyway OSS Edition 10.22.0 by Redgate
 
 See release notes here: https://rd.gt/416ObMi
-Database: jdbc:postgresql://sbm-db-qa-3904-postgres:5432/sbm_db (PostgreSQL 16.9)
+Database: jdbc:postgresql://sbm-db-qa-82788-postgres:5432/sbm_db (PostgreSQL 16.9)
 Creating schema "ditaly_pasta" ...
 Creating Schema History table "ditaly_pasta"."flyway_schema_history" ...
 Current version of schema "ditaly_pasta": null
@@ -297,13 +297,13 @@ Migrating schema "ditaly_pasta" to version "202605003214 - CALCULATION concept c
 WARNING: DB: extension "pgcrypto" already exists, skipping (SQL State: 42710 - Error Code: 0)
 Migrating schema "ditaly_pasta" to version "202606122319 - MODULE calculation detail"
 Migrating schema "ditaly_pasta" to version "202607171905 - ALTER price amounts to decimal"
-Successfully applied 54 migrations to schema "ditaly_pasta", now at version v202607171905 (execution time 00:00.477s)
+Successfully applied 54 migrations to schema "ditaly_pasta", now at version v202607171905 (execution time 00:00.290s)
 A more recent version of Flyway is available. Find out more about Flyway 13.3.0 at https://rd.gt/3rXiSlV
 
 Flyway OSS Edition 10.22.0 by Redgate
 
 See release notes here: https://rd.gt/416ObMi
-Database: jdbc:postgresql://sbm-db-qa-3904-postgres:5432/sbm_db (PostgreSQL 16.9)
+Database: jdbc:postgresql://sbm-db-qa-82788-postgres:5432/sbm_db (PostgreSQL 16.9)
 Creating schema "accounting" ...
 Creating Schema History table "accounting"."flyway_schema_history" ...
 Current version of schema "accounting": null
@@ -312,13 +312,13 @@ Migrating schema "accounting" to version "202507041602 - ALTER all datetime to t
 Migrating schema "accounting" to version "202507041606 - CREATE fiscal directive stats view"
 Migrating schema "accounting" to version "202507041608 - CREATE accounting tables"
 WARNING: DB: schema "accounting" already exists, skipping (SQL State: 42P06 - Error Code: 0)
-Successfully applied 4 migrations to schema "accounting", now at version v202507041608 (execution time 00:00.039s)
+Successfully applied 4 migrations to schema "accounting", now at version v202507041608 (execution time 00:00.031s)
 A more recent version of Flyway is available. Find out more about Flyway 13.3.0 at https://rd.gt/3rXiSlV
 
 Flyway OSS Edition 10.22.0 by Redgate
 
 See release notes here: https://rd.gt/416ObMi
-Database: jdbc:postgresql://sbm-db-qa-3904-postgres:5432/sbm_db (PostgreSQL 16.9)
+Database: jdbc:postgresql://sbm-db-qa-82788-postgres:5432/sbm_db (PostgreSQL 16.9)
 Creating Schema History table "analytics"."flyway_schema_history" with baseline ...
 Successfully baselined schema with version: 1
 Current version of schema "analytics": 1
@@ -331,29 +331,29 @@ A more recent version of Flyway is available. Find out more about Flyway 13.3.0 
 Flyway OSS Edition 10.22.0 by Redgate
 
 See release notes here: https://rd.gt/416ObMi
-Database: jdbc:postgresql://sbm-db-qa-3904-postgres:5432/sbm_db (PostgreSQL 16.9)
-Successfully validated 33 migrations (execution time 00:00.031s)
+Database: jdbc:postgresql://sbm-db-qa-82788-postgres:5432/sbm_db (PostgreSQL 16.9)
+Successfully validated 33 migrations (execution time 00:00.032s)
 A more recent version of Flyway is available. Find out more about Flyway 13.3.0 at https://rd.gt/3rXiSlV
 
 Flyway OSS Edition 10.22.0 by Redgate
 
 See release notes here: https://rd.gt/416ObMi
-Database: jdbc:postgresql://sbm-db-qa-3904-postgres:5432/sbm_db (PostgreSQL 16.9)
-Successfully validated 55 migrations (execution time 00:00.050s)
+Database: jdbc:postgresql://sbm-db-qa-82788-postgres:5432/sbm_db (PostgreSQL 16.9)
+Successfully validated 55 migrations (execution time 00:00.039s)
 A more recent version of Flyway is available. Find out more about Flyway 13.3.0 at https://rd.gt/3rXiSlV
 
 Flyway OSS Edition 10.22.0 by Redgate
 
 See release notes here: https://rd.gt/416ObMi
-Database: jdbc:postgresql://sbm-db-qa-3904-postgres:5432/sbm_db (PostgreSQL 16.9)
-Successfully validated 5 migrations (execution time 00:00.034s)
+Database: jdbc:postgresql://sbm-db-qa-82788-postgres:5432/sbm_db (PostgreSQL 16.9)
+Successfully validated 5 migrations (execution time 00:00.024s)
 A more recent version of Flyway is available. Find out more about Flyway 13.3.0 at https://rd.gt/3rXiSlV
 
 Flyway OSS Edition 10.22.0 by Redgate
 
 See release notes here: https://rd.gt/416ObMi
-Database: jdbc:postgresql://sbm-db-qa-3904-postgres:5432/sbm_db (PostgreSQL 16.9)
-Successfully validated 2 migrations (execution time 00:00.031s)
+Database: jdbc:postgresql://sbm-db-qa-82788-postgres:5432/sbm_db (PostgreSQL 16.9)
+Successfully validated 2 migrations (execution time 00:00.020s)
 QA SBM-DB aislado completado correctamente.
 ```
 
@@ -363,111 +363,111 @@ QA SBM-DB aislado completado correctamente.
 - Scope: Shell/YAML/secrets supported by Community Build; Flyway SQL excluded
 
 ```text
-22:32:03.299 INFO  Scanner configuration file: /opt/sonar-scanner/conf/sonar-scanner.properties
-22:32:03.314 INFO  Project root configuration file: /usr/src/sonar-project.properties
-22:32:03.423 INFO  SonarScanner CLI 8.0.1.6346
-22:32:03.454 INFO  Linux 5.15.49-linuxkit-pr amd64
-22:32:09.915 INFO  Communicating with SonarQube Community Build 26.7.0.124771
-22:32:09.922 INFO  JRE provisioning: os[linux], arch[x86_64]
-22:32:14.196 INFO  Starting SonarScanner Engine...
-22:32:14.199 INFO  Java 21.0.9 Eclipse Adoptium (64-bit)
-22:32:22.955 INFO  Load global settings
-22:32:23.455 INFO  Load global settings (done) | time=500ms
-22:32:23.476 INFO  Server id: 54000601-AZ-DAVF-MejkBZkEKtuI
-22:32:23.551 INFO  Loading required plugins
-22:32:23.554 INFO  Load plugins index
-22:32:23.656 INFO  Load plugins index (done) | time=104ms
-22:32:23.660 INFO  Load/download plugins
-22:32:23.820 INFO  Load/download plugins (done) | time=159ms
-22:32:26.087 INFO  Process project properties
-22:32:26.148 INFO  Process project properties (done) | time=84ms
-22:32:26.231 INFO  Project key: SBM-DB
-22:32:26.233 INFO  Base dir: /usr/src
-22:32:26.234 INFO  Working dir: /tmp/.scannerwork
-22:32:26.283 INFO  Load project settings for component key: 'SBM-DB'
-22:32:26.406 INFO  Load project settings for component key: 'SBM-DB' (done) | time=123ms
-22:32:26.508 INFO  Load quality profiles
-22:32:26.670 INFO  Load quality profiles (done) | time=161ms
-22:32:26.890 INFO  Load active rules
-22:32:28.705 INFO  Load active rules (done) | time=1793ms
-22:32:28.784 INFO  Load analysis cache
-22:32:28.834 INFO  Load analysis cache (404) | time=50ms
-22:32:29.976 INFO  Preprocessing files...
-22:32:30.316 INFO  1 language detected in 5 preprocessed files (done) | time=335ms
-22:32:30.319 INFO  0 files ignored because of inclusion/exclusion patterns
-22:32:30.320 INFO  1 file ignored because of scm ignore settings
-22:32:30.345 INFO  Loading plugins for detected languages
-22:32:30.347 INFO  Load/download plugins
-22:32:30.390 INFO  Load/download plugins (done) | time=43ms
-22:32:31.043 INFO  Load project repositories
-22:32:32.234 INFO  Load project repositories (done) | time=1187ms
-22:32:32.614 INFO  Indexing files...
-22:32:32.624 INFO  Project configuration:
-22:32:32.636 INFO    Excluded sources: **/.git/**, **/.sonar/**, **/.scannerwork/**, **/context/**, **/flyway/**, **/dbdiagram/**
-22:32:32.788 INFO  5 files indexed (done) | time=160ms
-22:32:32.796 INFO  Quality profile for yaml: Sonar way
-22:32:32.797 INFO  ------------- Run sensors on module SBM-DB
-22:32:33.138 INFO  Load metrics repository
-22:32:33.344 INFO  Load metrics repository (done) | time=211ms
-22:32:35.011 INFO  Sensor IaC CloudFormation Sensor [iac]
-22:32:35.122 INFO  There are no files to be analyzed for the CloudFormation language
-22:32:35.126 INFO  Sensor IaC CloudFormation Sensor [iac] (done) | time=118ms
-22:32:35.130 INFO  Sensor IaC cfn-lint report Sensor [iac]
-22:32:35.135 INFO  Sensor IaC cfn-lint report Sensor [iac] (done) | time=6ms
-22:32:35.136 INFO  Sensor IaC Kustomization Sensor [iac]
-22:32:35.211 INFO  Sensor IaC Kustomization Sensor [iac] (done) | time=69ms
-22:32:35.213 INFO  Sensor IaC hadolint report Sensor [iac]
-22:32:35.215 INFO  Sensor IaC hadolint report Sensor [iac] (done) | time=2ms
-22:32:35.216 INFO  Sensor Java Config Sensor [iac]
-22:32:35.219 INFO  There are no files to be analyzed for the Java language
-22:32:35.226 INFO  Sensor Java Config Sensor [iac] (done) | time=2ms
-22:32:35.228 INFO  Sensor IaC Docker Sensor [iac]
-22:32:35.251 INFO  There are no files to be analyzed for the Docker language
-22:32:35.253 INFO  Sensor IaC Docker Sensor [iac] (done) | time=35ms
-22:32:35.255 INFO  Sensor IaC Kubernetes Sensor [iac]
-22:32:35.472 INFO  There are no files to be analyzed for the Kubernetes language
-22:32:35.474 INFO  Sensor IaC Kubernetes Sensor [iac] (done) | time=217ms
-22:32:35.476 INFO  Sensor TextAndSecretsSensor [text]
-22:32:35.557 INFO  Available processors: 4
-22:32:35.560 INFO  Using 4 threads for analysis.
-22:32:36.662 INFO  The property "sonar.tests" is not set. To improve the analysis accuracy, we categorize a file as a test file if any of the following is true:
+17:34:17.449 INFO  Scanner configuration file: /opt/sonar-scanner/conf/sonar-scanner.properties
+17:34:17.466 INFO  Project root configuration file: /usr/src/sonar-project.properties
+17:34:17.565 INFO  SonarScanner CLI 8.0.1.6346
+17:34:17.609 INFO  Linux 5.15.49-linuxkit-pr amd64
+17:34:24.218 INFO  Communicating with SonarQube Community Build 26.7.0.124771
+17:34:24.224 INFO  JRE provisioning: os[linux], arch[x86_64]
+17:34:27.637 INFO  Starting SonarScanner Engine...
+17:34:27.640 INFO  Java 21.0.9 Eclipse Adoptium (64-bit)
+17:34:35.392 INFO  Load global settings
+17:34:35.808 INFO  Load global settings (done) | time=418ms
+17:34:35.824 INFO  Server id: 54000601-AZ-DAVF-MejkBZkEKtuI
+17:34:35.876 INFO  Loading required plugins
+17:34:35.877 INFO  Load plugins index
+17:34:35.962 INFO  Load plugins index (done) | time=84ms
+17:34:35.964 INFO  Load/download plugins
+17:34:36.139 INFO  Load/download plugins (done) | time=175ms
+17:34:38.086 INFO  Process project properties
+17:34:38.153 INFO  Process project properties (done) | time=70ms
+17:34:38.227 INFO  Project key: SBM-DB
+17:34:38.228 INFO  Base dir: /usr/src
+17:34:38.229 INFO  Working dir: /tmp/.scannerwork
+17:34:38.277 INFO  Load project settings for component key: 'SBM-DB'
+17:34:38.341 INFO  Load project settings for component key: 'SBM-DB' (done) | time=65ms
+17:34:38.451 INFO  Load quality profiles
+17:34:38.614 INFO  Load quality profiles (done) | time=164ms
+17:34:38.954 INFO  Load active rules
+17:34:40.215 INFO  Load active rules (done) | time=1259ms
+17:34:40.251 INFO  Load analysis cache
+17:34:40.267 INFO  Load analysis cache (404) | time=17ms
+17:34:41.344 INFO  Preprocessing files...
+17:34:41.609 INFO  1 language detected in 5 preprocessed files (done) | time=278ms
+17:34:41.611 INFO  0 files ignored because of inclusion/exclusion patterns
+17:34:41.612 INFO  1 file ignored because of scm ignore settings
+17:34:41.628 INFO  Loading plugins for detected languages
+17:34:41.631 INFO  Load/download plugins
+17:34:41.669 INFO  Load/download plugins (done) | time=38ms
+17:34:42.322 INFO  Load project repositories
+17:34:42.807 INFO  Load project repositories (done) | time=482ms
+17:34:43.821 INFO  Indexing files...
+17:34:43.823 INFO  Project configuration:
+17:34:43.841 INFO    Excluded sources: **/.git/**, **/.sonar/**, **/.scannerwork/**, **/context/**, **/flyway/**, **/dbdiagram/**
+17:34:43.965 INFO  5 files indexed (done) | time=137ms
+17:34:43.973 INFO  Quality profile for yaml: Sonar way
+17:34:43.974 INFO  ------------- Run sensors on module SBM-DB
+17:34:44.270 INFO  Load metrics repository
+17:34:44.490 INFO  Load metrics repository (done) | time=221ms
+17:34:46.148 INFO  Sensor IaC CloudFormation Sensor [iac]
+17:34:46.251 INFO  There are no files to be analyzed for the CloudFormation language
+17:34:46.253 INFO  Sensor IaC CloudFormation Sensor [iac] (done) | time=128ms
+17:34:46.255 INFO  Sensor IaC cfn-lint report Sensor [iac]
+17:34:46.256 INFO  Sensor IaC cfn-lint report Sensor [iac] (done) | time=4ms
+17:34:46.258 INFO  Sensor IaC Kustomization Sensor [iac]
+17:34:46.320 INFO  Sensor IaC Kustomization Sensor [iac] (done) | time=57ms
+17:34:46.322 INFO  Sensor IaC hadolint report Sensor [iac]
+17:34:46.322 INFO  Sensor IaC hadolint report Sensor [iac] (done) | time=0ms
+17:34:46.323 INFO  Sensor Java Config Sensor [iac]
+17:34:46.324 INFO  There are no files to be analyzed for the Java language
+17:34:46.324 INFO  Sensor Java Config Sensor [iac] (done) | time=0ms
+17:34:46.325 INFO  Sensor IaC Docker Sensor [iac]
+17:34:46.325 INFO  There are no files to be analyzed for the Docker language
+17:34:46.326 INFO  Sensor IaC Docker Sensor [iac] (done) | time=13ms
+17:34:46.327 INFO  Sensor IaC Kubernetes Sensor [iac]
+17:34:46.598 INFO  There are no files to be analyzed for the Kubernetes language
+17:34:46.600 INFO  Sensor IaC Kubernetes Sensor [iac] (done) | time=269ms
+17:34:46.601 INFO  Sensor TextAndSecretsSensor [text]
+17:34:46.698 INFO  Available processors: 6
+17:34:46.699 INFO  Using 6 threads for analysis.
+17:34:47.899 INFO  The property "sonar.tests" is not set. To improve the analysis accuracy, we categorize a file as a test file if any of the following is true:
   * The filename starts with "test"
   * The filename contains "test." or "tests."
   * Any directory in the file path is named: "doc", "docs", "test", "tests", "mock" or "mocks"
   * Any directory in the file path has a name ending in "test" or "tests"
 
-22:32:36.826 INFO  Start fetching files for the text and secrets analysis
-22:32:36.937 INFO  Using Git CLI to retrieve dirty files
-22:32:37.030 WARN  Retrieving only language associated files, make sure to run the analysis inside a git repository to make use of inclusions specified via "sonar.text.inclusions"
-22:32:37.034 INFO  Starting the text and secrets analysis
-22:32:37.057 INFO  1 source file to be analyzed for the text and secrets analysis
-22:32:37.237 INFO  1/1 source file has been analyzed for the text and secrets analysis
-22:32:37.247 INFO  Sensor TextAndSecretsSensor [text] (done) | time=1773ms
-22:32:37.266 INFO  ------------- Run sensors on project
-22:32:38.272 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript]
-22:32:38.305 INFO  No input files found for analysis
-22:32:38.315 INFO  Hit the cache for 0 out of 0
-22:32:38.324 INFO  Miss the cache for 0 out of 0
-22:32:38.334 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript] (done) | time=62ms
-22:32:38.337 INFO  Sensor IaC Project Sensor [iac]
-22:32:38.339 INFO  Sensor IaC Project Sensor [iac] (done) | time=11ms
-22:32:38.342 INFO  Sensor Zero Coverage Sensor
-22:32:38.348 INFO  Sensor Zero Coverage Sensor (done) | time=17ms
-22:32:38.358 INFO  ------------- Gather SCA dependencies on project
-22:32:38.375 INFO  Dependency analysis skipped
-22:32:38.419 INFO  CPD Executor Calculating CPD for 0 files
-22:32:38.456 INFO  CPD Executor CPD calculation finished (done) | time=0ms
-22:32:38.550 INFO  SCM revision ID '711c53e90ce3d48aee69fc49a41d5331520603b6'
-22:32:39.752 INFO  Analysis report generated in 1204ms, dir size=277.4 kB
-22:32:39.843 INFO  Analysis report compressed in 118ms, zip size=28.2 kB
-22:32:39.996 INFO  Analysis report uploaded in 153ms
-22:32:40.016 INFO  ------------- Check Quality Gate status
-22:32:40.019 INFO  Waiting for the analysis report to be processed (max 300s)
-22:32:45.311 INFO  QUALITY GATE STATUS: PASSED - View details on http://host.docker.internal:9000/dashboard?id=SBM-DB
-22:32:45.427 INFO  Analysis total time: 21.404 s
-22:32:45.437 INFO  SonarScanner Engine completed successfully
-22:32:45.535 INFO  EXECUTION SUCCESS
-22:32:45.550 INFO  Total time: 42.264s
+17:34:48.043 INFO  Start fetching files for the text and secrets analysis
+17:34:48.168 INFO  Using Git CLI to retrieve dirty files
+17:34:48.232 WARN  Retrieving only language associated files, make sure to run the analysis inside a git repository to make use of inclusions specified via "sonar.text.inclusions"
+17:34:48.234 INFO  Starting the text and secrets analysis
+17:34:48.244 INFO  1 source file to be analyzed for the text and secrets analysis
+17:34:48.400 INFO  1/1 source file has been analyzed for the text and secrets analysis
+17:34:48.407 INFO  Sensor TextAndSecretsSensor [text] (done) | time=1809ms
+17:34:48.422 INFO  ------------- Run sensors on project
+17:34:49.289 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript]
+17:34:49.327 INFO  No input files found for analysis
+17:34:49.331 INFO  Hit the cache for 0 out of 0
+17:34:49.334 INFO  Miss the cache for 0 out of 0
+17:34:49.336 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript] (done) | time=47ms
+17:34:49.339 INFO  Sensor IaC Project Sensor [iac]
+17:34:49.348 INFO  Sensor IaC Project Sensor [iac] (done) | time=11ms
+17:34:49.352 INFO  Sensor Zero Coverage Sensor
+17:34:49.373 INFO  Sensor Zero Coverage Sensor (done) | time=22ms
+17:34:49.375 INFO  ------------- Gather SCA dependencies on project
+17:34:49.400 INFO  Dependency analysis skipped
+17:34:49.430 INFO  CPD Executor Calculating CPD for 0 files
+17:34:49.432 INFO  CPD Executor CPD calculation finished (done) | time=0ms
+17:34:49.497 INFO  SCM revision ID 'bc4fdbdd4766d8686507b478de073e7898567595'
+17:34:49.989 INFO  Analysis report generated in 530ms, dir size=277.4 kB
+17:34:50.044 INFO  Analysis report compressed in 54ms, zip size=28.3 kB
+17:34:50.161 INFO  Analysis report uploaded in 116ms
+17:34:50.172 INFO  ------------- Check Quality Gate status
+17:34:50.177 INFO  Waiting for the analysis report to be processed (max 300s)
+17:34:55.391 INFO  QUALITY GATE STATUS: PASSED - View details on http://host.docker.internal:9000/dashboard?id=SBM-DB
+17:34:56.054 INFO  Analysis total time: 19.676 s
+17:34:56.105 INFO  SonarScanner Engine completed successfully
+17:34:56.431 INFO  EXECUTION SUCCESS
+17:34:56.459 INFO  Total time: 39.016s
 SonarScanner y Quality Gate completados correctamente.
 ```
 
