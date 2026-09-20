@@ -1,6 +1,6 @@
 // DARK
 {
-  "workbench.colorTheme": "Default Dark+",
+  "workbench.colorTheme": "Dark+",
   "workbench.colorCustomizations": {
     "titleBar.activeBackground": "#0047AB",  // azul fuerte
     "titleBar.activeForeground": "#ffffff",
