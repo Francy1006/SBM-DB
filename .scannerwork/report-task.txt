@@ -1,0 +1,6 @@
+projectKey=SBM-DB
+serverUrl=http://host.docker.internal:9000
+serverVersion=26.7.0.124771
+dashboardUrl=http://host.docker.internal:9000/dashboard?id=SBM-DB
+ceTaskId=65543405-5054-47cb-aa09-98d672c7c900
+ceTaskUrl=http://host.docker.internal:9000/api/ce/task?id=65543405-5054-47cb-aa09-98d672c7c900
