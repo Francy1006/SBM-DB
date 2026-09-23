@@ -3,3 +3,4 @@ mysql_sbm_vol/
 .env.prod
 
 .sonar/
+.scannerwork/
